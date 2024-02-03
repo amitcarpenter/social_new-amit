@@ -1,0 +1,21 @@
+.main_row .post_add_button {
+    padding: 10px 20px;
+    border-radius: 137px;
+    border: 2px solid #377DFF;
+    background: #FFF;
+    color: #377DFF;
+    text-decoration: none;
+
+}
+
+.main_row .post_add_date {
+    padding: 10px 20px;
+    border-radius: 137px;
+    border: 2px solid rgba(17, 38, 77, 0.20);
+    background: #FFF;
+    color: #000;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+}

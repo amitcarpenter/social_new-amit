@@ -1,0 +1,225 @@
+section.user_us {
+    padding: 200px 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.h1 {
+    color: #000;
+    text-align: center;
+    font-family: "DM Serif Display";
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 69.12px;
+    /* 132.923% */
+}
+
+.p.dont_acunt {
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+a {
+    color: var(--Primary-Color, #377DFF);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    /* font-weight: 400; */
+    line-height: normal;
+
+}
+
+
+input {
+    border-radius: 4px;
+    background: #F1F1EF;
+    margin: 10px 0 !important;
+    padding: 15px;
+    border: none;
+}
+
+button.sign_btn {
+    border-radius: 4px;
+    background: var(--Primary-Color, #377DFF);
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.sign_up {
+    width: 100%;
+    height: 500px;
+}
+
+.user_us h1 {
+    color: #000;
+    text-align: center;
+    font-family: "DM Serif Display";
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 69.12px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.user_us p {
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+}
+
+
+/* Add this to your CSS file */
+
+.success-message {
+    color: rgb(19, 119, 19);
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: rgb(207, 96, 96);
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+@media screen and (min-device-width: 280px) and (max-device-width: 767px) {
+
+    input.log_input {
+        padding: 9px 44px 9px 10px;
+        margin: 4px;
+    }
+
+    a.login-forgot {
+        font-size: 10px;
+        color: #000;
+    }
+
+    .remember--label {
+        /* / padding: 10px; / */
+        padding-left: 5px;
+        font-size: 13px;
+    }
+
+    button.sign--btn {
+        padding: 5px 77px 5px 122px !important;
+    }
+
+    p.headr__desc {
+        font-size: 14px;
+    }
+
+    h2.account__login--header__title {
+        font-size: 25px;
+    }
+
+    p.header__desc {
+        font-size: 13px;
+    }
+
+    input.account-input {
+        padding: 10px 33px 10px 19px !important;
+        margin: 4px;
+    }
+
+    input.login-input {
+        padding: 10px 33px 10px 19px !important;
+        margin: 4px;
+    }
+
+    button.account-sign_btn {
+        padding: 5px 33px 5px 58px;
+        margin: 8px 8px 9px 9px;
+    }
+
+    input#check2 {
+        margin: 4px;
+    }
+
+    label.remember-label {
+        font-weight: 600;
+        font-size: 9px;
+    }
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+
+    p.headr__desc {
+        font-size: 12px;
+    }
+
+    input.log_input {
+        padding: 5px 30px 5px 10px;
+        margin: 4px;
+    }
+
+    .remember--label {
+        font-size: 8px;
+    }
+
+    a.login-forgot {
+        font-size: 9px;
+    }
+
+    .login--remember.position__relative {
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    button.sign--btn {
+        padding: 5px 100px 5px 81px;
+        margin: 5px;
+    }
+
+    h2.account__login--header__title {
+        font-size: 22px;
+    }
+
+    p.header__desc {
+        font-size: 10px;
+    }
+
+    input.account-input {
+        padding: 10px 21px 10px 19px;
+        margin: 5px;
+    }
+
+    input.login-input {
+        padding: 10px 20px 10px 19px;
+        margin: 5px;
+    }
+
+    button.account-sign_btn {
+        padding: 5px 8px 5px 10px;
+        margin: 10px 8px 12px 15px;
+    }
+
+    .remember-label {
+        font-size: 12px;
+    }
+}

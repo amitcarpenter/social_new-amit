@@ -1,0 +1,167 @@
+.section_thirdd {
+    padding-left: 125px;
+    padding-top: 30px;
+}
+
+svg.clas_bulb_icons {
+    margin-left: 65px;
+}
+
+.poste {
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 21px;
+}
+
+.all_feature_btn {
+    width: 224px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #377DFF;
+
+}
+
+.back_colour {
+    background: rgba(122, 201, 231, 0.22);
+    width: 100%;
+    height: 275px;
+    flex-shrink: 0;
+}
+
+.social_p {
+    color: var(--text-color-dark, #11264D);
+    font-family: Poppins;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding: 25px 80px;
+}
+
+.get_bbtn {
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 4px;
+    background: var(--text-color-dark, #11264D);
+    width: 203px;
+    height: 56px;
+    flex-shrink: 0;
+}
+
+.rocket_img {
+    width: 75%;
+    height: 355px;
+}
+
+.exploral {
+    padding-bottom: 35px;
+}
+
+.gt_btnn {
+    padding-left: 75px;
+}
+
+.clas_bulb_icons {
+    width: 70px;
+    height: 55px;
+
+}
+
+.all_feature_btn {
+    margin-top: 30px;
+}
+
+
+/* responsive */
+@media screen and (min-device-width: 280px) and (max-device-width: 767px) {
+
+    svg.clas_bulb_icons {
+        margin-left: 0px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    p.inspire_p {
+        font-size: 11px;
+        padding-top: 11px;
+        /* text-align: justify; */
+        text-align: center;
+    }
+
+    .poste {
+        margin: 5px;
+    }
+
+    .social_p {
+        font-size: 17px;
+        padding: 20px 22px;
+    }
+
+    .gt_btnn {
+        padding-left: 20px;
+    }
+
+    .back_colour {
+        width: 100%;
+        height: 242px;
+    }
+
+    .get_bbtn {
+        width: 130px;
+        height: 40px;
+
+    }
+
+    .rocket_img {
+        width: 100%;
+    }
+
+    .all_feature_btn {
+        width: 200px;
+        height: 40px;
+
+    }
+
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .rocket_img {
+        width: 100%;
+        height: 268px;
+    }
+
+    .back_colour {
+        width: 100%;
+        height: 210px;
+    }
+
+    .social_p {
+        font-size: 17px;
+        padding: 30px 30px;
+    }
+
+    svg.clas_bulb_icons {
+        margin-left: 33px;
+    }
+
+    .gt_btnn {
+        padding-left: 32px;
+    }
+
+
+    .get_bbtn {
+        width: 160px;
+        height: 40px;
+    }
+
+}

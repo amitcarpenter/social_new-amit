@@ -1,0 +1,23 @@
+.first_sec h1 , .second_sec h1 , .third_sec h1, .fourth_sec h1 {
+    font-family: Poppins;
+font-size: 62px;
+font-weight: 600;
+line-height: 100px;
+letter-spacing: 0em;
+text-align: left;
+color: #11264D;
+}
+
+.first_sec p , .second_sec p , .third_sec p , .fourth_sec p{
+    color:  rgba(17, 38, 77, 0.60);
+    font-family: Poppins;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.first_sec , .second_sec , .third_sec , .fourth_sec {
+    padding-top: 50px;
+}

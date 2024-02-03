@@ -1,0 +1,179 @@
+.account_con {
+    padding: 20px 0px;
+}
+
+
+
+.profile h1 {
+    color: #000;
+font-family: Poppins;
+font-size: 48px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+li.nav-item.false, li.nav-item.active {
+    align-items: center;
+    display: flex;
+    padding: 5px 0;
+}
+
+.top_div_edit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* .top {
+    width: 50%;
+} */
+
+
+.profile {
+    padding: 45px 20px;
+}
+
+.profile p {
+color: #A7A7A7;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.basic_div , .Password_div , .plan_div{
+    border-radius: 16px;
+background: #FFF;
+padding: 30px 20px;
+}
+
+.form-control {
+    border-radius: 4px !important;
+    background: #F1F1EF !important;
+    border: none !important;
+    padding: 15px !important;
+}
+
+.avtar_div {
+    display: flex;
+    align-items: center;
+}
+
+.btn-secondary {
+    display: block;
+    margin: 10px;
+    padding: 15px 60px;
+    border-radius: 8px;
+background:  #377DFF;
+color: #FFF;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+
+.btn-danger {
+    display: block;
+    margin: 10px;
+    padding: 15px 58px;
+    border-radius: 8px;
+background:  #377DFF;
+color: #FFF;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+
+
+.avtar_div {
+    border-radius: 16px;
+    background: #FFF;
+    padding: 20px;
+    justify-content: center;
+   
+}
+
+.sec_col {
+    margin: 0 20px;
+}
+
+.row.plan_div {
+    margin: 0;
+}
+
+/* .plan_main_div {
+    padding: 15px 0 0 0;
+} */
+
+.btn-Upgrade {
+    border-radius: 4px;
+    background:  #377DFF;
+    padding: 15px 20px;
+    margin: 10px;
+    border-radius: 4px;
+    border: 1px solid  #377DFF;
+    color: #FFF;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.btn_plan {
+    text-align: center;
+}
+
+.btn-Renew {
+    border-radius: 16px;
+background: #FFF;
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 4px;
+border: 1px solid  #377DFF;
+color: #377DFF;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+
+}
+
+.update_pad{
+    padding-bottom: 40px;
+}
+
+.btn-Save{
+    border-radius: 4px;
+background:  #377DFF;
+color: #FFF;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+padding: 15px 40px;
+}
+
+.btn-cancel{
+    color: #11264D;
+text-align: right;
+font-family: Poppins;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0 50px;
+}
+
+ul.nav.flex-column {
+    padding: 50px 30px;
+}
