@@ -19,7 +19,6 @@ function Dashboard() {
   };
 
   return (
-    <>
     <div className="container-fluid dashboard">
       <div className="row">
         {/* Left Sidebar */}
@@ -27,18 +26,21 @@ function Dashboard() {
           <div className="sidebar-sticky">
             <h4>Company Logo</h4>
             <ul className="nav flex-column">
-
-            <li className={`nav-item ${activeContent === 'dashboard' && 'active'}`}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+              {/* <li className={`nav-item ${activeContent === 'dashboard' && 'active'}`}>
+                <a className="nav-link" href="#" onClick={() => showContent('dashboard')}>
+                  Dashboard
+                </a>
+              </li> */}
+              <li className={`nav-item ${activeContent === 'menu1' && 'active'}`}>
+                {/* <img className='dash_icon' src="asset/profile.png" alt="" /> */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 7C8.5 5.93913 8.92143 4.92172 9.67157 4.17157C10.4217 3.42143 11.4391 3 12.5 3C13.5609 3 14.5783 3.42143 15.3284 4.17157C16.0786 4.92172 16.5 5.93913 16.5 7C16.5 8.06087 16.0786 9.07828 15.3284 9.82843C14.5783 10.5786 13.5609 11 12.5 11C11.4391 11 10.4217 10.5786 9.67157 9.82843C8.92143 9.07828 8.5 8.06087 8.5 7ZM8.5 13C7.17392 13 5.90215 13.5268 4.96447 14.4645C4.02678 15.4021 3.5 16.6739 3.5 18C3.5 18.7956 3.81607 19.5587 4.37868 20.1213C4.94129 20.6839 5.70435 21 6.5 21H18.5C19.2956 21 20.0587 20.6839 20.6213 20.1213C21.1839 19.5587 21.5 18.7956 21.5 18C21.5 16.6739 20.9732 15.4021 20.0355 14.4645C19.0979 13.5268 17.8261 13 16.5 13H8.5Z" fill="#A7A7A7" />
                 </svg>
-                <a className="nav-link" href="#" onClick={() => showContent('dashboard')}>
-                My Profile
+
+                <a className="nav-link" href="#" onClick={() => showContent('menu1')}>
+                  My Profile
                 </a>
               </li>
-            
-             
-             
               <li className={`nav-item ${activeContent === 'menu2' && 'active'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                   <path d="M4.5 13H10.5C11.05 13 11.5 12.55 11.5 12V4C11.5 3.45 11.05 3 10.5 3H4.5C3.95 3 3.5 3.45 3.5 4V12C3.5 12.55 3.95 13 4.5 13ZM4.5 21H10.5C11.05 21 11.5 20.55 11.5 20V16C11.5 15.45 11.05 15 10.5 15H4.5C3.95 15 3.5 15.45 3.5 16V20C3.5 20.55 3.95 21 4.5 21ZM14.5 21H20.5C21.05 21 21.5 20.55 21.5 20V12C21.5 11.45 21.05 11 20.5 11H14.5C13.95 11 13.5 11.45 13.5 12V20C13.5 20.55 13.95 21 14.5 21ZM13.5 4V8C13.5 8.55 13.95 9 14.5 9H20.5C21.05 9 21.5 8.55 21.5 8V4C21.5 3.45 21.05 3 20.5 3H14.5C13.95 3 13.5 3.45 13.5 4Z" fill="lightgray" />
@@ -138,14 +140,15 @@ function Dashboard() {
 
         {/* Right Content Area */}
         <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4 main_content">
-        <div id="dashboardContent" style={{ display: activeContent === 'dashboard' ? 'block' : 'none' }}>
+          {/* <div id="dashboardContent" style={{ display: activeContent === 'dashboard' ? 'block' : 'none' }}>
            
-           <Myprofile />
-           </div>
-          {/* <div id="menu1Content" style={{ display: activeContent === 'menu1' ? 'block' : 'none' }}>
+            <h2>Dashboard Content</h2>
+            <p>This is the default content for the Dashboard.</p>
+          </div> */}
+          <div id="menu1Content" style={{ display: activeContent === 'menu1' ? 'block' : 'none' }}>
 
             <Myprofile />
-          </div> */}
+          </div>
           <div id="menu2Content" style={{ display: activeContent === 'menu2' ? 'block' : 'none' }}>
 
             <Accountoverview />
@@ -172,14 +175,12 @@ function Dashboard() {
             < Users />
           </div>
 
-      
+
 
           {/* Add more content divs as needed */}
         </main>
       </div>
     </div>
-    
-    </>
   );
 }
 

@@ -20,6 +20,10 @@ function Sedule() {
   const [socialMediaArray, setSocialMediaArray] = useState([]);
   const [imagePost, setImagePost] = useState("");
   const [postContent, setPostContent] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [resetForm, setResetForm] = useState(false);
 
   const dropdownOptions = [
     {
@@ -62,10 +66,28 @@ function Sedule() {
     },
   ];
 
+  const resetFromAmit = () => {
+    if (resetForm) {
+      // Reset form values after 4 seconds
+      const timeoutId = setTimeout(() => {
+        setArrivalDate("");
+        setTime("");
+        setSocialMediaArray([]);
+        setImagePost("");
+        setPostContent("");
+        setResetForm(false);
+      }, 4000);
+
+      // Clear the timeout if the component unmounts or if resetForm changes
+      return () => clearTimeout(timeoutId);
+    }
+  };
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    console.log("Selected File:", selectedFile);
-    setImagePost(selectedFile)
+
+    console.log("File Name:", selectedFile);
+    setImagePost(selectedFile);
   };
 
   const handleArrivalDateChange = (event) => {
@@ -104,28 +126,50 @@ function Sedule() {
       schedule_time: `${arrivalDate} ${time}`,
     };
 
-    
-
     console.log(formData);
 
     // Your API call function
     const schedulePost = async () => {
       try {
-        const response = await fetch("http://192.227.234.133/backend/api/schedule-post", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await fetch(
+          "http://192.227.234.133/backend/api/schedule-post",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
         if (!response.ok) {
+          setErrorMessage("Failed to schedule post");
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 3000);
           throw new Error("Failed to schedule post");
         }
 
         const data = await response.json();
         console.log("Post scheduled successfully:", data.message);
+        setSuccessMessage(`Post scheduled successfully: ${data.message}`);
+        setErrorMessage("");
+        // Save email in sessionStorage
+        setTimeout(() => {
+          // setArrivalDate("");
+          // setTime("");
+          // setSocialMediaArray([]);
+          // setImagePost("");
+          // setPostContent("");
+          setSuccessMessage("");
+          setResetForm(true);
+          resetFromAmit();
+        }, 4000);
       } catch (error) {
+        // setErrorMessage(error.response.data.error);
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 3000);
         console.error("Error scheduling post:", error.message);
       }
     };
@@ -147,7 +191,6 @@ function Sedule() {
             <h6 className="text-center text-black py-2 text-xl">
               Schedule a Post
             </h6>
-
             <div className="max-w-[700px] mx-auto border rounded py-1 relative ">
               <div className="row col-12 multiselect">
                 <div className="inline ">
@@ -163,7 +206,6 @@ function Sedule() {
                   />
                 </div>
               </div>
-
               <div>
                 <form>
                   <div className="w-full border-t-2 border-t-gray-200 rounded-lg bg-gray-50  mt-2">
@@ -275,6 +317,13 @@ function Sedule() {
                 </form>
               </div>
             </div>
+            
+            {successMessage && (
+              <div className="success-message">{successMessage}</div>
+            )}
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
 
             <div className="text-center py-3">
               <button

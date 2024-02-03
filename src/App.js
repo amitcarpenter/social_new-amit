@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from "./pages/home/Signup";
 import Users from "./components/Users";
 import Service from "./pages/home/Service";
+import Editsedule from "./components/post/Editsedule";
 
 
 
@@ -26,7 +27,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/users" element={<Users />} />
-          
+          <Route path="/" element={<Dashboard />} />
+
+          <Route path="/editschedule/:id" element={<Editsedule />} />
+
         </Routes>
       </BrowserRouter>
     </>
@@ -34,3 +38,6 @@ function App() {
 }
 
 export default App;
+
+
+

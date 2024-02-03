@@ -24,11 +24,11 @@ function Login() {
         setSuccessMessage(response.data.message);
         setErrorMessage("");
         // Save email in sessionStorage
-        sessionStorage.setItem("userEmail", email);
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
-
+        
+        sessionStorage.setItem("userEmail", email);
         console.log("Login successful:", response.data);
       }
     } catch (error) {
