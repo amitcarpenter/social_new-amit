@@ -7,7 +7,7 @@ const Header = () => {
         <nav className="nav_header">
           <div className="max-w-screen-xl flex text-[#11264D] text-[16px]  flex-wrap items-center justify-between mx-auto ">
             <a
-              href="https://flowbite.com/"
+              href="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
               {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}

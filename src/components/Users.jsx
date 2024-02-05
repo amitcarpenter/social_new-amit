@@ -26,6 +26,45 @@ function Users() {
     fetchUsers();
   }, []);
 
+  const handleDeleteClick = (userId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (isConfirmed) {
+      // User clicked "OK" in the confirmation dialog
+      // Proceed with the deletion logic
+      deletePost(userId);
+    } else {
+      // User clicked "Cancel" in the confirmation dialog
+      // You can handle this case if needed
+      console.log("Deletion cancelled");
+    }
+  };
+
+  const deletePost = async (userId) => {
+    try {
+      // Make a DELETE request to your API endpoint
+      const response = await fetch(
+        `http://192.227.234.133/backend/api/delete-user/${userId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+        // If the deletion was successful, you can update your state or perform any other necessary actions
+        console.log("Post deleted successfully");
+      } else {
+        // Handle errors
+        console.error("Error deleting post");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <div className="Users">
@@ -202,7 +241,10 @@ function Users() {
                     <div className="dot"></div>
                     Active
                   </button>
-                  <i className="cross_icn">
+                  <i
+                    className="cross_icn"
+                    onClick={() => handleDeleteClick(user.id)}
+                  >
                     {" "}
                     <FontAwesomeIcon icon={faTimes} />
                   </i>
