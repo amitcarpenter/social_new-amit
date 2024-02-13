@@ -1,11 +1,10 @@
-
-
-input.react-time-picker__inputGroup__input.react-time-picker__inputGroup__hour, input.react-time-picker__inputGroup__input.react-time-picker__inputGroup__minute.react-time-picker__inputGroup__input--hasLeadingZero {
+input.react-time-picker__inputGroup__input.react-time-picker__inputGroup__hour,
+input.react-time-picker__inputGroup__input.react-time-picker__inputGroup__minute.react-time-picker__inputGroup__input--hasLeadingZero {
     width: 60px !important;
     height: 35px;
     margin: 10px;
     padding: 10px;
-   
+
 }
 
 span.react-time-picker__inputGroup__divider {
@@ -22,40 +21,45 @@ span.react-time-picker__inputGroup__leadingZero {
     width: 100%;
     margin-bottom: 40px;
     margin-right: 5px;
-     border:  1px solid lightgray;
-     border-radius: 5px;
-     padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
 }
-.ui.fluid.dropdown>.dropdown.icon{
+
+.ui.fluid.dropdown>.dropdown.icon {
     display: block;
-    width: 90%;
+    width: 5%;
     min-width: 0;
 }
+
 .multiselect {
     padding-left: 14px;
 }
+
 span.calender {
     margin: -12px;
     padding: 5px;
-   
+
 }
+
 .smili_emoji {
     color: greenyellow;
 }
 
 .text-center {
     text-align: center;
-  }
-  
-  .back_btndash {
+}
+
+.back_btndash {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  a.text-center.back_btndash {
+}
+
+a.text-center.back_btndash {
     text-decoration: none;
     /* background: aliceblue; */
-    background:#377DFF;
+    background: #377DFF;
     color: #fff;
     width: 25%;
     margin: auto;

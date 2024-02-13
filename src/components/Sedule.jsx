@@ -22,6 +22,7 @@ function Sedule() {
   const [postContent, setPostContent] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [filenameshow, setFileNameShow] = useState("");
 
   const [resetForm, setResetForm] = useState(false);
 
@@ -83,11 +84,20 @@ function Sedule() {
     }
   };
 
+  // const handleFileChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   console.log("File Name:", selectedFile);
+  //   setImagePost(selectedFile);
+  //   setFileNameShow(selectedFile.name);
+  // };
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
+    setFileNameShow(selectedFile.name);
 
-    console.log("File Name:", selectedFile);
-    setImagePost(selectedFile);
+    // Create a URL for the selected file
+    const fileURL = URL.createObjectURL(selectedFile);
+    setImagePost(fileURL);
   };
 
   const handleArrivalDateChange = (event) => {
@@ -116,23 +126,29 @@ function Sedule() {
 
   const userEmail = sessionStorage.getItem("userEmail");
 
-  const handleScheduleButtonClick = () => {
+  const handleScheduleButtonClick = (event) => {
     // Gather all form details
+
+    // let formDataImage = new FormData();
+    // console.log(event.target)
+    // formDataImage.append('post_image', event.target.files[0]);
+    // console.log(formDataImage)
+
     const formData = {
       social_media_array: socialMediaArray,
-      image_post: imagePost,
+      imagePost: imagePost,
       post_content: postContent,
       email: userEmail,
       schedule_time: `${arrivalDate} ${time}`,
     };
 
-    console.log(formData);
+    console.log("formData", formData);
 
     // Your API call function
     const schedulePost = async () => {
       try {
         const response = await fetch(
-          "http://192.227.234.133/backend/api/schedule-post",
+          "http://localhost:4000/backend/api/schedule-post",
           {
             method: "POST",
             headers: {
@@ -149,18 +165,11 @@ function Sedule() {
           }, 3000);
           throw new Error("Failed to schedule post");
         }
-
         const data = await response.json();
         console.log("Post scheduled successfully:", data.message);
         setSuccessMessage(`Post scheduled successfully: ${data.message}`);
         setErrorMessage("");
-        // Save email in sessionStorage
         setTimeout(() => {
-          // setArrivalDate("");
-          // setTime("");
-          // setSocialMediaArray([]);
-          // setImagePost("");
-          // setPostContent("");
           setSuccessMessage("");
           setResetForm(true);
           resetFromAmit();
@@ -173,8 +182,53 @@ function Sedule() {
         console.error("Error scheduling post:", error.message);
       }
     };
+    // const schedulePost = async () => {
+    //   try {
+    //     const response = await fetch(
+    //       "http://192.227.234.133/backend/api/schedule-post",
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(formData),
+    //       }
+    //     );
+
+    //     if (!response.ok) {
+    //       setErrorMessage("Failed to schedule post");
+    //       setTimeout(() => {
+    //         setErrorMessage("");
+    //       }, 3000);
+    //       throw new Error("Failed to schedule post");
+    //     }
+
+    //     const data = await response.json();
+    //     console.log("Post scheduled successfully:", data.message);
+    //     setSuccessMessage(`Post scheduled successfully: ${data.message}`);
+    //     setErrorMessage("");
+    //     // Save email in sessionStorage
+    //     setTimeout(() => {
+    //       // setArrivalDate("");
+    //       // setTime("");
+    //       // setSocialMediaArray([]);
+    //       // setImagePost("");
+    //       // setPostContent("");
+    //       setSuccessMessage("");
+    //       setResetForm(true);
+    //       resetFromAmit();
+    //     }, 4000);
+    //   } catch (error) {
+    //     // setErrorMessage(error.response.data.error);
+    //     setTimeout(() => {
+    //       setErrorMessage("");
+    //     }, 3000);
+    //     console.error("Error scheduling post:", error.message);
+    //   }
+    // };
 
     // Call the API function
+
     schedulePost();
   };
 
@@ -207,7 +261,7 @@ function Sedule() {
                 </div>
               </div>
               <div>
-                <form>
+                <form method="post" enctype="multipart/form-data">
                   <div className="w-full border-t-2 border-t-gray-200 rounded-lg bg-gray-50  mt-2">
                     <div className="px-4 py-2 bg-white ">
                       <label htmlFor="comment" className="sr-only">
@@ -274,8 +328,11 @@ function Sedule() {
                           id="file-input"
                           ref={fileInputRef}
                           className="hidden"
+                          name="post_image"
+                          accept=".jpg, .jpeg, .png"
                           onChange={handleFileChange}
                         />
+                        <p>{filenameshow}</p>
                       </div>
 
                       <div className=" inline-block  p-1 ">
@@ -317,7 +374,7 @@ function Sedule() {
                 </form>
               </div>
             </div>
-            
+
             {successMessage && (
               <div className="success-message">{successMessage}</div>
             )}

@@ -66,102 +66,6 @@ function Editsedule() {
     },
   ];
 
-  // const handleFileChange = (event) => {
-  //   const selectedFile = event.target.files[0];
-  //   console.log("Selected File:", selectedFile);
-  //   setImagePost(selectedFile);
-  // };
-
-  // const handleArrivalDateChange = (event) => {
-  //   setArrivalDate(event.target.value);
-  //   console.log(event.target.value);
-  // };
-
-  // const handleTimeChange = (newTime) => {
-  //   setTime(newTime);
-  //   console.log(newTime);
-  //   console.log(time);
-  // };
-  // const handleSocialMediaChange = (selectedOptions) => {
-  //   if (Array.isArray(selectedOptions)) {
-  //     console.log(selectedOptions);
-  //     setSocialMediaArray(selectedOptions);
-  //   } else {
-  //     console.error("Selected options is not an array:", selectedOptions);
-  //   }
-  // };
-
-  // const handlePostContentChange = (event) => {
-  //   setPostContent(event.target.value);
-  // };
-
-  // const userEmail = sessionStorage.getItem("userEmail");
-
-  // const handleScheduleButtonClick = () => {
-  //   // Gather all form details
-  //   const formData = {
-  //     social_media_array: socialMediaArray,
-  //     image_post: imagePost,
-  //     post_content: postContent,
-  //     email: userEmail,
-  //     schedule_time: `${arrivalDate} ${time}`,
-  //   };
-
-  //   console.log(formData);
-
-  //   // Your API call function
-  //   // const schedulePost = async () => {
-  //   //   try {
-  //   //     const response = await fetch(
-  //   //       "http://192.227.234.133/backend/api/edit-scheduled-post/:id",
-  //   //       {
-  //   //         method: "POST",
-  //   //         headers: {
-  //   //           "Content-Type": "application/json",
-  //   //         },
-  //   //         body: JSON.stringify(formData),
-  //   //       }
-  //   //     );
-
-  //   //     if (!response.ok) {
-  //   //       throw new Error("Failed to schedule post");
-  //   //     }
-
-  //   //     const data = await response.json();
-  //   //     console.log("Post scheduled successfully:", data.message);
-  //   //   } catch (error) {
-  //   //     console.error("Error scheduling post:", error.message);
-  //   //   }
-  //   // };
-
-  //   const schedulePost = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://192.227.234.133/backend/api/edit-scheduled-post/${id}`,
-  //         {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify(formData),
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error("Failed to edit scheduled post");
-  //       }
-
-  //       const data = await response.json();
-  //       console.log(data, "data");
-  //       console.log("Post edited successfully:", data.message);
-  //     } catch (error) {
-  //       console.error("Error editing post:", error.message);
-  //     }
-  //   };
-
-  //   // Call the API function
-  //   schedulePost();
-  // };
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -313,6 +217,7 @@ function Editsedule() {
                     onChange={(event, data) =>
                       handleSocialMediaChange(data.value)
                     }
+                    value={socialMediaArray}
                   />
                 </div>
               </div>
