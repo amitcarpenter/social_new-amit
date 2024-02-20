@@ -1,1 +1,5 @@
- 
+.react-datepicker__input-container input {
+     width: 150px;
+    background-color: white;
+    border: 2px solid salmon !important;
+}

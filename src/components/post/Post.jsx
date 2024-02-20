@@ -1,67 +1,49 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import DatePicker from 'react-datepicker'; // Import the React date picker
+import 'react-datepicker/dist/react-datepicker.css'; // Import the styles for the React date picker
 import "./Post.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 function Post() {
   const [posts, setPosts] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
-  const fetchUsers = async () => {
+  const userEmail = sessionStorage.getItem('userEmail');
+
+  const fetchScheduledPosts = async (email) => {
     try {
-      const response = await axios.get(
-        "http://192.227.234.133/backend/api/get-scheduled-posts"
-      );
+      const response = await axios.post('http://192.227.234.133/backend/api/get-scheduled-posts', {
+        email: email
+      });
+
       if (!response.data) {
-        throw new Error("No data received from the server");
+        throw new Error('No data received from the server');
       }
-      console.log(response.data);
+
       setPosts(response.data);
+      console.log(response.data,"_____post data")
     } catch (error) {
-      console.error("Error fetching users:", error.message);
+      console.error('Error fetching posts:', error.message);
     }
   };
+
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    fetchScheduledPosts(userEmail);
+  }, [userEmail]);
 
-  const handleDeleteClick = (postId) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this post?"
-    );
+  // Function to filter posts by date range
+  const filterPostsByDateRange = () => {
+    if (!startDate || !endDate) return posts;
 
-    if (isConfirmed) {
-      // User clicked "OK" in the confirmation dialog
-      // Proceed with the deletion logic
-      deletePost(postId);
-    } else {
-      // User clicked "Cancel" in the confirmation dialog
-      // You can handle this case if needed
-      console.log("Deletion cancelled");
-    }
+    return posts.filter(post => {
+      const postDate = new Date(post.schedule_time);
+      return postDate >= startDate && postDate <= endDate;
+    });
   };
 
-  const deletePost = async (postId) => {
-    try {
-      // Make a DELETE request to your API endpoint
-      const response = await fetch(
-        `http://192.227.234.133/backend/api/delete-scheduled-post/${postId}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (response.ok) {
-        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
-        // If the deletion was successful, you can update your state or perform any other necessary actions
-        console.log("Post deleted successfully");
-      } else {
-        // Handle errors
-        console.error("Error deleting post");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  const filteredPosts = filterPostsByDateRange();
 
   const renderIcon = (platform) => {
     switch (platform) {
@@ -69,8 +51,8 @@ function Post() {
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="30"
+            height="30"
             viewBox="0 0 24 24"
             fill="none"
           >
@@ -86,7 +68,7 @@ function Post() {
             </g>
             <defs>
               <clipPath id="clip0_266_342">
-                <rect width="24" height="24" fill="white" />
+                <rect width="30" height="30" fill="white" />
               </clipPath>
             </defs>
           </svg>
@@ -95,8 +77,8 @@ function Post() {
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="30"
+            height="30"
             viewBox="0 0 24 24"
             fill="none"
           >
@@ -110,8 +92,8 @@ function Post() {
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="30"
+            height="30"
             viewBox="0 0 24 24"
             fill="none"
           >
@@ -156,7 +138,7 @@ function Post() {
                 <stop offset="1" stop-color="#6600FF" stop-opacity="0" />
               </radialGradient>
               <clipPath id="clip0_266_350">
-                <rect width="24" height="24" fill="white" />
+                <rect width="30" height="30" fill="white" />
               </clipPath>
             </defs>
           </svg>
@@ -165,8 +147,8 @@ function Post() {
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="30"
+            height="30"
             viewBox="0 0 24 24"
             fill="none"
           >
@@ -182,18 +164,55 @@ function Post() {
             </g>
             <defs>
               <clipPath id="clip0_266_347">
-                <rect width="24" height="24" fill="white" />
+                <rect width="30" height="30" fill="white" />
               </clipPath>
             </defs>
           </svg>
         );
       default:
-        return null; // Handle other platforms or unknown ones
+        return null;
+    }
+  };
+
+  const handleDeleteClick = (postId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (isConfirmed) {
+
+      deletePost(postId);
+    } else {
+
+      console.log("Deletion cancelled");
+    }
+  };
+
+  const deletePost = async (postId) => {
+    try {
+
+      const response = await fetch(
+        `http://192.227.234.133/backend/api/delete-scheduled-post/${postId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+        // If the deletion was successful, you can update your state or perform any other necessary actions
+        console.log("Post deleted successfully");
+      } else {
+
+        console.error("Error deleting post");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
   return (
-    <div className=" integration_con">
+    <div className="integration_con ">
       <div className="container">
         <h1>All Posts</h1>
         <p>Keep track of all your scheduled posts in one place.</p>
@@ -204,38 +223,60 @@ function Post() {
             </Link>
           </div>
           <div className="col-12 col-md-6 ">
-            <div className="d-flex gap-2 md:flex-row flex-col justify-end">
-              <button className="post_add_date">
-                <span className="mr-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_23_793)">
-                      <path
-                        d="M5.673 0C5.85865 0 6.0367 0.0737498 6.16797 0.205025C6.29925 0.336301 6.373 0.514348 6.373 0.7V2.009H13.89V0.709C13.89 0.523348 13.9637 0.345301 14.095 0.214025C14.2263 0.0827498 14.4043 0.009 14.59 0.009C14.7757 0.009 14.9537 0.0827498 15.085 0.214025C15.2162 0.345301 15.29 0.523348 15.29 0.709V2.009H18C18.5303 2.009 19.0388 2.21958 19.4139 2.59443C19.7889 2.96929 19.9997 3.47774 20 4.008V18.001C19.9997 18.5313 19.7889 19.0397 19.4139 19.4146C19.0388 19.7894 18.5303 20 18 20H2C1.46974 20 0.961184 19.7894 0.58614 19.4146C0.211096 19.0397 0.00026513 18.5313 0 18.001L0 4.008C0.00026513 3.47774 0.211096 2.96929 0.58614 2.59443C0.961184 2.21958 1.46974 2.009 2 2.009H4.973V0.699C4.97327 0.513522 5.04713 0.335731 5.17838 0.204672C5.30963 0.0736123 5.48752 -1.89263e-07 5.673 0ZM1.4 7.742V18.001C1.4 18.0798 1.41552 18.1578 1.44567 18.2306C1.47583 18.3034 1.52002 18.3695 1.57574 18.4253C1.63145 18.481 1.69759 18.5252 1.77039 18.5553C1.84319 18.5855 1.92121 18.601 2 18.601H18C18.0788 18.601 18.1568 18.5855 18.2296 18.5553C18.3024 18.5252 18.3685 18.481 18.4243 18.4253C18.48 18.3695 18.5242 18.3034 18.5543 18.2306C18.5845 18.1578 18.6 18.0798 18.6 18.001V7.756L1.4 7.742ZM6.667 14.619V16.285H5V14.619H6.667ZM10.833 14.619V16.285H9.167V14.619H10.833ZM15 14.619V16.285H13.333V14.619H15ZM6.667 10.642V12.308H5V10.642H6.667ZM10.833 10.642V12.308H9.167V10.642H10.833ZM15 10.642V12.308H13.333V10.642H15ZM4.973 3.408H2C1.92121 3.408 1.84319 3.42352 1.77039 3.45367C1.69759 3.48382 1.63145 3.52802 1.57574 3.58374C1.52002 3.63945 1.47583 3.70559 1.44567 3.77839C1.41552 3.85119 1.4 3.92921 1.4 4.008V6.343L18.6 6.357V4.008C18.6 3.92921 18.5845 3.85119 18.5543 3.77839C18.5242 3.70559 18.48 3.63945 18.4243 3.58374C18.3685 3.52802 18.3024 3.48382 18.2296 3.45367C18.1568 3.42352 18.0788 3.408 18 3.408H15.29V4.337C15.29 4.52265 15.2162 4.7007 15.085 4.83197C14.9537 4.96325 14.7757 5.037 14.59 5.037C14.4043 5.037 14.2263 4.96325 14.095 4.83197C13.9637 4.7007 13.89 4.52265 13.89 4.337V3.408H6.373V4.328C6.373 4.51365 6.29925 4.6917 6.16797 4.82297C6.0367 4.95425 5.85865 5.028 5.673 5.028C5.48735 5.028 5.3093 4.95425 5.17803 4.82297C5.04675 4.6917 4.973 4.51365 4.973 4.328V3.408Z"
-                        fill="#FE4C4C"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_23_793">
-                        <rect width="20" height="20" rx="10" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>{" "}
-                </span>
-                12 May, 2023 - 19 May, 2023
-              </button>
 
-              <button className="post_add_date">
+            <div className="d-flex gap-2 md:flex-row flex-col justify-end items-center">
+
+              <div className="date-range-picker">
+                <DatePicker
+                  selected={startDate}
+                  onChange={date => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  placeholderText="Start Date"
+                  dateFormat="dd/MM/yy" 
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={date => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  placeholderText="End Date"
+                  dateFormat="dd/MM/yy" 
+                />
+              </div>
+
+
+
+              {/* <div className="">
+
+                <div className="  rounded border border-gray-300">
+                  <input
+                    type="date"
+                  
+                    onChange={handleDateChange}
+                    className="w-full py-1 px-3 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                  />
+
+
+                  <input
+                    type="date"
+                
+                    onChange={handleDateChange}
+                    className="w-full py-1 px-3 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              </div>
+ */}
+
+
+              <button className="flex items-center justify-center px-3  rounded-xl  md:h-16 bg-white">
                 <span className="mr-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
+                    width="30"
+                    height="30"
                     viewBox="0 0 24 24"
                     fill="none"
                   >
@@ -243,7 +284,7 @@ function Post() {
                       d="M9 5.00001C8.73478 5.00001 8.48043 5.10537 8.29289 5.2929C8.10536 5.48044 8 5.73479 8 6.00001C8 6.26523 8.10536 6.51958 8.29289 6.70712C8.48043 6.89465 8.73478 7.00001 9 7.00001C9.26522 7.00001 9.51957 6.89465 9.70711 6.70712C9.89464 6.51958 10 6.26523 10 6.00001C10 5.73479 9.89464 5.48044 9.70711 5.2929C9.51957 5.10537 9.26522 5.00001 9 5.00001ZM6.17 5.00001C6.3766 4.41448 6.75974 3.90744 7.2666 3.5488C7.77346 3.19015 8.37909 2.99756 9 2.99756C9.62091 2.99756 10.2265 3.19015 10.7334 3.5488C11.2403 3.90744 11.6234 4.41448 11.83 5.00001H19C19.2652 5.00001 19.5196 5.10537 19.7071 5.2929C19.8946 5.48044 20 5.73479 20 6.00001C20 6.26523 19.8946 6.51958 19.7071 6.70712C19.5196 6.89465 19.2652 7.00001 19 7.00001H11.83C11.6234 7.58554 11.2403 8.09258 10.7334 8.45122C10.2265 8.80986 9.62091 9.00246 9 9.00246C8.37909 9.00246 7.77346 8.80986 7.2666 8.45122C6.75974 8.09258 6.3766 7.58554 6.17 7.00001H5C4.73478 7.00001 4.48043 6.89465 4.29289 6.70712C4.10536 6.51958 4 6.26523 4 6.00001C4 5.73479 4.10536 5.48044 4.29289 5.2929C4.48043 5.10537 4.73478 5.00001 5 5.00001H6.17ZM15 11C14.7348 11 14.4804 11.1054 14.2929 11.2929C14.1054 11.4804 14 11.7348 14 12C14 12.2652 14.1054 12.5196 14.2929 12.7071C14.4804 12.8947 14.7348 13 15 13C15.2652 13 15.5196 12.8947 15.7071 12.7071C15.8946 12.5196 16 12.2652 16 12C16 11.7348 15.8946 11.4804 15.7071 11.2929C15.5196 11.1054 15.2652 11 15 11ZM12.17 11C12.3766 10.4145 12.7597 9.90744 13.2666 9.5488C13.7735 9.19015 14.3791 8.99756 15 8.99756C15.6209 8.99756 16.2265 9.19015 16.7334 9.5488C17.2403 9.90744 17.6234 10.4145 17.83 11H19C19.2652 11 19.5196 11.1054 19.7071 11.2929C19.8946 11.4804 20 11.7348 20 12C20 12.2652 19.8946 12.5196 19.7071 12.7071C19.5196 12.8947 19.2652 13 19 13H17.83C17.6234 13.5855 17.2403 14.0926 16.7334 14.4512C16.2265 14.8099 15.6209 15.0025 15 15.0025C14.3791 15.0025 13.7735 14.8099 13.2666 14.4512C12.7597 14.0926 12.3766 13.5855 12.17 13H5C4.73478 13 4.48043 12.8947 4.29289 12.7071C4.10536 12.5196 4 12.2652 4 12C4 11.7348 4.10536 11.4804 4.29289 11.2929C4.48043 11.1054 4.73478 11 5 11H12.17ZM9 17C8.73478 17 8.48043 17.1054 8.29289 17.2929C8.10536 17.4804 8 17.7348 8 18C8 18.2652 8.10536 18.5196 8.29289 18.7071C8.48043 18.8947 8.73478 19 9 19C9.26522 19 9.51957 18.8947 9.70711 18.7071C9.89464 18.5196 10 18.2652 10 18C10 17.7348 9.89464 17.4804 9.70711 17.2929C9.51957 17.1054 9.26522 17 9 17ZM6.17 17C6.3766 16.4145 6.75974 15.9074 7.2666 15.5488C7.77346 15.1902 8.37909 14.9976 9 14.9976C9.62091 14.9976 10.2265 15.1902 10.7334 15.5488C11.2403 15.9074 11.6234 16.4145 11.83 17H19C19.2652 17 19.5196 17.1054 19.7071 17.2929C19.8946 17.4804 20 17.7348 20 18C20 18.2652 19.8946 18.5196 19.7071 18.7071C19.5196 18.8947 19.2652 19 19 19H11.83C11.6234 19.5855 11.2403 20.0926 10.7334 20.4512C10.2265 20.8099 9.62091 21.0025 9 21.0025C8.37909 21.0025 7.77346 20.8099 7.2666 20.4512C6.75974 20.0926 6.3766 19.5855 6.17 19H5C4.73478 19 4.48043 18.8947 4.29289 18.7071C4.10536 18.5196 4 18.2652 4 18C4 17.7348 4.10536 17.4804 4.29289 17.2929C4.48043 17.1054 4.73478 17 5 17H6.17Z"
                       fill="#5546E8"
                     />
-                  </svg>{" "}
+                  </svg>
                 </span>
                 Filters
               </button>
@@ -252,188 +293,195 @@ function Post() {
         </div>
 
         <div className="row">
-          {posts.map((post) => (
-            <div key={post.id} className="user-container">
-              <div className="bg-[#FFFFFF] p-3 rounded-lg flex flex-col md:flex-row  gap-4">
-                <div className="relative">
-                  <img src="asset/Rectangle.png" alt="" />
 
-                  <span className="absolute top-0 right-0">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                    >
-                      <g filter="url(#filter0_b_266_356)">
-                        <rect
-                          width="40"
-                          height="40"
-                          rx="20"
-                          fill="white"
-                          fill-opacity="0.4"
-                        />
-                        <path
-                          d="M6.4 19H8C8.28334 19 8.521 19.096 8.713 19.288C8.905 19.48 9.00067 19.7173 9 20C9 20.2833 8.904 20.521 8.712 20.713C8.52 20.905 8.28267 21.0007 8 21H4C3.71667 21 3.479 20.904 3.287 20.712C3.095 20.52 2.99934 20.2827 3 20V16C3 15.7167 3.096 15.479 3.288 15.287C3.48 15.095 3.71734 14.9993 4 15C4.28334 15 4.521 15.096 4.713 15.288C4.905 15.48 5.00067 15.7173 5 16V17.6L7.4 15.2C7.58334 15.0167 7.81667 14.925 8.1 14.925C8.38334 14.925 8.61667 15.0167 8.8 15.2C8.98334 15.3833 9.075 15.6167 9.075 15.9C9.075 16.1833 8.98334 16.4167 8.8 16.6L6.4 19ZM17.6 19L15.2 16.6C15.0167 16.4167 14.925 16.1833 14.925 15.9C14.925 15.6167 15.0167 15.3833 15.2 15.2C15.3833 15.0167 15.6167 14.925 15.9 14.925C16.1833 14.925 16.4167 15.0167 16.6 15.2L19 17.6V16C19 15.7167 19.096 15.479 19.288 15.287C19.48 15.095 19.7173 14.9993 20 15C20.2833 15 20.521 15.096 20.713 15.288C20.905 15.48 21.0007 15.7173 21 16V20C21 20.2833 20.904 20.521 20.712 20.713C20.52 20.905 20.2827 21.0007 20 21H16C15.7167 21 15.479 20.904 15.287 20.712C15.095 20.52 14.9993 20.2827 15 20C15 19.7167 15.096 19.479 15.288 19.287C15.48 19.095 15.7173 18.9993 16 19H17.6ZM5 6.4V8C5 8.28334 4.904 8.521 4.712 8.713C4.52 8.905 4.28267 9.00067 4 9C3.71667 9 3.479 8.904 3.287 8.712C3.095 8.52 2.99934 8.28267 3 8V4C3 3.71667 3.096 3.479 3.288 3.287C3.48 3.095 3.71734 2.99934 4 3H8C8.28334 3 8.521 3.096 8.713 3.288C8.905 3.48 9.00067 3.71734 9 4C9 4.28334 8.904 4.521 8.712 4.713C8.52 4.905 8.28267 5.00067 8 5H6.4L8.8 7.4C8.98334 7.58334 9.075 7.81667 9.075 8.1C9.075 8.38334 8.98334 8.61667 8.8 8.8C8.61667 8.98334 8.38334 9.075 8.1 9.075C7.81667 9.075 7.58334 8.98334 7.4 8.8L5 6.4ZM19 6.4L16.6 8.8C16.4167 8.98334 16.1833 9.075 15.9 9.075C15.6167 9.075 15.3833 8.98334 15.2 8.8C15.0167 8.61667 14.925 8.38334 14.925 8.1C14.925 7.81667 15.0167 7.58334 15.2 7.4L17.6 5H16C15.7167 5 15.479 4.90434 15.287 4.713C15.095 4.52167 14.9993 4.284 15 4C15 3.71667 15.096 3.479 15.288 3.287C15.48 3.095 15.7173 2.99934 16 3H20C20.2833 3 20.521 3.096 20.713 3.288C20.905 3.48 21.0007 3.71734 21 4V8C21 8.28334 20.904 8.521 20.712 8.713C20.52 8.905 20.2827 9.00067 20 9C19.7167 9 19.479 8.904 19.287 8.712C19.095 8.52 18.9993 8.28267 19 8V6.4Z"
-                          fill="black"
-                        />
-                        <path
-                          d="M14.4 27H16C16.2833 27 16.521 27.096 16.713 27.288C16.905 27.48 17.0007 27.7173 17 28C17 28.2833 16.904 28.521 16.712 28.713C16.52 28.905 16.2827 29.0007 16 29H12C11.7167 29 11.479 28.904 11.287 28.712C11.095 28.52 10.9993 28.2827 11 28V24C11 23.7167 11.096 23.479 11.288 23.287C11.48 23.095 11.7173 22.9993 12 23C12.2833 23 12.521 23.096 12.713 23.288C12.905 23.48 13.0007 23.7173 13 24V25.6L15.4 23.2C15.5833 23.0167 15.8167 22.925 16.1 22.925C16.3833 22.925 16.6167 23.0167 16.8 23.2C16.9833 23.3833 17.075 23.6167 17.075 23.9C17.075 24.1833 16.9833 24.4167 16.8 24.6L14.4 27ZM25.6 27L23.2 24.6C23.0167 24.4167 22.925 24.1833 22.925 23.9C22.925 23.6167 23.0167 23.3833 23.2 23.2C23.3833 23.0167 23.6167 22.925 23.9 22.925C24.1833 22.925 24.4167 23.0167 24.6 23.2L27 25.6V24C27 23.7167 27.096 23.479 27.288 23.287C27.48 23.095 27.7173 22.9993 28 23C28.2833 23 28.521 23.096 28.713 23.288C28.905 23.48 29.0007 23.7173 29 24V28C29 28.2833 28.904 28.521 28.712 28.713C28.52 28.905 28.2827 29.0007 28 29H24C23.7167 29 23.479 28.904 23.287 28.712C23.095 28.52 22.9993 28.2827 23 28C23 27.7167 23.096 27.479 23.288 27.287C23.48 27.095 23.7173 26.9993 24 27H25.6ZM13 14.4V16C13 16.2833 12.904 16.521 12.712 16.713C12.52 16.905 12.2827 17.0007 12 17C11.7167 17 11.479 16.904 11.287 16.712C11.095 16.52 10.9993 16.2827 11 16V12C11 11.7167 11.096 11.479 11.288 11.287C11.48 11.095 11.7173 10.9993 12 11H16C16.2833 11 16.521 11.096 16.713 11.288C16.905 11.48 17.0007 11.7173 17 12C17 12.2833 16.904 12.521 16.712 12.713C16.52 12.905 16.2827 13.0007 16 13H14.4L16.8 15.4C16.9833 15.5833 17.075 15.8167 17.075 16.1C17.075 16.3833 16.9833 16.6167 16.8 16.8C16.6167 16.9833 16.3833 17.075 16.1 17.075C15.8167 17.075 15.5833 16.9833 15.4 16.8L13 14.4ZM27 14.4L24.6 16.8C24.4167 16.9833 24.1833 17.075 23.9 17.075C23.6167 17.075 23.3833 16.9833 23.2 16.8C23.0167 16.6167 22.925 16.3833 22.925 16.1C22.925 15.8167 23.0167 15.5833 23.2 15.4L25.6 13H24C23.7167 13 23.479 12.9043 23.287 12.713C23.095 12.5217 22.9993 12.284 23 12C23 11.7167 23.096 11.479 23.288 11.287C23.48 11.095 23.7173 10.9993 24 11H28C28.2833 11 28.521 11.096 28.713 11.288C28.905 11.48 29.0007 11.7173 29 12V16C29 16.2833 28.904 16.521 28.712 16.713C28.52 16.905 28.2827 17.0007 28 17C27.7167 17 27.479 16.904 27.287 16.712C27.095 16.52 26.9993 16.2827 27 16V14.4Z"
-                          fill="#11264D"
-                        />
-                      </g>
-                      <defs>
-                        <filter
-                          id="filter0_b_266_356"
-                          x="-4"
-                          y="-4"
-                          width="48"
-                          height="48"
-                          filterUnits="userSpaceOnUse"
-                          color-interpolation-filters="sRGB"
-                        >
-                          <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                          />
-                          <feGaussianBlur
-                            in="BackgroundImageFix"
-                            stdDeviation="2"
-                          />
-                          <feComposite
-                            in2="SourceAlpha"
-                            operator="in"
-                            result="effect1_backgroundBlur_266_356"
-                          />
-                          <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_backgroundBlur_266_356"
-                            result="shape"
-                          />
-                        </filter>
-                      </defs>
-                    </svg>
-                  </span>
-                </div>
-                <div className="w-full">
-                  <div className="flex justify-end gap-3">
-                    <span className="flex items-center">
+          {filteredPosts.length === 0 ? (
+            <p className="text-center">No posts available for the selected date range.</p>
+          ) : (
+
+
+            filteredPosts.map(post => (
+              <div key={post.id} className="user-container mb-3 ">
+                <div className="bg-[#FFFFFF] p-3 rounded-lg flex flex-col md:flex-row  gap-4">
+                  <div className="relative">
+                    {/* <img src="asset/Rectangle.png" alt="" /> */}
+                    <img
+                      className="min-w-60 h-44 rounded-md"
+                      src={post.image_post}
+
+                      alt="image-data" />
+
+                    <span className="absolute top-0 right-0">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
                         fill="none"
                       >
-                        <path
-                          d="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17"
-                          stroke="black"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
-                          stroke="black"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>{" "}
-                      {/* <span className="text-[#11264D] pl-2 font-medium cursor-pointer"> */}
-                      <Link
-                        to={`/editschedule/${post.id}`}
-                        className="post_edit"
-                      >
-                        {" "}
-                        Edit
-                      </Link>
-                      {/* </span> */}
-                    </span>
-
-                    <span
-                      className="w-[32px] h-[32px] shrink-0"
-                      onClick={() => handleDeleteClick(post.id)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                        fill="none"
-                      >
-                        <path
-                          d="M22.5 9.5L9.5 22.5M9.5 9.5L22.5 22.5"
-                          stroke="black"
-                          stroke-width="2.25"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                        <g filter="url(#filter0_b_266_356)">
+                          <rect
+                            width="40"
+                            height="40"
+                            rx="20"
+                            fill="white"
+                            fill-opacity="0.4"
+                          />
+                          <path
+                            d="M6.4 19H8C8.28334 19 8.521 19.096 8.713 19.288C8.905 19.48 9.00067 19.7173 9 20C9 20.2833 8.904 20.521 8.712 20.713C8.52 20.905 8.28267 21.0007 8 21H4C3.71667 21 3.479 20.904 3.287 20.712C3.095 20.52 2.99934 20.2827 3 20V16C3 15.7167 3.096 15.479 3.288 15.287C3.48 15.095 3.71734 14.9993 4 15C4.28334 15 4.521 15.096 4.713 15.288C4.905 15.48 5.00067 15.7173 5 16V17.6L7.4 15.2C7.58334 15.0167 7.81667 14.925 8.1 14.925C8.38334 14.925 8.61667 15.0167 8.8 15.2C8.98334 15.3833 9.075 15.6167 9.075 15.9C9.075 16.1833 8.98334 16.4167 8.8 16.6L6.4 19ZM17.6 19L15.2 16.6C15.0167 16.4167 14.925 16.1833 14.925 15.9C14.925 15.6167 15.0167 15.3833 15.2 15.2C15.3833 15.0167 15.6167 14.925 15.9 14.925C16.1833 14.925 16.4167 15.0167 16.6 15.2L19 17.6V16C19 15.7167 19.096 15.479 19.288 15.287C19.48 15.095 19.7173 14.9993 20 15C20.2833 15 20.521 15.096 20.713 15.288C20.905 15.48 21.0007 15.7173 21 16V20C21 20.2833 20.904 20.521 20.712 20.713C20.52 20.905 20.2827 21.0007 20 21H16C15.7167 21 15.479 20.904 15.287 20.712C15.095 20.52 14.9993 20.2827 15 20C15 19.7167 15.096 19.479 15.288 19.287C15.48 19.095 15.7173 18.9993 16 19H17.6ZM5 6.4V8C5 8.28334 4.904 8.521 4.712 8.713C4.52 8.905 4.28267 9.00067 4 9C3.71667 9 3.479 8.904 3.287 8.712C3.095 8.52 2.99934 8.28267 3 8V4C3 3.71667 3.096 3.479 3.288 3.287C3.48 3.095 3.71734 2.99934 4 3H8C8.28334 3 8.521 3.096 8.713 3.288C8.905 3.48 9.00067 3.71734 9 4C9 4.28334 8.904 4.521 8.712 4.713C8.52 4.905 8.28267 5.00067 8 5H6.4L8.8 7.4C8.98334 7.58334 9.075 7.81667 9.075 8.1C9.075 8.38334 8.98334 8.61667 8.8 8.8C8.61667 8.98334 8.38334 9.075 8.1 9.075C7.81667 9.075 7.58334 8.98334 7.4 8.8L5 6.4ZM19 6.4L16.6 8.8C16.4167 8.98334 16.1833 9.075 15.9 9.075C15.6167 9.075 15.3833 8.98334 15.2 8.8C15.0167 8.61667 14.925 8.38334 14.925 8.1C14.925 7.81667 15.0167 7.58334 15.2 7.4L17.6 5H16C15.7167 5 15.479 4.90434 15.287 4.713C15.095 4.52167 14.9993 4.284 15 4C15 3.71667 15.096 3.479 15.288 3.287C15.48 3.095 15.7173 2.99934 16 3H20C20.2833 3 20.521 3.096 20.713 3.288C20.905 3.48 21.0007 3.71734 21 4V8C21 8.28334 20.904 8.521 20.712 8.713C20.52 8.905 20.2827 9.00067 20 9C19.7167 9 19.479 8.904 19.287 8.712C19.095 8.52 18.9993 8.28267 19 8V6.4Z"
+                            fill="black"
+                          />
+                          <path
+                            d="M14.4 27H16C16.2833 27 16.521 27.096 16.713 27.288C16.905 27.48 17.0007 27.7173 17 28C17 28.2833 16.904 28.521 16.712 28.713C16.52 28.905 16.2827 29.0007 16 29H12C11.7167 29 11.479 28.904 11.287 28.712C11.095 28.52 10.9993 28.2827 11 28V24C11 23.7167 11.096 23.479 11.288 23.287C11.48 23.095 11.7173 22.9993 12 23C12.2833 23 12.521 23.096 12.713 23.288C12.905 23.48 13.0007 23.7173 13 24V25.6L15.4 23.2C15.5833 23.0167 15.8167 22.925 16.1 22.925C16.3833 22.925 16.6167 23.0167 16.8 23.2C16.9833 23.3833 17.075 23.6167 17.075 23.9C17.075 24.1833 16.9833 24.4167 16.8 24.6L14.4 27ZM25.6 27L23.2 24.6C23.0167 24.4167 22.925 24.1833 22.925 23.9C22.925 23.6167 23.0167 23.3833 23.2 23.2C23.3833 23.0167 23.6167 22.925 23.9 22.925C24.1833 22.925 24.4167 23.0167 24.6 23.2L27 25.6V24C27 23.7167 27.096 23.479 27.288 23.287C27.48 23.095 27.7173 22.9993 28 23C28.2833 23 28.521 23.096 28.713 23.288C28.905 23.48 29.0007 23.7173 29 24V28C29 28.2833 28.904 28.521 28.712 28.713C28.52 28.905 28.2827 29.0007 28 29H24C23.7167 29 23.479 28.904 23.287 28.712C23.095 28.52 22.9993 28.2827 23 28C23 27.7167 23.096 27.479 23.288 27.287C23.48 27.095 23.7173 26.9993 24 27H25.6ZM13 14.4V16C13 16.2833 12.904 16.521 12.712 16.713C12.52 16.905 12.2827 17.0007 12 17C11.7167 17 11.479 16.904 11.287 16.712C11.095 16.52 10.9993 16.2827 11 16V12C11 11.7167 11.096 11.479 11.288 11.287C11.48 11.095 11.7173 10.9993 12 11H16C16.2833 11 16.521 11.096 16.713 11.288C16.905 11.48 17.0007 11.7173 17 12C17 12.2833 16.904 12.521 16.712 12.713C16.52 12.905 16.2827 13.0007 16 13H14.4L16.8 15.4C16.9833 15.5833 17.075 15.8167 17.075 16.1C17.075 16.3833 16.9833 16.6167 16.8 16.8C16.6167 16.9833 16.3833 17.075 16.1 17.075C15.8167 17.075 15.5833 16.9833 15.4 16.8L13 14.4ZM27 14.4L24.6 16.8C24.4167 16.9833 24.1833 17.075 23.9 17.075C23.6167 17.075 23.3833 16.9833 23.2 16.8C23.0167 16.6167 22.925 16.3833 22.925 16.1C22.925 15.8167 23.0167 15.5833 23.2 15.4L25.6 13H24C23.7167 13 23.479 12.9043 23.287 12.713C23.095 12.5217 22.9993 12.284 23 12C23 11.7167 23.096 11.479 23.288 11.287C23.48 11.095 23.7173 10.9993 24 11H28C28.2833 11 28.521 11.096 28.713 11.288C28.905 11.48 29.0007 11.7173 29 12V16C29 16.2833 28.904 16.521 28.712 16.713C28.52 16.905 28.2827 17.0007 28 17C27.7167 17 27.479 16.904 27.287 16.712C27.095 16.52 26.9993 16.2827 27 16V14.4Z"
+                            fill="#11264D"
+                          />
+                        </g>
+                        <defs>
+                          <filter
+                            id="filter0_b_266_356"
+                            x="-4"
+                            y="-4"
+                            width="48"
+                            height="48"
+                            filterUnits="userSpaceOnUse"
+                            color-interpolation-filters="sRGB"
+                          >
+                            <feFlood
+                              flood-opacity="0"
+                              result="BackgroundImageFix"
+                            />
+                            <feGaussianBlur
+                              in="BackgroundImageFix"
+                              stdDeviation="2"
+                            />
+                            <feComposite
+                              in2="SourceAlpha"
+                              operator="in"
+                              result="effect1_backgroundBlur_266_356"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_backgroundBlur_266_356"
+                              result="shape"
+                            />
+                          </filter>
+                        </defs>
                       </svg>
                     </span>
                   </div>
-
-                  <div className="md:w-[95%]">
-                    {/* <h6 className="text-[#11264D]">
-                      Design critiques at Figma
-                    </h6> */}
-                    <p className="text-[rgba(17, 38, 77, 0.60)] font-[400] ">
-                      {post.post_content}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row items-center justify-end ">
-                    <div className="inline-flex items-center  px-2 py-1 rounded-[8px] border-[#D1D1D1] border">
-                      <span className="w-[22px] h-[22px]">
+                  <div className="w-full">
+                    <div className="flex justify-end gap-3">
+                      <span className="flex items-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="22"
-                          height="22"
-                          viewBox="0 0 22 22"
+                          width="30"
+                          height="30"
+                          viewBox="0 0 24 24"
                           fill="none"
                         >
                           <path
-                            d="M11.0002 18.3333C12.9451 18.3333 14.8103 17.5607 16.1856 16.1854C17.5609 14.8102 18.3335 12.9449 18.3335 11C18.3335 9.05506 17.5609 7.1898 16.1856 5.81453C14.8103 4.43926 12.9451 3.66665 11.0002 3.66665C9.05524 3.66665 7.18998 4.43926 5.81471 5.81453C4.43945 7.1898 3.66683 9.05506 3.66683 11C3.66683 12.9449 4.43945 14.8102 5.81471 16.1854C7.18998 17.5607 9.05524 18.3333 11.0002 18.3333ZM11.0002 1.83331C12.2039 1.83331 13.3959 2.07042 14.5081 2.53108C15.6202 2.99175 16.6308 3.66696 17.482 4.51817C18.3332 5.36937 19.0084 6.3799 19.4691 7.49205C19.9297 8.6042 20.1668 9.7962 20.1668 11C20.1668 13.4311 19.2011 15.7627 17.482 17.4818C15.7629 19.2009 13.4313 20.1666 11.0002 20.1666C5.931 20.1666 1.8335 16.0416 1.8335 11C1.8335 8.56883 2.79927 6.23725 4.51835 4.51817C6.23743 2.79908 8.56901 1.83331 11.0002 1.83331ZM11.4585 6.41665V11.2291L15.5835 13.6766L14.896 14.8041L10.0835 11.9166V6.41665H11.4585Z"
-                            fill="black"
+                            d="M7 7H6C5.46957 7 4.96086 7.21071 4.58579 7.58579C4.21071 7.96086 4 8.46957 4 9V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H15C15.5304 20 16.0391 19.7893 16.4142 19.4142C16.7893 19.0391 17 18.5304 17 18V17"
+                            stroke="black"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M16 4.99998L19 7.99998M20.385 6.58499C20.7788 6.19114 21.0001 5.65697 21.0001 5.09998C21.0001 4.543 20.7788 4.00883 20.385 3.61498C19.9912 3.22114 19.457 2.99988 18.9 2.99988C18.343 2.99988 17.8088 3.22114 17.415 3.61498L9 12V15H12L20.385 6.58499Z"
+                            stroke="black"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>{" "}
-                      </span>{" "}
-                      {/* <span className="pl-1">Wed, May 12, 2023 at 2:30 PM</span> */}
-                      <span className="pl-1">
-                        {new Date(post.schedule_time).toLocaleString("en-US", {
-                          weekday: "short",
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                          hour12: true,
-                        })}
+
+                        <Link
+                          to={`/dashboard/editschedule/${post.id}`}
+                          className="post_edit"
+                        >
+                          {" "}
+                          Edit
+                        </Link>
+
+                      </span>
+
+                      <span
+                        className="w-[32px] h-[32px] shrink-0"
+                        onClick={() => handleDeleteClick(post.id)}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 32 32"
+                          fill="none"
+                        >
+                          <path
+                            d="M22.5 9.5L9.5 22.5M9.5 9.5L22.5 22.5"
+                            stroke="black"
+                            stroke-width="2.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </span>
                     </div>
 
-                    {/* <ul className="flex items-center gap-3 pt-1">
-                      {post.social_media_array.map((platform, index) => (
-                        <li key={index}>{renderIcon(platform)}</li>
-                      ))}
-                    </ul> */}
+                    <div className="md:w-[95%]">
 
-                    <ul className="flex items-center gap-3 pt-1">
-                      {post.social_media_array ? (
-                        post.social_media_array.map((platform, index) => (
-                          <li key={index}>{renderIcon(platform)}</li>
-                        ))
-                      ) : (
-                        <li>No data available</li>
-                      )}
-                    </ul>
+                      <p className="text-[rgba(17, 38, 77, 0.60)] font-[400] ">
+                        {post.post_content}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-end ">
+                      <div className="inline-flex items-center  px-2 py-1 rounded-[8px] border-[#D1D1D1] border">
+                        <span className="w-[22px] h-[22px]">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 22 22"
+                            fill="none"
+                          >
+                            <path
+                              d="M11.0002 18.3333C12.9451 18.3333 14.8103 17.5607 16.1856 16.1854C17.5609 14.8102 18.3335 12.9449 18.3335 11C18.3335 9.05506 17.5609 7.1898 16.1856 5.81453C14.8103 4.43926 12.9451 3.66665 11.0002 3.66665C9.05524 3.66665 7.18998 4.43926 5.81471 5.81453C4.43945 7.1898 3.66683 9.05506 3.66683 11C3.66683 12.9449 4.43945 14.8102 5.81471 16.1854C7.18998 17.5607 9.05524 18.3333 11.0002 18.3333ZM11.0002 1.83331C12.2039 1.83331 13.3959 2.07042 14.5081 2.53108C15.6202 2.99175 16.6308 3.66696 17.482 4.51817C18.3332 5.36937 19.0084 6.3799 19.4691 7.49205C19.9297 8.6042 20.1668 9.7962 20.1668 11C20.1668 13.4311 19.2011 15.7627 17.482 17.4818C15.7629 19.2009 13.4313 20.1666 11.0002 20.1666C5.931 20.1666 1.8335 16.0416 1.8335 11C1.8335 8.56883 2.79927 6.23725 4.51835 4.51817C6.23743 2.79908 8.56901 1.83331 11.0002 1.83331ZM11.4585 6.41665V11.2291L15.5835 13.6766L14.896 14.8041L10.0835 11.9166V6.41665H11.4585Z"
+                              fill="black"
+                            />
+                          </svg>{" "}
+                        </span>{" "}
+                        <span className="pl-1">
+                          {new Date(post.schedule_time).toLocaleString("en-US", {
+                            weekday: "short",
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })}
+                        </span>
+                      </div>
+
+
+                      <ul className="flex items-center gap-2 pt-1">
+                        {post && Array.isArray(post.social_media_array) && post.social_media_array.length > 0 ? (
+                          post.social_media_array.map((platform, index) => (
+                            <li className="" key={index}>{renderIcon(platform)}</li>
+                          ))
+                        ) : (
+                          <li>No data available</li>
+                        )}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+
+
+            )))}
+
+
         </div>
       </div>
     </div>

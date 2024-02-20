@@ -11,45 +11,61 @@ function Contact() {
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({}); // State to hold validation errors
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Validation can be added here if needed
+    // Validation for required fields
+    const errors = {};
+    if (!fullName.trim()) {
+      errors.fullName = "This field is required";
+    }
+    if (!emailAddress.trim()) {
+      errors.emailAddress = "This field is required";
+    }
+    if (!subject.trim()) {
+      errors.subject = "This field is required";
+    }
+    if (!message.trim()) {
+      errors.message = "This field is required";
+    }
 
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
+    try {
       // Make a POST request to the contact endpoint with the form data
       const response = await axios.post("http://192.227.234.133/backend/api/contact", {
         fullName: fullName,
         email: emailAddress,
         subject: subject,
-        message: message, // Update the field name to 'message'
+        message: message,
       });
 
-      // Handle the response here
       if (response.status === 201) {
         setSuccessMessage("Message submitted successfully!");
         setErrorMessage("");
-        // You can clear the form fields here if needed
         setFullName("");
         setEmailAddress("");
         setSubject("");
         setMessage("");
+        setErrors({});
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 2000);
+      } else {
+        setSuccessMessage("");
       }
     } catch (error) {
-      // Handle errors - show an error message to the user or log the error
       if (error.response && error.response.data.error) {
         setErrorMessage(error.response.data.error);
-        setTimeout(() => {
-          setErrorMessage("");
-        }, 3000);
+
       } else {
         setErrorMessage("Submission failed. Please try again.");
-        setTimeout(() => {
-          setErrorMessage("");
-        }, 3000);
       }
-
       console.error(
         "Submission failed:",
         error.response ? error.response.data : error.message
@@ -83,6 +99,7 @@ function Contact() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                   />
+                  {errors.fullName && <div className="error-message">{errors.fullName}</div>}
                 </div>
                 <div className="form-group">
                   <input
@@ -92,6 +109,7 @@ function Contact() {
                     value={emailAddress}
                     onChange={(e) => setEmailAddress(e.target.value)}
                   />
+                  {errors.emailAddress && <div className="error-message">{errors.emailAddress}</div>}
                 </div>
                 <div className="form-group">
                   <input
@@ -101,6 +119,7 @@ function Contact() {
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                   />
+                  {errors.subject && <div className="error-message">{errors.subject}</div>}
                 </div>
                 <div className="form-group">
                   <textarea
@@ -109,11 +128,13 @@ function Contact() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                   ></textarea>
+                  {errors.message && <div className="error-message">{errors.message}</div>}
                 </div>
 
                 {successMessage && (
                   <div className="success-message">{successMessage}</div>
                 )}
+
                 {errorMessage && (
                   <div className="error-message">{errorMessage}</div>
                 )}

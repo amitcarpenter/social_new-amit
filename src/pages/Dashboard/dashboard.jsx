@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css"; // Add a CSS file for custom styles if needed
 import Myprofile from "../../components/myprofile";
 import Accountoverview from "../../components/Accountoverview";
@@ -8,7 +8,8 @@ import Sedule from "../../components/Sedule";
 import Analytics from "../../components/analytic/Analytics";
 import Users from "../../components/Users";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { LuLogOut } from "react-icons/lu";
 function Dashboard() {
   const navigate = useNavigate();
   const [activeContent, setActiveContent] = useState("dashboard");
@@ -18,12 +19,38 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
-    sessionStorage.clear();
+    sessionStorage.removeItem("userEmail");
     navigate("/");
   };
+  const [users, setUsers] = useState([]);
 
-
+  const [error, setError] = useState("");
   
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.227.234.133/backend/api/users"
+      );
+
+      if (!response.data) {
+        throw new Error("No data received from the server");
+      }
+      console.log(response.data, "_____user details.")
+
+
+
+      setUsers(response.data);
+      setError("");
+    } catch (error) {
+      console.error("Error fetching users:", error.message);
+      setError("Error fetching users. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
 
   return (
@@ -39,9 +66,8 @@ function Dashboard() {
               <h4>Company Logo</h4>
               <ul className="nav flex-column">
                 <li
-                  className={`nav-item ${
-                    activeContent === "dashboard" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "dashboard" && "active"
+                    }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,9 +93,8 @@ function Dashboard() {
                 </li>
 
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu2" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu2" && "active"
+                    }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -93,9 +118,8 @@ function Dashboard() {
                   </a>
                 </li>
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu3" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu3" && "active"
+                    }`}
                 >
                   {/* <img className='dash_icon' src="asset/solid_plug.png" alt="" /> */}
                   <svg
@@ -131,9 +155,8 @@ function Dashboard() {
                   </a>
                 </li>
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu4" && "active"
+                    }`}
                 >
                   {/* <img className='dash_icon' src="asset/note-edit.png" alt="" /> */}
                   <svg
@@ -157,9 +180,8 @@ function Dashboard() {
                   </a>
                 </li>
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu4" && "active"
+                    }`}
                 >
                   {/* <img className='dash_icon' src="asset/schedule-send.png" alt="" /> */}
                   <svg
@@ -188,9 +210,8 @@ function Dashboard() {
                 </li>
 
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu4" && "active"
+                    }`}
                 >
                   {/* <img className='dash_icon' src="asset/analytics.png" alt="" /> */}
                   <svg
@@ -216,42 +237,44 @@ function Dashboard() {
                   </a>
                 </li>
 
-                <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
-                >
-                  {/* <img className='dash_icon' src="asset/gallery-bold.png" alt="" /> */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
+                {users.filter(user => user.role === 'admin').map(adminUser => (
+                  <li
+                    className={`nav-item ${activeContent === "menu4" && "active"
+                      }`}
                   >
-                    <path
-                      d="M18.5 8C18.5 8.53043 18.2893 9.03914 17.9142 9.41421C17.5391 9.78929 17.0304 10 16.5 10C15.9696 10 15.4609 9.78929 15.0858 9.41421C14.7107 9.03914 14.5 8.53043 14.5 8C14.5 7.46957 14.7107 6.96086 15.0858 6.58579C15.4609 6.21071 15.9696 6 16.5 6C17.0304 6 17.5391 6.21071 17.9142 6.58579C18.2893 6.96086 18.5 7.46957 18.5 8Z"
-                      fill="#A7A7A7"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M12.443 1.25H12.557C14.866 1.25 16.675 1.25 18.087 1.44C19.531 1.634 20.671 2.04 21.566 2.934C22.461 3.829 22.866 4.969 23.06 6.414C23.25 7.825 23.25 9.634 23.25 11.943V12.031C23.25 13.94 23.25 15.502 23.146 16.774C23.042 18.054 22.829 19.121 22.351 20.009C22.141 20.4 21.881 20.751 21.566 21.066C20.671 21.961 19.531 22.366 18.086 22.56C16.675 22.75 14.866 22.75 12.557 22.75H12.443C10.134 22.75 8.325 22.75 6.913 22.56C5.469 22.366 4.329 21.96 3.434 21.066C2.641 20.273 2.231 19.286 2.014 18.06C1.799 16.857 1.76 15.36 1.752 13.502C1.75 13.029 1.75 12.529 1.75 12.001V11.943C1.75 9.634 1.75 7.825 1.94 6.413C2.134 4.969 2.54 3.829 3.434 2.934C4.329 2.039 5.469 1.634 6.914 1.44C8.325 1.25 10.134 1.25 12.443 1.25ZM7.113 2.926C5.835 3.098 5.064 3.426 4.495 3.995C3.925 4.565 3.598 5.335 3.426 6.614C3.252 7.914 3.25 9.622 3.25 12V12.844L4.251 11.967C4.6902 11.5828 5.25902 11.3799 5.84223 11.3994C6.42544 11.4189 6.97944 11.6593 7.392 12.072L11.682 16.362C12.0149 16.6948 12.4546 16.8996 12.9235 16.9402C13.3925 16.9808 13.8608 16.8547 14.246 16.584L14.544 16.374C15.0997 15.9835 15.7714 15.7932 16.4493 15.834C17.1273 15.8749 17.7713 16.1446 18.276 16.599L21.106 19.146C21.392 18.548 21.561 17.762 21.651 16.653C21.749 15.448 21.75 13.946 21.75 12C21.75 9.622 21.748 7.914 21.574 6.614C21.402 5.335 21.074 4.564 20.505 3.994C19.935 3.425 19.165 3.098 17.886 2.926C16.586 2.752 14.878 2.75 12.5 2.75C10.122 2.75 8.413 2.752 7.113 2.926Z"
-                      fill="#A7A7A7"
-                    />
-                  </svg>
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={() => showContent("menu7")}
-                  >
-                    Users
-                  </a>
-                </li>
+                    {/* <img className='dash_icon' src="asset/gallery-bold.png" alt="" /> */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M18.5 8C18.5 8.53043 18.2893 9.03914 17.9142 9.41421C17.5391 9.78929 17.0304 10 16.5 10C15.9696 10 15.4609 9.78929 15.0858 9.41421C14.7107 9.03914 14.5 8.53043 14.5 8C14.5 7.46957 14.7107 6.96086 15.0858 6.58579C15.4609 6.21071 15.9696 6 16.5 6C17.0304 6 17.5391 6.21071 17.9142 6.58579C18.2893 6.96086 18.5 7.46957 18.5 8Z"
+                        fill="#A7A7A7"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.443 1.25H12.557C14.866 1.25 16.675 1.25 18.087 1.44C19.531 1.634 20.671 2.04 21.566 2.934C22.461 3.829 22.866 4.969 23.06 6.414C23.25 7.825 23.25 9.634 23.25 11.943V12.031C23.25 13.94 23.25 15.502 23.146 16.774C23.042 18.054 22.829 19.121 22.351 20.009C22.141 20.4 21.881 20.751 21.566 21.066C20.671 21.961 19.531 22.366 18.086 22.56C16.675 22.75 14.866 22.75 12.557 22.75H12.443C10.134 22.75 8.325 22.75 6.913 22.56C5.469 22.366 4.329 21.96 3.434 21.066C2.641 20.273 2.231 19.286 2.014 18.06C1.799 16.857 1.76 15.36 1.752 13.502C1.75 13.029 1.75 12.529 1.75 12.001V11.943C1.75 9.634 1.75 7.825 1.94 6.413C2.134 4.969 2.54 3.829 3.434 2.934C4.329 2.039 5.469 1.634 6.914 1.44C8.325 1.25 10.134 1.25 12.443 1.25ZM7.113 2.926C5.835 3.098 5.064 3.426 4.495 3.995C3.925 4.565 3.598 5.335 3.426 6.614C3.252 7.914 3.25 9.622 3.25 12V12.844L4.251 11.967C4.6902 11.5828 5.25902 11.3799 5.84223 11.3994C6.42544 11.4189 6.97944 11.6593 7.392 12.072L11.682 16.362C12.0149 16.6948 12.4546 16.8996 12.9235 16.9402C13.3925 16.9808 13.8608 16.8547 14.246 16.584L14.544 16.374C15.0997 15.9835 15.7714 15.7932 16.4493 15.834C17.1273 15.8749 17.7713 16.1446 18.276 16.599L21.106 19.146C21.392 18.548 21.561 17.762 21.651 16.653C21.749 15.448 21.75 13.946 21.75 12C21.75 9.622 21.748 7.914 21.574 6.614C21.402 5.335 21.074 4.564 20.505 3.994C19.935 3.425 19.165 3.098 17.886 2.926C16.586 2.752 14.878 2.75 12.5 2.75C10.122 2.75 8.413 2.752 7.113 2.926Z"
+                        fill="#A7A7A7"
+                      />
+                    </svg>
+                    <a
+                      className="nav-link"
+                      href="#"
+                      onClick={() => showContent("menu7")}
+                    >
+                      Users
+                    </a>
+                  </li>
+                ))}
+
+
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu4" && "active"
+                    }`}
                 >
                   {/* <img className='dash_icon' src="asset/settings.png" alt="" /> */}
                   <svg
@@ -275,9 +298,8 @@ function Dashboard() {
                   </a>
                 </li>
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu4" && "active"
+                    }`}
                 >
                   {/* <img className='dash_icon' src="asset/baseline-email.png" alt="" /> */}
                   <svg
@@ -300,47 +322,14 @@ function Dashboard() {
                     Support
                   </a>
                 </li>
-                {/* <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
-                >
-            
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="20"
-                    viewBox="0 0 22 20"
-                    fill="none"
-                  >
-                    <path
-                      d="M0.5 4.27314V15.7269C0.5 16.7815 0.939404 17.7189 1.64245 18.4513C2.3455 19.1543 3.2536 19.5351 4.30817 19.5351H10.0497V17.1623H4.30817C3.51724 17.1623 2.90208 16.5179 2.90208 15.7269V4.27314C2.90208 3.48221 3.51724 2.86704 4.30817 2.86704H10.0497V0.464966H4.30817C3.2536 0.464966 2.3455 0.875077 1.64245 1.57812C0.939404 2.31046 0.5 3.21857 0.5 4.27314ZM6.79813 7.72978V12.2996C6.79813 12.8269 7.26683 13.2663 7.79411 13.2663H13.0963V16.8694C13.0963 17.1916 13.272 17.4553 13.565 17.6017C13.6821 17.631 13.7993 17.631 13.8579 17.631C14.063 17.631 14.2387 17.5724 14.3852 17.426L21.2692 10.542C21.5914 10.2783 21.5621 9.75105 21.2692 9.45811L14.3852 2.6034C13.9751 2.164 13.0963 2.42764 13.0963 3.13069V6.7631H7.79411C7.26683 6.7631 6.79813 7.2025 6.79813 7.72978Z"
-                      fill="#FE5E56"
-                    />
-                  </svg>
-                  <a
-                    className="nav-link_log"
-                    href="#"
-                    onClick={() => showContent("menu10")}
-                  >
-                    Log Out
-                  </a>
-                </li> */}
+
+
 
                 <li
-                  className={`nav-item ${
-                    activeContent === "menu4" && "active"
-                  }`}
+                  className={`nav-item ${activeContent === "menu4" && "active"
+                    }`}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="20"
-                    viewBox="0 0 22 20"
-                    fill="none"
-                  >
-                    {/* SVG path */}
-                  </svg>
+                  <LuLogOut size={24} />
                   <a className="nav-link_log" href="#" onClick={handleLogout}>
                     Log Out
                   </a>
@@ -350,6 +339,7 @@ function Dashboard() {
           </nav>
 
           {/* Right Content Area */}
+
           <main
             role="main"
             className="col-md-9 ml-sm-auto col-lg-10 px-md-4 main_content"
@@ -407,7 +397,7 @@ function Dashboard() {
               <Users />
             </div>
 
-            {/* Add more content divs as needed */}
+
           </main>
         </div>
       </div>

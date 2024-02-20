@@ -1,15 +1,15 @@
-import React from "react";
+import React from "react"
 import "../footer/footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebook,
-  faTwitter,
-  faInstagram,
-  faPinterest,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-import { faTiktok } from "@fortawesome/free-brands-svg-icons";
+
+import { FaFacebookF } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+
+import { Link } from "react-router-dom";
+
 
 function footerr() {
   return (
@@ -18,29 +18,38 @@ function footerr() {
         <div className="row row_content">
           <div className="col-12 col-md-3 col-lg-4 first_col_footer">
             <h4>Company Name</h4>
-            <li>
-              <FontAwesomeIcon icon={faFacebook} />{" "}
-              <a href="https://www.facebook.com/"> </a>
-            </li>
-            <li>
-              <FontAwesomeIcon icon={faTwitter} />{" "}
-              <a href="https://twitter.com/"> </a>
-            </li>
-            <li>
-              <FontAwesomeIcon icon={faInstagram} />{" "}
-              <a href="https://www.instagram.com/"> </a>
-            </li>
-            <li>
-              <FontAwesomeIcon icon={faPinterest} />{" "}
-              <a href="https://www.pinterest.com/"> </a>
-            </li>
-            <li>
+            <ul className="flex justify-start gap-1.5 p-0 ">
+              <li>
+                <Link to="https://www.facebook.com/">
+                  <FaFacebookF className="w-10 h-10" />
+                </Link>
+              </li>
+              <li>
+                <Link to="https://twitter.com/">
+                  <FaTwitter className="w-10 h-10" />
+                </Link>
+              </li>
+
+              <li>
+                <Link to="https://www.linkedin.com/">
+                  <FaLinkedin className="w-10 h-10" />
+                </Link>
+              </li>
+
+              <li>
+              {/* <Link to="https://www.instagram.com/"> */}
+                <Link to="#">
+                  <FaInstagram className="w-10 h-10" />
+                </Link>
+              </li>
+            </ul>
+            {/* <li>
               <FontAwesomeIcon icon={faYoutube} />{" "}
-              <a href="https://www.youtube.com/"> </a>
-            </li>
-            <li>
-              <FontAwesomeIcon icon={faTiktok} /> <a href="YOUR_TIKTOK_URL"></a>
-            </li>
+             <Link to="https://www.youtube.com/"> </Link>
+            </li> */}
+            {/* <li>
+              <FontAwesomeIcon icon={faTiktok} /><Link to="YOUR_TIKTOK_URL"></Link>
+            </li> */}
           </div>
 
           <div className="col-12 col-md-3 col-lg-2">
@@ -48,27 +57,27 @@ function footerr() {
             <ul>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/"> About Us</a>
+                <Link to="/about"> About Us</Link>
+              </li>
+              {/* <li>
+                <FontAwesomeIcon icon={faChevronRight} />{" "}
+               <Link to="/about"> Career</Link>
+              </li> */}
+              {/* <li>
+                <FontAwesomeIcon icon={faChevronRight} />{" "}
+               <Link to="/contact"> Blog</Link>
+              </li> */}
+              <li>
+                <FontAwesomeIcon icon={faChevronRight} />{" "}
+                <Link to="#"> Privacy Policy</Link>
               </li>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/about"> Career</a>
+                <Link to="#"> Terms of Service</Link>
               </li>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/contact"> Blog</a>
-              </li>
-              <li>
-                <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/contact"> Privacy Policy</a>
-              </li>
-              <li>
-                <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/contact"> Terms of Service</a>
-              </li>
-              <li>
-                <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/contact"> Become a Partner</a>
+                <Link to='#'> Become a Partner</Link>
               </li>
             </ul>
           </div>
@@ -78,24 +87,24 @@ function footerr() {
             <ul>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/">Facebook Management</a>
+                <Link to="#">Facebook Management</Link>
               </li>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/">Twitter Management</a>
+                <Link to="#">Twitter Management</Link>
               </li>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/">Instagram Management</a>
+                <Link to="#">Instagram Management</Link>
               </li>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/">LinkedIn Management</a>
+                <Link to="#">LinkedIn Management</Link>
               </li>
-              <li>
+              {/* <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/">TikTok Management</a>
-              </li>
+               <Link to="/">TikTok Management</Link>
+              </li> */}
             </ul>
           </div>
 
@@ -104,20 +113,20 @@ function footerr() {
             <ul>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/"> Contact Us</a>
+                <Link to="/contact"> Contact Us</Link>
               </li>
               <li>
-                <FontAwesomeIcon icon={faChevronRight} /> <a href="/"> FAQ</a>
+                <FontAwesomeIcon icon={faChevronRight} /><Link to="#"> FAQ</Link>
               </li>
               <li>
                 <FontAwesomeIcon icon={faChevronRight} />{" "}
-                <a href="/"> What’s New</a>
+                <Link to="#"> What’s New</Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="footer_bot_txt">
-          <p>Copyright ©2023 Company. All Rights Reserved.amit</p>
+          <p>Copyright ©2023 Company. All Rights Reserved</p>
         </div>
       </div>
     </section>

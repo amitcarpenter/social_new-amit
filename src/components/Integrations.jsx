@@ -1,197 +1,133 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Integration.css";
+import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
+import TwitterModel from "./model/TwitterModel";
+import TwitterEditmodel from "./model/TwitterEditmodel";
+import Fackbookmodal from "./model/Fackbookmodal";
+import FacebookEditmodel from "./model/FacebookEditmodel";
+import { toast } from 'react-toastify';
+import InstagramEditmodel from "./model/InstagramEditmodel";
+import { useContextApi } from "./context/UseContext";
 
 function Integration() {
-  const [email, setEmail] = useState("");
-  const [socialApiKey, setSocialApiKey] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const {
+    checkbuttonStatus,
+    setcheckbuttonStatus,
+    facebookstatus,
+    setfacebookstatus,
+    instastatus,
+    setinstastatus
+  } = useContextApi();
+  const userEmail = sessionStorage.getItem('userEmail');
 
-  // Add your logic for handling form submission here
-  console.log("Email:", email);
-  console.log("Password:", socialApiKey);
+  const [email, setEmail] = useState(userEmail);
+
+  const [error, setError] = useState('');
 
   const [igEmail, setIgEmail] = useState("");
   const [igPassword, setIgPassword] = useState("");
 
-  const handleSubmit_insta = async () => {
-    try {
-      if (!email || !igEmail || !igPassword) {
-        setErrorMessage("Please fill in all fields.");
-        return;
-      }
+  const [show, setShow] = useState(false);
 
-      const response = await fetch(
-        "http://192.227.234.133/backend/api/instagram-details",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            ig_email: igEmail,
-            ig_password: igPassword,
-          }),
-        }
-      );
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-      if (!response.ok) {
-        setErrorMessage(
-          "An error occurred while submitting Instagram details."
-        );
-        setSuccessMessage("");
-        throw new Error(
-          `Instagram details submission failed with status ${response.status}`
-        );
-      }
+  const handleSubmit = async (e) => {
 
-      setSuccessMessage("Instagram details submitted successfully");
-      setErrorMessage("");
-      setTimeout(() => {
-        handleModalClose();
-      }, 2000);
-    } catch (error) {
-      setErrorMessage("An error occurred while submitting Instagram details.");
-      setSuccessMessage("");
-      console.error("Error submitting Instagram details:", error);
-    }
-  };
-
-  const sendFormData = async () => {
-    // Basic validation
-    if (!email || !socialApiKey) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    // Additional validation (you can customize this based on your requirements)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address.");
-      return;
-    }
-
-    // Your API request
-    try {
-      const response = await fetch(
-        "http://192.227.234.133/backend/api/add-social-key",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, socialApiKey }),
-        }
-      );
-
-      if (response.ok) {
-        console.log("API request successful");
-        alert("Key successfully added");
-        // Handle success, e.g., show a success message
-      } else {
-        alert("API request failed");
-      }
-    } catch (error) {
-      alert("API request failed");
-      console.error("Error sending API request", error);
-    }
-  };
-
-  const handleSubmit = (e) => {
     e.preventDefault();
-    sendFormData();
+
+    if (!email || !igEmail || !igPassword) {
+      setError("All fields are required");
+      return;
+    }
+
+    const payload = {
+      "email": email,
+      "instagram_username": igEmail,
+      "ig_password": igPassword,
+
+    }
+
+    console.log(payload,"____payload")
+    try {
+      const response = await axios.post('http://192.227.234.133/backend/api/add-instagram-data', payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status === 200) {
+        toast.success('Your data added successfully');
+        // setEmail('');
+        setIgEmail("")
+        setIgPassword('');
+        setError('');
+        setinstastatus(true)
+        handleclosesetInstsmodelEdit()
+
+      } else {
+        setError(response.data.message || 'An error occurred');
+      }
+    } catch (error) {
+      setError('An error occurred');
+    }
   };
 
-  const handleModalClose = () => {
-    // Clear form fields
-    setEmail("");
-    setIgEmail("");
-    setIgPassword("");
+  const [showeditmodel, setshoweditmodel] = useState(false)
+  const handleCloseEdiatmodel = () => setshoweditmodel(false);
+  const handleShowediat = () => setshoweditmodel(true);
 
-    // Clear messages
-    setErrorMessage("");
-    setSuccessMessage("");
+  const [facebookmodel, setfacebookmodel] = useState(false)
+  const handlefacebookmodel = () => setfacebookmodel(true);
+  const handlefacebookmodelhide = () => setfacebookmodel(false);
 
-    // Close the modal
-    const modal = document.getElementById("exampleModal");
-    const modalInstance = new window.bootstrap.Modal(modal);
-    modalInstance.hide();
-  };
+  const [facebookmodelEdit, setfacebookmodelEdit] = useState(false)
+  const handlefacebookmodelEdit = () => setfacebookmodelEdit(true);
+  const handleclosefacebookmodelEdit = () => setfacebookmodelEdit(false);
 
-  const userEmail = sessionStorage.getItem("userEmail");
+  const [InstsmodelEdit, setInstsmodelEdit] = useState(false)
+  const handlesetInstsmodelEdit = () => setInstsmodelEdit(true);
+  const handleclosesetInstsmodelEdit = () => setInstsmodelEdit(false);
 
-  console.log("userEmail", userEmail);
-  // Usage
+  const [Instasform, setInstasform] = useState(false);
+  const handleInstamodel = () => setInstasform(true);
+  const handlecloseInstasform = () => setInstasform(false);
 
   return (
-    <div className=" integration_con">
+    <div className="integration_con">
       <div className="container">
         <h1>Integrations</h1>
         <p>Connect Your social accounts</p>
         <div className="row main_row">
-          <form className="form-inline amitform">
-            <a href="https://www.ayrshare.com/best-social-media-posting-and-scheduling-apis/">
-              <button className="btn btn-primary mb-2" type="button">
-                Get Social Api Key
-              </button>
-            </a>
-
-            <div className="form-group mx-sm-3 mb-2">
-              <label htmlFor="inputPassword2" className="sr-only">
-                Email
-              </label>
-              <input
-                type="text"
-                className="form-control inputPassword2"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Email"
-              />
-            </div>
-
-            <div className="form-group mx-sm-3 mb-2">
-              <label htmlFor="inputPassword2" className="sr-only">
-                Social Api Key
-              </label>
-              <input
-                type="text"
-                className="form-control inputPassword2"
-                id="inputPassword2"
-                value={socialApiKey}
-                onChange={(e) => setSocialApiKey(e.target.value)}
-                placeholder="Enter Social Api Key"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary mb-2"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </form>
+          
 
           <div className="col-12 col-md-3 col-lg-4  pt-4">
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>Facebook</h6>
-                <span className="left_icon_social">
-                  {/* <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M19.5143 4.48595C17.5314 2.50314 14.3229 2.50314 12.3424 4.48595L10.0713 6.75704L11.2666 7.95236L13.5377 5.68126C14.7986 4.42032 16.9268 4.28673 18.3189 5.68126C19.7135 7.07579 19.5799 9.20158 18.3189 10.4625L16.0479 12.7336L17.2455 13.9313L19.5166 11.6602C21.4947 9.67736 21.4947 6.46876 19.5143 4.48595ZM10.465 18.3188C9.2041 19.5797 7.07598 19.7133 5.68379 18.3188C4.28926 16.9242 4.42285 14.7985 5.68379 13.5375L7.95488 11.2664L6.75723 10.0688L4.48613 12.3399C2.50332 14.3227 2.50332 17.5313 4.48613 19.5117C6.46895 21.4922 9.67754 21.4945 11.658 19.5117L13.9291 17.2406L12.7338 16.0453L10.465 18.3188ZM6.10098 4.90782C6.06574 4.87293 6.01815 4.85336 5.96855 4.85336C5.91896 4.85336 5.87137 4.87293 5.83613 4.90782L4.90801 5.83595C4.87311 5.87119 4.85354 5.91878 4.85354 5.96837C4.85354 6.01796 4.87311 6.06555 4.90801 6.10079L17.9018 19.0945C17.9744 19.1672 18.0939 19.1672 18.1666 19.0945L19.0947 18.1664C19.1674 18.0938 19.1674 17.9742 19.0947 17.9016L6.10098 4.90782Z"
-                      fill="#FE4C4C"
-                    />
-                  </svg> */}
-                </span>
+
+                {
+                  facebookstatus && (
+                    <span
+                      onClick={handlefacebookmodelEdit}
+                      className="left_icon_social">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M19.5143 4.48595C17.5314 2.50314 14.3229 2.50314 12.3424 4.48595L10.0713 6.75704L11.2666 7.95236L13.5377 5.68126C14.7986 4.42032 16.9268 4.28673 18.3189 5.68126C19.7135 7.07579 19.5799 9.20158 18.3189 10.4625L16.0479 12.7336L17.2455 13.9313L19.5166 11.6602C21.4947 9.67736 21.4947 6.46876 19.5143 4.48595ZM10.465 18.3188C9.2041 19.5797 7.07598 19.7133 5.68379 18.3188C4.28926 16.9242 4.42285 14.7985 5.68379 13.5375L7.95488 11.2664L6.75723 10.0688L4.48613 12.3399C2.50332 14.3227 2.50332 17.5313 4.48613 19.5117C6.46895 21.4922 9.67754 21.4945 11.658 19.5117L13.9291 17.2406L12.7338 16.0453L10.465 18.3188ZM6.10098 4.90782C6.06574 4.87293 6.01815 4.85336 5.96855 4.85336C5.91896 4.85336 5.87137 4.87293 5.83613 4.90782L4.90801 5.83595C4.87311 5.87119 4.85354 5.91878 4.85354 5.96837C4.85354 6.01796 4.87311 6.06555 4.90801 6.10079L17.9018 19.0945C17.9744 19.1672 18.0939 19.1672 18.1666 19.0945L19.0947 18.1664C19.1674 18.0938 19.1674 17.9742 19.0947 17.9016L6.10098 4.90782Z"
+                          fill="#FE4C4C"
+                        />
+                      </svg>
+                    </span>
+
+                  )
+                }
+
               </div>
               <div className="mb-4">
                 <span className="icons_social">
@@ -221,11 +157,19 @@ function Integration() {
                 </span>
               </div>
               <div className="">
-                <a href="https://app.ayrshare.com/social-accounts?p=intro">
-                  <button type="button" className="btn btn-primary">
-                    Connect
-                  </button>
-                </a>
+                {
+                  facebookstatus === true ? (
+                    <button type="button"
+                      className="px-3 py-2 rounded bg-gray-400 text-white "> connected
+                    </button>
+                  )
+                    : <button
+                      onClick={handlefacebookmodel}
+                      className="px-3 py-2 rounded bg-blue-500 text-white">connect</button>
+
+                }
+
+
               </div>
             </div>
           </div>
@@ -233,7 +177,19 @@ function Integration() {
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>Instagram</h6>
-                <span className="left_icon_social"></span>
+
+                {
+                  instastatus && (
+                    <span
+                      onClick={handleInstamodel}
+                      className='left_icon_social'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M19.5143 4.48595C17.5314 2.50314 14.3229 2.50314 12.3424 4.48595L10.0713 6.75704L11.2666 7.95236L13.5377 5.68126C14.7986 4.42032 16.9268 4.28673 18.3189 5.68126C19.7135 7.07579 19.5799 9.20158 18.3189 10.4625L16.0479 12.7336L17.2455 13.9313L19.5166 11.6602C21.4947 9.67736 21.4947 6.46876 19.5143 4.48595ZM10.465 18.3188C9.2041 19.5797 7.07598 19.7133 5.68379 18.3188C4.28926 16.9242 4.42285 14.7985 5.68379 13.5375L7.95488 11.2664L6.75723 10.0688L4.48613 12.3399C2.50332 14.3227 2.50332 17.5313 4.48613 19.5117C6.46895 21.4922 9.67754 21.4945 11.658 19.5117L13.9291 17.2406L12.7338 16.0453L10.465 18.3188ZM6.10098 4.90782C6.06574 4.87293 6.01815 4.85336 5.96855 4.85336C5.91896 4.85336 5.87137 4.87293 5.83613 4.90782L4.90801 5.83595C4.87311 5.87119 4.85354 5.91878 4.85354 5.96837C4.85354 6.01796 4.87311 6.06555 4.90801 6.10079L17.9018 19.0945C17.9744 19.1672 18.0939 19.1672 18.1666 19.0945L19.0947 18.1664C19.1674 18.0938 19.1674 17.9742 19.0947 17.9016L6.10098 4.90782Z" fill="#FE4C4C" />
+                      </svg>
+                    </span>
+                  )
+                }
+
               </div>
               <div className="mb-4">
                 <span className="icons_social">
@@ -296,79 +252,79 @@ function Integration() {
                 </span>
               </div>
               <div className="">
-                {/* <button className=' button_Connect'>conected</button> */}
 
-                {/* Button trigger modal */}
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  Connect
-                </button>
+                {instastatus == true ? (
+                  <button type="button"
+                    className="px-3 py-2 rounded bg-gray-400 text-white "> connected
+                  </button>
+                ) : <button
+                  onClick={handlesetInstsmodelEdit}
+                  className="px-3 py-2 rounded bg-blue-500 text-white">connect</button>
+                }
 
-                {/* Modal  */}
-                <div
-                  className="modal fade"
-                  id="exampleModal"
-                  tabIndex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-body text-center">
+
+                <Modal show={InstsmodelEdit}
+                  size="md"
+                  onHide={handleclosesetInstsmodelEdit}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>
+                      <span style={{ display: 'block', textAlign: 'center' }}>Add Instagram data</span>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <form className="max-w-md mx-auto"
+                      onSubmit={handleSubmit}>
+                      {error && <div className="text-red-500 mb-3">{error}</div>}
+
+                      <div className="mb-3">
+                        <label htmlFor="email" className="block mb-1 font-medium text-gray-900">Email</label>
                         <input
-                          className="account-input"
-                          placeholder="Email"
-                          name="email"
-                          type="text"
-                          required=""
+                          type="email"
+                          id="email"
+                          className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+                          placeholder="example123@.com"
                           value={email}
+                          disabled
                           onChange={(e) => setEmail(e.target.value)}
+                          required
                         />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="facebook_page_id" className="block mb-1 font-medium text-gray-900"> User Name</label>
                         <input
-                          className="account-input"
-                          placeholder="Enter IG_Emails"
-                          name="ig_email"
                           type="text"
-                          required=""
+                          id="facebook_page_id"
+                          className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
                           value={igEmail}
                           onChange={(e) => setIgEmail(e.target.value)}
+                          required
                         />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="facebook_access_token" className="block mb-1 font-medium text-gray-900"> User password </label>
                         <input
-                          className="account-input"
-                          placeholder="Enter IG_Password"
-                          name="ig_password"
-                          type="text"
-                          required=""
+                          type="password"
+                          id="facebook_access_token"
+                          className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
                           value={igPassword}
                           onChange={(e) => setIgPassword(e.target.value)}
+                          required
                         />
                       </div>
-                      {errorMessage && (
-                        <div className="alert alert-danger">{errorMessage}</div>
-                      )}
-                      {successMessage && (
-                        <div className="alert alert-success">
-                          {successMessage}
-                        </div>
-                      )}
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-primary"
-                          onClick={() => {
-                            handleSubmit_insta();
-                          }}
-                        >
-                          Submit
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+                      <button type="submit"
+
+                        className="bg-blue-500 w-full  text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Submit</button>
+
+                    </form>
+
+                  </Modal.Body>
+
+                </Modal>
+
+
+                {/* Modal  */}
+
               </div>
             </div>
           </div>
@@ -377,11 +333,19 @@ function Integration() {
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>Twitter</h6>
-                {/* <span className='left_icon_social'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M19.5143 4.48595C17.5314 2.50314 14.3229 2.50314 12.3424 4.48595L10.0713 6.75704L11.2666 7.95236L13.5377 5.68126C14.7986 4.42032 16.9268 4.28673 18.3189 5.68126C19.7135 7.07579 19.5799 9.20158 18.3189 10.4625L16.0479 12.7336L17.2455 13.9313L19.5166 11.6602C21.4947 9.67736 21.4947 6.46876 19.5143 4.48595ZM10.465 18.3188C9.2041 19.5797 7.07598 19.7133 5.68379 18.3188C4.28926 16.9242 4.42285 14.7985 5.68379 13.5375L7.95488 11.2664L6.75723 10.0688L4.48613 12.3399C2.50332 14.3227 2.50332 17.5313 4.48613 19.5117C6.46895 21.4922 9.67754 21.4945 11.658 19.5117L13.9291 17.2406L12.7338 16.0453L10.465 18.3188ZM6.10098 4.90782C6.06574 4.87293 6.01815 4.85336 5.96855 4.85336C5.91896 4.85336 5.87137 4.87293 5.83613 4.90782L4.90801 5.83595C4.87311 5.87119 4.85354 5.91878 4.85354 5.96837C4.85354 6.01796 4.87311 6.06555 4.90801 6.10079L17.9018 19.0945C17.9744 19.1672 18.0939 19.1672 18.1666 19.0945L19.0947 18.1664C19.1674 18.0938 19.1674 17.9742 19.0947 17.9016L6.10098 4.90782Z" fill="#FE4C4C" />
-                                    </svg>
-                                </span> */}
+
+                {
+                  checkbuttonStatus && (
+                    <span
+                      onClick={handleShowediat}
+                      className='left_icon_social'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M19.5143 4.48595C17.5314 2.50314 14.3229 2.50314 12.3424 4.48595L10.0713 6.75704L11.2666 7.95236L13.5377 5.68126C14.7986 4.42032 16.9268 4.28673 18.3189 5.68126C19.7135 7.07579 19.5799 9.20158 18.3189 10.4625L16.0479 12.7336L17.2455 13.9313L19.5166 11.6602C21.4947 9.67736 21.4947 6.46876 19.5143 4.48595ZM10.465 18.3188C9.2041 19.5797 7.07598 19.7133 5.68379 18.3188C4.28926 16.9242 4.42285 14.7985 5.68379 13.5375L7.95488 11.2664L6.75723 10.0688L4.48613 12.3399C2.50332 14.3227 2.50332 17.5313 4.48613 19.5117C6.46895 21.4922 9.67754 21.4945 11.658 19.5117L13.9291 17.2406L12.7338 16.0453L10.465 18.3188ZM6.10098 4.90782C6.06574 4.87293 6.01815 4.85336 5.96855 4.85336C5.91896 4.85336 5.87137 4.87293 5.83613 4.90782L4.90801 5.83595C4.87311 5.87119 4.85354 5.91878 4.85354 5.96837C4.85354 6.01796 4.87311 6.06555 4.90801 6.10079L17.9018 19.0945C17.9744 19.1672 18.0939 19.1672 18.1666 19.0945L19.0947 18.1664C19.1674 18.0938 19.1674 17.9742 19.0947 17.9016L6.10098 4.90782Z" fill="#FE4C4C" />
+                      </svg>
+                    </span>
+                  )
+                }
+
               </div>
               <div className="mb-4">
                 <span className="icons_social">
@@ -400,16 +364,22 @@ function Integration() {
                 </span>
               </div>
               <div className="">
-                <a href="https://app.ayrshare.com/social-accounts?p=intro">
-                  <button type="button" className="btn btn-primary">
-                    Connect
+
+
+                {checkbuttonStatus == true ? (
+                  <button type="button"
+                    className="px-3 py-2 rounded bg-gray-400 text-white "> connected
                   </button>
-                </a>
+                ) : <button
+                  onClick={handleShow}
+                  className="px-3 py-2 rounded bg-blue-500 text-white">connect</button>
+                }
+
               </div>
             </div>
           </div>
 
-          <div className="col-12 col-md-3 col-lg-4 pt-4">
+          {/* <div className="col-12 col-md-3 col-lg-4 pt-4">
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>LinkedIn</h6>
@@ -442,7 +412,47 @@ function Integration() {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
+
+
+          <Modal show={show}
+            size="md"
+            onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add Twitter data</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <TwitterModel
+              handleClose={handleClose}
+               setcheckbuttonStatus={setcheckbuttonStatus} />
+            </Modal.Body>
+
+          </Modal>
+
+
+          <TwitterEditmodel
+            showeditmodel={showeditmodel}
+            handleCloseEdiatmodel={handleCloseEdiatmodel}
+          />
+
+          <Fackbookmodal
+            setfacebookstatus={setfacebookstatus}
+            facebookmodel={facebookmodel}
+            handlefacebookmodel={handlefacebookmodel}
+            handlefacebookmodelhide={handlefacebookmodelhide}
+          />
+
+          <FacebookEditmodel
+            handleclosefacebookmodelEdit={handleclosefacebookmodelEdit}
+            facebookmodelEdit={facebookmodelEdit}
+
+          />
+          <InstagramEditmodel
+            Instasform={Instasform}
+            handlecloseInstasform={handlecloseInstasform}
+
+          />
+
         </div>
       </div>
     </div>

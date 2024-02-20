@@ -3,16 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-
+import UseContext from './components/context/UseContext';
+import { BrowserRouter } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+
+    <BrowserRouter>
+      <UseContext>
+        <App />
+      </UseContext>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
-    
+
 
 reportWebVitals();
 

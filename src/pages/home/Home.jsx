@@ -3,13 +3,14 @@ import Header from "../../components/header/Header";
 import Banner from "../../components/banner/Banner";
 import Footerr from "../../components/footer/footerr";
 import "./home.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <>
       <Header />
       <Banner />
-
+   
       <div className="max-w-screen-xl flex text-[#11264D]   flex-wrap items-center py-4 md:pt-20  mx-auto md:px-16 px-4">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
           <div className="order-2 md:order-1">
@@ -32,7 +33,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="max-w-screen-xl flex text-[#11264D]   flex-wrap items-center py-4 md:pt-20  mx-auto md:px-16 px-4">
+      <div className="max-w-screen-xl flex text-[#11264D] flex-wrap  py-4 md:pt-20  mx-auto  px-4">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 items-center">
           <div className="order-2 md:order-1">
             <h1 className="mb-2">
@@ -55,26 +56,26 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="max-w-screen-xl mx-auto text-[#11264D]  py-4 md:pt-20  md:px-16 px-4">
+      <div className="max-w-screen-xl  py-5 md:pt-20  mx-auto md:px-16 px-4">
         <h1 className="text-center mb-8">Features at a glance</h1>
 
-        <div className="max-w-[1000px] mx-auto ">
+        <div className="max-w-screen-xl mx-auto ">
           <div className="flex flex-col md:flex-row justify-center items-center">
-            <div className="mt-12">
+            <div className="">
               <img src="asset/image 1.png" alt="" />
             </div>
-            <div cla>
+            <div className="lg:mb-12">
               <img src="asset/image 1.png" alt="" />
             </div>
-            <div>
+            <div className="lg:mb-24">
               <img src="asset/image 1.png" alt="" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container">
-        <div className="row">
+      <div className="max-w-screen-xl  py-5 md:pt-20  mx-auto md:px-16 px-4">
+        
           <div className="d-flex text-center col-12 section_thirdd">
             <div>
               <svg
@@ -296,7 +297,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      
+      
       <div className="text-center exploral">
         <button className=" all_feature_btn">Explore All Features</button>
       </div>
@@ -309,9 +311,9 @@ const Home = () => {
             like a Pro!
           </p>
           <div className="gt_btnn">
-            <a href="/signup">
+            <Link to="/signup">
               <button className="get_bbtn">Get Started</button>
-            </a>
+            </Link>
           </div>
         </div>
 

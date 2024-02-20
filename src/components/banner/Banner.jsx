@@ -17,7 +17,7 @@ const Banner = () => {
               <a href="/signup">
                 <button
                   type="button"
-                  className="text-white bg-Primary-Color focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-20 py-3 ctext-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="text-white bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-lg px-24 py-3 ctext-center "
                 >
                   Get started
                 </button>
@@ -25,15 +25,15 @@ const Banner = () => {
             </div>
           </div>
           <div className="py-2">
-            <ul className="flex gap-1.5 ">
+            <ul className="flex justify-start gap-1.5 p-0 ">
               <li>
                 <span>Integrated with -</span>
               </li>
               <li>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="28"
+                  height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -47,8 +47,8 @@ const Banner = () => {
               <li>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="28"
+                 height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -58,8 +58,8 @@ const Banner = () => {
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
-                    width="16"
-                    height="16"
+                    width="28"
+                   height="28"
                   >
                     <path d="M16 0H0V16H16V0Z" fill="white" />
                   </mask>
@@ -75,8 +75,8 @@ const Banner = () => {
               <li>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="28"
+                 height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -86,8 +86,8 @@ const Banner = () => {
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
-                    width="16"
-                    height="16"
+                    width="28"
+                   height="28"
                   >
                     <path d="M16 0H0V16H16V0Z" fill="white" />
                   </mask>
@@ -107,8 +107,8 @@ const Banner = () => {
               <li>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="28"
+                 height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -118,8 +118,8 @@ const Banner = () => {
                     maskUnits="userSpaceOnUse"
                     x="0"
                     y="0"
-                    width="16"
-                    height="16"
+                    width="28"
+                   height="28"
                   >
                     <path d="M16 0H0V16H16V0Z" fill="white" />
                   </mask>
@@ -180,11 +180,11 @@ const Banner = () => {
                   </defs>
                 </svg>
               </li>
-              <li>
+              {/* <li>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
+                  width="28"
+                 height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -213,7 +213,7 @@ const Banner = () => {
                     fill="#69C9D0"
                   />
                 </svg>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -1,7 +1,7 @@
 // Myprofile.js
 import React, { useState } from "react";
 import "./myprofile.css";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 function Myprofile() {
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -14,6 +14,8 @@ function Myprofile() {
   const handleConfirmNewPasswordChange = (e) =>
     setConfirmNewPassword(e.target.value);
 
+  const userEmail = sessionStorage.getItem("userEmail");
+
   const handleSaveChanges = async () => {
     // Make API call to update profile
     const response = await fetch(
@@ -24,7 +26,7 @@ function Myprofile() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          email: userEmail,
           currentPassword,
           newPassword,
           confirmPassword: confirmNewPassword,
@@ -34,14 +36,42 @@ function Myprofile() {
 
     const data = await response.json();
 
+
     if (response.ok) {
-      // Profile updated successfully
+
       alert("Profile updated successfully");
+      setCurrentPassword("")
+      setNewPassword("")
+      setConfirmNewPassword("")
+
+
     } else {
-      // Handle errors and display appropriate messages
+
       alert(data.error || "Error updating profile");
     }
   };
+
+
+  const [showPasswordz, setShowPassword] = useState(false);
+  const [showPassconq, setSshowPasscon] = useState(false);
+  const [showPasscontree, setSshowPasscontre] = useState(false);
+
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault()
+    setShowPassword(!showPasswordz);
+  };
+
+  const togglePasswordVisibilitypas = (e) => {
+    e.preventDefault()
+    setSshowPasscon(!showPassconq);
+  };
+
+  const togglePasswordVisibilitypatree= (e) => {
+    e.preventDefault()
+    setSshowPasscontre(!showPasscontree);
+  };
+
+
   return (
     <div className="profile">
       <div className="container">
@@ -69,8 +99,9 @@ function Myprofile() {
                     type="text"
                     className="form-control"
                     id="email"
+                    disabled
                     placeholder="Enter Current Email"
-                    value={email}
+                    value={userEmail}
                     onChange={handleEmailChange}
                   />
                 </div>
@@ -82,35 +113,63 @@ function Myprofile() {
               <h5>SECURITY</h5>
               <form>
                 <div className="Password_div">
+
                   <div className="mb-3">
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="currentPassword"
-                      placeholder="Enter Current Password"
-                      value={currentPassword}
-                      onChange={handleCurrentPasswordChange}
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPasswordz ? "text" : "password"}
+                        className="form-control"
+                        id="currentPassword"
+                        placeholder="Enter Current Password"
+                        value={currentPassword}
+                        onChange={handleCurrentPasswordChange}
+                      />
+                      <button
+                        className="absolute top-1/2 right-0 transform -translate-y-1/2"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {showPasswordz ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                      </button>
+                    </div>
                   </div>
                   <div className="mb-3">
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="newPassword"
-                      placeholder="Enter New Password"
-                      value={newPassword}
-                      onChange={handleNewPasswordChange}
-                    />
+
+                    <div className="relative">
+                      <input
+                        type={showPassconq ? "text" : "password"}
+                        className="form-control"
+                        id="newPassword"
+                        placeholder="Enter New Password"
+                        value={newPassword}
+                        onChange={handleNewPasswordChange}
+                      />
+                      <button
+                        className="absolute top-1/2 right-0 transform -translate-y-1/2"
+                        onClick={togglePasswordVisibilitypas}
+                      >
+                        {showPassconq ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                      </button>
+                    </div>
+
                   </div>
                   <div className="mb-3">
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="confirmNewPassword"
-                      placeholder="Confirm New Password"
-                      value={confirmNewPassword}
-                      onChange={handleConfirmNewPasswordChange}
-                    />
+
+                    <div className="relative">
+                      <input
+                         type={showPasscontree ? "text" : "password"}
+                        className="form-control"
+                        id="confirmNewPassword"
+                        placeholder="Confirm New Password"
+                        value={confirmNewPassword}
+                        onChange={handleConfirmNewPasswordChange}
+                      />
+                      <button
+                        className="absolute top-1/2 right-0 transform -translate-y-1/2"
+                        onClick={togglePasswordVisibilitypatree}
+                      >
+                        {showPasscontree ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../pages/home/login.css";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useContextApi } from "../../components/context/UseContext";
 function Login() {
+
+  const {setRole } = useContextApi()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,12 +25,13 @@ function Login() {
 
       if (response.status === 200) {
         setSuccessMessage(response.data.message);
+        // setRole(response.data.user.role)
         setErrorMessage("");
         // Save email in sessionStorage
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
-        
+
         sessionStorage.setItem("userEmail", email);
         console.log("Login successful:", response.data);
       }
@@ -51,6 +55,13 @@ function Login() {
     }
   };
 
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <section className="user_user">
@@ -62,7 +73,7 @@ function Login() {
             <div className="login_main_col col-12 col-lg-4 col-md-6">
               <h1 className="">Login</h1>
               <p className="dont_acunt">
-                Don't have an account?<a href="signup"> Sign Up</a>
+                Don't have an account?<Link to="/signup"> Sign Up</Link>
               </p>
 
               <input
@@ -75,15 +86,27 @@ function Login() {
                 required=""
               />
 
-              <input
-                className="account-inputll"
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required=""
-              />
+
+              <div className="relative">
+                <input
+                  className=""
+                  placeholder="Password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required=""
+                />
+                <button
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                </button>
+
+              </div>
+
+
 
               <p className="rem_me">
                 {" "}
@@ -116,6 +139,7 @@ function Login() {
               <button className="login_btn1" onClick={handleLogin}>
                 Login
               </button>
+              <span className="flex items-center justify-center  cursor-pointer py-2">Forgot your password? <Link to="#" className="text-blue-600"> Reset Passwor</Link></span>
             </div>
           </div>
         </div>

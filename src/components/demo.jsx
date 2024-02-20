@@ -1,20 +1,21 @@
-
-import React, { useRef, useState } from "react";
-import "./Sedule.css";
+import React, { useRef, useState, useEffect } from "react";
+import "./editsedule.css";
 import { Dropdown as SemanticDropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
   faTwitter,
   faLinkedin,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-
 import TimePicker from "react-time-picker";
+import { Link, useParams } from "react-router-dom";
 
-function Sedule() {
+function Editsedule() {
   const fileInputRef = useRef(null);
+  const { id } = useParams();
 
   const [arrivalDate, setArrivalDate] = useState("");
   const [time, setTime] = useState("");
@@ -23,9 +24,6 @@ function Sedule() {
   const [postContent, setPostContent] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [filenameshow, setFileNameShow] = useState("");
-
-  const [resetForm, setResetForm] = useState(false);
 
   const dropdownOptions = [
     {
@@ -68,28 +66,12 @@ function Sedule() {
     },
   ];
 
-  const resetFromAmit = () => {
-    if (resetForm) {
-      // Reset form values after 4 seconds
-      const timeoutId = setTimeout(() => {
-        setArrivalDate("");
-        setTime("");
-        setSocialMediaArray([]);
-        setImagePost("");
-        setPostContent("");
-        setResetForm(false);
-      }, 4000);
-
-      // Clear the timeout if the component unmounts or if resetForm changes
-      return () => clearTimeout(timeoutId);
-    }
-  };
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
+
     console.log("File Name:", selectedFile);
     setImagePost(selectedFile);
-    setFileNameShow(selectedFile.name);
   };
 
   const handleArrivalDateChange = (event) => {
@@ -118,53 +100,52 @@ function Sedule() {
 
   const userEmail = sessionStorage.getItem("userEmail");
 
-  const handleScheduleButtonClick = (event) => {
-    // Gather all form details
+  const handleScheduleButtonClick = () => {
 
-    // let formDataImage = new FormData();
-    // console.log(event.target)
-    // formDataImage.append('post_image', event.target.files[0]);
-    // console.log(formDataImage)
     const formData = {
       social_media_array: socialMediaArray,
-      imagePost: imagePost,
+      image_post: imagePost,
       post_content: postContent,
       email: userEmail,
       schedule_time: `${arrivalDate} ${time}`,
     };
 
-    console.log("formData", formData);
+    console.log(formData);
 
     // Your API call function
     const schedulePost = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/backend/api/schedule-post",
+          `http://192.227.234.133/backend/api/edit-scheduled-post/${id}`,
           {
-            method: "POST",
+            method: "PUT",
             headers: {
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
           }
         );
 
         if (!response.ok) {
-          setErrorMessage("Failed to schedule post");
+          setErrorMessage("Failed to edit  post");
           setTimeout(() => {
             setErrorMessage("");
           }, 3000);
-          throw new Error("Failed to schedule post");
+          throw new Error("Failed to edit post");
         }
 
         const data = await response.json();
-        console.log("Post scheduled successfully:", data.message);
-        setSuccessMessage(`Post scheduled successfully: ${data.message}`);
+        console.log("Post Edit successfully:", data.message);
+        setSuccessMessage(`Post Edit successfully: ${data.message}`);
         setErrorMessage("");
+        // Save email in sessionStorage
         setTimeout(() => {
+          // setArrivalDate("");
+          // setTime("");
+          // setSocialMediaArray([]);
+          // setImagePost("");
+          // setPostContent("");
           setSuccessMessage("");
-          setResetForm(true);
-          resetFromAmit();
         }, 4000);
       } catch (error) {
         // setErrorMessage(error.response.data.error);
@@ -174,68 +155,54 @@ function Sedule() {
         console.error("Error scheduling post:", error.message);
       }
     };
-    // const schedulePost = async () => {
-    //   try {
-    //     const response = await fetch(
-    //       "http://192.227.234.133/backend/api/schedule-post",
-    //       {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(formData),
-    //       }
-    //     );
-
-    //     if (!response.ok) {
-    //       setErrorMessage("Failed to schedule post");
-    //       setTimeout(() => {
-    //         setErrorMessage("");
-    //       }, 3000);
-    //       throw new Error("Failed to schedule post");
-    //     }
-
-    //     const data = await response.json();
-    //     console.log("Post scheduled successfully:", data.message);
-    //     setSuccessMessage(`Post scheduled successfully: ${data.message}`);
-    //     setErrorMessage("");
-    //     // Save email in sessionStorage
-    //     setTimeout(() => {
-    //       // setArrivalDate("");
-    //       // setTime("");
-    //       // setSocialMediaArray([]);
-    //       // setImagePost("");
-    //       // setPostContent("");
-    //       setSuccessMessage("");
-    //       setResetForm(true);
-    //       resetFromAmit();
-    //     }, 4000);
-    //   } catch (error) {
-    //     // setErrorMessage(error.response.data.error);
-    //     setTimeout(() => {
-    //       setErrorMessage("");
-    //     }, 3000);
-    //     console.error("Error scheduling post:", error.message);
-    //   }
-    // };
 
     // Call the API function
     schedulePost();
   };
 
+  useEffect(() => {
+    const getPostById = async () => {
+      try {
+        const response = await fetch(
+          `http://192.227.234.133/backend/api/get-scheduled-post/${id}`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch post");
+        }
+
+        const postData = await response.json();
+     
+        setArrivalDate(postData.schedule_time.split(" ")[0]);
+        setTime(postData.schedule_time.split(" ")[1]);
+        setSocialMediaArray(postData.social_media_array);
+        setImagePost(postData.image_post);
+        setPostContent(postData.post_content);
+
+        console.log(arrivalDate, "arrivalDate");
+        console.log(time, "time");
+        console.log("Post data:", postData);
+      } catch (error) {
+        console.error("Error fetching post:", error.message);
+      }
+    };
+
+    getPostById();
+  }, [id]);
+
   return (
     <div className=" integration_con">
-      <div className="container">
-        <h1>Schedule</h1>
-        <p>
-          Automate your social media content.Keep track of all your scheduled
-          posts in one place.
-        </p>
+      <div className=" container">
+        <Link to="/dashboard" className="text-center back_btndash">
+          <FontAwesomeIcon icon={faArrowLeft} /> Back to Your Dashboard
+        </Link>
+
         <div className="row main_row">
           <div className="bg-white rounded-2xl  p-6">
             <h6 className="text-center text-black py-2 text-xl">
               Schedule a Post
             </h6>
+
             <div className="max-w-[700px] mx-auto border rounded py-1 relative ">
               <div className="row col-12 multiselect">
                 <div className="inline ">
@@ -248,9 +215,11 @@ function Sedule() {
                     onChange={(event, data) =>
                       handleSocialMediaChange(data.value)
                     }
+                    value={socialMediaArray}
                   />
                 </div>
               </div>
+
               <div>
                 <form>
                   <div className="w-full border-t-2 border-t-gray-200 rounded-lg bg-gray-50  mt-2">
@@ -265,6 +234,7 @@ function Sedule() {
                         placeholder="Write a comment..."
                         required
                         onChange={handlePostContentChange}
+                        value={postContent}
                       ></textarea>
                     </div>
 
@@ -319,10 +289,8 @@ function Sedule() {
                           id="file-input"
                           ref={fileInputRef}
                           className="hidden"
-                          name="post_image"
                           onChange={handleFileChange}
                         />
-                        <p>{filenameshow}</p>
                       </div>
 
                       <div className=" inline-block  p-1 ">
@@ -364,7 +332,6 @@ function Sedule() {
                 </form>
               </div>
             </div>
-
             {successMessage && (
               <div className="success-message">{successMessage}</div>
             )}
@@ -387,4 +354,4 @@ function Sedule() {
   );
 }
 
-export default Sedule;
+export default Editsedule;

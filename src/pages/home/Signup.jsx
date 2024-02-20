@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../pages/home/signup.css";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 function Signup() {
-
-
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +42,7 @@ function Signup() {
         }, 3000);
 
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/login");
         }, 2000);
       }
 
@@ -71,6 +69,27 @@ function Signup() {
     }
   };
 
+
+
+
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasscon, setSshowPasscon] = useState(false);
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+  const togglePasswordVisibilitypas = () => {
+    setSshowPasscon(!showPasscon);
+  };
+
+
+
+
+
   return (
     <>
       <section className="user_us">
@@ -83,7 +102,7 @@ function Signup() {
             <div className="login_main_col col-12 col-lg-4 col-md-6">
               <h1 className="">Sign Up</h1>
               <p className="dont_acunt">
-                Already have an account?<a href="/login"> Login</a>
+                Already have an account?<Link to="/login"> Login</Link>
               </p>
 
               <input
@@ -106,25 +125,46 @@ function Signup() {
                 required=""
               />
 
-              <input
-                className="account-inputt"
-                placeholder="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required=""
-              />
 
-              <input
-                className="account-inputt"
-                placeholder="Confirm Password"
-                name="pass"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required=""
-              />
+              <div className="relative">
+                <input
+                  className=""
+                  placeholder="Password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required=""
+                />
+                <button
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                </button>
+
+              </div>
+
+              <div className="relative">
+                <input
+                  className=""
+                  placeholder="Confirm Password"
+                  name="password"
+                  type={showPasscon ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required=""
+                />
+                <button
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2"
+                  onClick={togglePasswordVisibilitypas}
+                >
+                  {showPassword ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                </button>
+
+              </div>
+
+
               {successMessage && (
                 <div className="success-message">{successMessage}</div>
               )}
@@ -135,6 +175,14 @@ function Signup() {
               <button className="sign_btn" onClick={handleSignup}>
                 Sign Up
               </button>
+              <span className="flex items-center justify-center  cursor-pointer py-2">
+                By signing up you accept the{""} <Link to="#" className="text-blue-600 px-1"> Terms </Link> and
+                <Link to="#" className="text-blue-600 pl-1">
+                  Privacy Policy.
+                </Link>
+
+              </span>
+
             </div>
           </div>
         </div>
