@@ -49,7 +49,7 @@ function Integration() {
 
     }
 
-    console.log(payload,"____payload")
+    
     try {
       const response = await axios.post('http://192.227.234.133/backend/api/add-instagram-data', payload, {
         headers: {
@@ -94,7 +94,7 @@ function Integration() {
   const handlecloseInstasform = () => setInstasform(false);
 
   return (
-    <div className="integration_con">
+    <div className="integration_con ">
       <div className="container">
         <h1>Integrations</h1>
         <p>Connect Your social accounts</p>
