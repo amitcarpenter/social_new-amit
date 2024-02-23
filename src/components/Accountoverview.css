@@ -17,13 +17,14 @@
 }
 
 p {
-    color:  #A7A7A7;
+    color: #A7A7A7;
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
+
 .row.main_row {
     padding: 30px 50px;
 }
@@ -31,11 +32,11 @@ p {
 .row.main_row h2 {
     padding: 0px 50px;
     color: #000;
-font-family: Poppins;
-font-size: 40px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
+    font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
 .account_con {
@@ -49,25 +50,25 @@ line-height: normal;
 
 .account_con svg {
     padding: 0 5px;
-    
+
 }
 
-.face_div p{
+.face_div p {
     color: #000;
-font-family: Poppins;
-font-size: 15px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 p.value_app {
     color: #000;
-font-family: Poppins;
-font-size: 28px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+    font-family: Poppins;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 svg.svg-inline--fa.fa-twitter.twitter-icon {
@@ -76,8 +77,8 @@ svg.svg-inline--fa.fa-twitter.twitter-icon {
 }
 
 svg.svg-inline--fa.fa-instagram {
-    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
-   
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+
     color: #fff;
     border-radius: 4px;
     padding: 1px 3px;
@@ -85,7 +86,7 @@ svg.svg-inline--fa.fa-instagram {
 }
 
 p.john_name {
-    color:  #A7A7A7;
+    color: #A7A7A7;
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
@@ -102,8 +103,14 @@ h3 {
     line-height: normal;
 }
 
-@media only screen and (max-width: 767px) {
-    .row.main_row{
+
+
+@media only screen and (max-width: 768px) {
+    .row.main_row {
+        padding:0px;
+    }
+
+    .account_con {
         padding: 0px;
     }
-    }
+}

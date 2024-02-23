@@ -25,9 +25,10 @@ const Header = () => {
               </Link>
               <button
                 type="button"
-                className="text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm  text-center get_btn"
               >
-                <Link to="/signup">
+                <Link to="/signup"
+                className="text-white bg-[#0077B7] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-2xl  px-12  py-3 text-center ">
+
                   Get started
                 </Link>
               </button>

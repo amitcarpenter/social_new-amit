@@ -9,7 +9,7 @@ const UseContext = ({ children }) => {
     const [checkbuttonStatus, setcheckbuttonStatus] = useState(false);
     const [facebookstatus, setfacebookstatus] = useState(false);
     const [instastatus, setinstastatus] = useState(false);
-    const [data, setdata] = useState({})
+    const [data, setdata] = useState()
     const [Role, setRole] = useState(null)
 
     const GetFormdata = async () => {
@@ -33,7 +33,7 @@ const UseContext = ({ children }) => {
                 instagram_username, ig_password } = response.data;
 
             console.log(response.data, "main data ");
-            // setdata(response.data.user.role)
+            setdata(response.data)
             setRole(role)
 
             if (email && twitter_api_key && twitter_api_secret && twitter_access_token && twitter_access_secret && twitter_bearer_token && twitter_app_id) {
@@ -61,7 +61,7 @@ const UseContext = ({ children }) => {
         if (userEmail) {
             GetFormdata();
         }
-    }, [checkbuttonStatus, facebookstatus, instastatus, userEmail, handleLogout]);
+    }, [checkbuttonStatus, facebookstatus,userEmail, instastatus,]);
 
     return (
         <Contextapi.Provider value={{

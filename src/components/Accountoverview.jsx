@@ -9,7 +9,10 @@ function Accountoverview() {
 
     const { userEmail, data, } = useContextApi();
 
+    // console.log(data,"-__-insraDatals")
     const [insraData, setinsraData] = useState(data)
+ 
+
     const [facebookdata, setFacebookData] = useState({})
 
     const handleLikedata = async () => {
@@ -28,7 +31,6 @@ function Accountoverview() {
             console.error('Error fetching user info:', error);
         }
     };
-
 
 
     const handleFacebook = async () => {
@@ -59,7 +61,7 @@ function Accountoverview() {
                 <div className="row main_row">
 
                     <h2>Account Overview</h2>
-                    <div className="col-6 pt-4">
+                    <div className="col-md-6 pt-4">
 
                         <div className="face_div">
                             <h3>Facebook</h3>
@@ -78,7 +80,7 @@ function Accountoverview() {
                         </div>
                     </div>
 
-                    <div className="col-6 pt-4">
+                    <div className="col-md-6 pt-4">
                         <div className="face_div relative">
                             <h3>Instagram</h3>
                             <span className='absolute right-3 top-2'>
@@ -104,7 +106,7 @@ function Accountoverview() {
                         </div>
                     </div>
 
-                    <div className="col-6 pt-4">
+                    <div className="col-md-6 pt-4">
 
                         <div className="face_div">
                             <h3>Twitter</h3>

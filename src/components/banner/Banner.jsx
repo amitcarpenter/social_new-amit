@@ -2,14 +2,16 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="max-w-screen-xl flex text-[#11264D]   flex-wrap items-center py-5 md:pt-20  mx-auto md:px-16 px-4">
-      <div className="grid md:grid-cols-2 grid-cols-1 items-center ">
+    <div className="container flex text-[#11264D]   flex-wrap items-center py-5 md:pt-20 px-4 lg:px-0">
+      <div className="grid md:grid-cols-2 grid-cols-1 ">
         <div className="flex flex-col">
-          <div className="mb-2">
-            <h1 className="">Save time.</h1>
-            <h1 className="">Unleash efficiency.</h1>
-            <h1 className="">Maximize performance.</h1>
-            <p className="text-lg leading-tight my-5">
+          <div className="">
+            <div className=" flex flex-col lg:mt-10 space-y-2.5 text-4xl lg:text-6xl text-[#11264D] font-semibold">
+              <span className="">Save time.</span>
+              <span className="">Unleash efficiency.</span>
+              <span className="">Maximize performance.</span>
+            </div>
+            <p className="text-xl leading-tight my-4">
               Streamline your social media presence with our all-in-one social
               media management platform.
             </p>
@@ -17,7 +19,7 @@ const Banner = () => {
               <a href="/signup">
                 <button
                   type="button"
-                  className="text-white bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-lg px-24 py-3 ctext-center "
+                  className="text-white bg-[#0077B7] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-2xl  px-16 lg:px-28 py-3 text-center "
                 >
                   Get started
                 </button>
@@ -27,7 +29,7 @@ const Banner = () => {
           <div className="py-2">
             <ul className="flex justify-start gap-1.5 p-0 ">
               <li>
-                <span>Integrated with -</span>
+                <span className="text-xl">Integrated with -</span>
               </li>
               <li>
                 <svg
@@ -48,7 +50,7 @@ const Banner = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="28"
-                 height="28"
+                  height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -59,7 +61,7 @@ const Banner = () => {
                     x="0"
                     y="0"
                     width="28"
-                   height="28"
+                    height="28"
                   >
                     <path d="M16 0H0V16H16V0Z" fill="white" />
                   </mask>
@@ -76,7 +78,7 @@ const Banner = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="28"
-                 height="28"
+                  height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -87,7 +89,7 @@ const Banner = () => {
                     x="0"
                     y="0"
                     width="28"
-                   height="28"
+                    height="28"
                   >
                     <path d="M16 0H0V16H16V0Z" fill="white" />
                   </mask>
@@ -108,7 +110,7 @@ const Banner = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="28"
-                 height="28"
+                  height="28"
                   viewBox="0 0 16 16"
                   fill="none"
                 >
@@ -119,7 +121,7 @@ const Banner = () => {
                     x="0"
                     y="0"
                     width="28"
-                   height="28"
+                    height="28"
                   >
                     <path d="M16 0H0V16H16V0Z" fill="white" />
                   </mask>
@@ -218,8 +220,10 @@ const Banner = () => {
           </div>
         </div>
 
-        <div>
-          <img src="asset/Hero.png" alt="" />
+        <div className="">
+          <img
+            className="lg:w-[650px]"
+           src="asset/Hero.png" alt="" />
         </div>
       </div>
     </div>

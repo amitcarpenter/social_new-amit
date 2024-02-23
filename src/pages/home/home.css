@@ -3,6 +3,29 @@
     padding-top: 30px;
 }
 
+.clss {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Icon_Wrap h6{
+     color: black;
+     font-size: 22px;
+}
+.Icon_Wrap p{
+    color: #000;
+}
+
+.icon_class h6{
+     font-size: 22px;
+     color: black;
+     font-weight:400;
+}
+.icon_class p{
+     font-size: 16px;
+     color:black;
+    }
 svg.clas_bulb_icons {
     margin-left: 65px;
 }
@@ -17,6 +40,7 @@ svg.clas_bulb_icons {
     line-height: 20px;
     margin: 21px;
 }
+
 
 .all_feature_btn {
     width: 224px;

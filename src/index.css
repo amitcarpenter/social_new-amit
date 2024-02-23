@@ -9,14 +9,14 @@ body{
      box-sizing: border-box;
      margin: 0px;
      padding: 0px;
-     font-size: 14px;
+     font-size: 16px;
      color: #11264D;
      font-family: 'Poppins', sans-serif;
 }
 
-h1{
+/* h1{
     color: #11264D;
     font-size: 38px;
     font-weight: 600;
 
-}
+} */

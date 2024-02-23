@@ -28,11 +28,6 @@ function Integration() {
   const [igEmail, setIgEmail] = useState("");
   const [igPassword, setIgPassword] = useState("");
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const handleSubmit = async (e) => {
 
     e.preventDefault();
@@ -49,7 +44,7 @@ function Integration() {
 
     }
 
-    
+
     try {
       const response = await axios.post('http://192.227.234.133/backend/api/add-instagram-data', payload, {
         headers: {
@@ -73,6 +68,13 @@ function Integration() {
     }
   };
 
+
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   const [showeditmodel, setshoweditmodel] = useState(false)
   const handleCloseEdiatmodel = () => setshoweditmodel(false);
   const handleShowediat = () => setshoweditmodel(true);
@@ -93,15 +95,61 @@ function Integration() {
   const handleInstamodel = () => setInstasform(true);
   const handlecloseInstasform = () => setInstasform(false);
 
+
+
+  const GetFacebookData = async () => {
+    try {
+      const response = await axios.get("http://192.227.234.133/backend/api/auth/facebook", {
+        maxRedirects: 0, // Disable automatic redirects
+        validateStatus: (status) => status >= 200 && status < 400 // Only consider status codes in the 2xx range as successful
+      });
+
+      if (response.status === 302) {
+        const redirectUrl = response.headers['location'];
+        console.log("Redirected to:", redirectUrl);
+
+      } else {
+        console.log(response.data, "_______response data facebook ");
+        return response.data; // Optionally, return the data if you want to use it outside this function
+      }
+    } catch (error) {
+      console.error("Error fetching Facebook data:", error);
+      throw error;
+    }
+  }
+
+
+  const GetTwitterData = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.227.234.133/backend/api/auth/twitter",
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'withCredentials': true
+          }
+        }
+      );
+
+      console.log("data",response)
+     
+    } catch (error) {
+      console.log( error ,"Error fetching Twitter data:", error);
+      // Handle the error as needed
+    }
+  }
+
+
+
   return (
     <div className="integration_con ">
       <div className="container">
         <h1>Integrations</h1>
         <p>Connect Your social accounts</p>
         <div className="row main_row">
-          
 
-          <div className="col-12 col-md-3 col-lg-4  pt-4">
+
+          <div className="col-12 col-md-4 col-lg-4  pt-4">
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>Facebook</h6>
@@ -157,7 +205,7 @@ function Integration() {
                 </span>
               </div>
               <div className="">
-                {
+                {/* {
                   facebookstatus === true ? (
                     <button type="button"
                       className="px-3 py-2 rounded bg-gray-400 text-white "> connected
@@ -167,13 +215,17 @@ function Integration() {
                       onClick={handlefacebookmodel}
                       className="px-3 py-2 rounded bg-blue-500 text-white">connect</button>
 
-                }
+                } */}
+                <button type="button"
+                  onClick={GetFacebookData}
+                  className="px-3 py-2 rounded bg-blue-500 text-white "> connect
+                </button>
 
 
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-3 col-lg-4  pt-4">
+          <div className="col-12 col-md-4 col-lg-4  pt-4">
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>Instagram</h6>
@@ -329,7 +381,7 @@ function Integration() {
             </div>
           </div>
 
-          <div className="col-12 col-md-3 col-lg-4  pt-4">
+          <div className="col-12 col-md-4 col-lg-4  pt-4">
             <div className="face_div_x">
               <div className="mb-3 Icon_container">
                 <h6>Twitter</h6>
@@ -368,10 +420,11 @@ function Integration() {
 
                 {checkbuttonStatus == true ? (
                   <button type="button"
+
                     className="px-3 py-2 rounded bg-gray-400 text-white "> connected
                   </button>
                 ) : <button
-                  onClick={handleShow}
+                  onClick={GetTwitterData}
                   className="px-3 py-2 rounded bg-blue-500 text-white">connect</button>
                 }
 
@@ -423,8 +476,8 @@ function Integration() {
             </Modal.Header>
             <Modal.Body>
               <TwitterModel
-              handleClose={handleClose}
-               setcheckbuttonStatus={setcheckbuttonStatus} />
+                handleClose={handleClose}
+                setcheckbuttonStatus={setcheckbuttonStatus} />
             </Modal.Body>
 
           </Modal>
@@ -450,7 +503,6 @@ function Integration() {
           <InstagramEditmodel
             Instasform={Instasform}
             handlecloseInstasform={handlecloseInstasform}
-
           />
 
         </div>
