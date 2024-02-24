@@ -11,7 +11,7 @@ const Home = () => {
       <Header />
       <Banner />
 
-      <div className="container flex text-[#11264D]   flex-wrap items-center py-4 md:pt-20  mx-auto md:px-16 px-4">
+      <div className="container flex text-[#11264D] flex-wrap items-center py-4 md:pt-20  mx-auto lg:px-0">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
 
           <div className="order-2 md:order-1">
@@ -34,7 +34,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="max-w-screen-xl flex text-[#11264D] flex-wrap  py-4 md:pt-20  mx-auto  px-4">
+      <div className="container flex text-[#11264D] flex-wrap  py-4 md:pt-20  mx-auto">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 items-center">
           <div className="order-1 md:order-2">
             <h1 className=" text-4xl lg:text-5xl mb-4">
@@ -58,7 +58,7 @@ const Home = () => {
       </div>
 
 
-      <div className="container  py-5 md:pt-20  mx-auto md:px-16 px-4">
+      <div className="container  py-5 md:pt-20  mx-auto ">
         <h1 className="text-center text-4xl lg:text-5xl  mb-8">Features at a glance</h1>
         <div className="">
 
@@ -85,12 +85,12 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container  py-5 md:pt-20  mx-auto md:px-16 px-4">
+      <div className="container  py-5 md:pt-20  mx-auto Icon_Wrap ">
 
-        <div className="flex flex-wrap justify-between items-center  Icon_Wrap">
-          <div className="class">
+        <div class="flex justify-evenly items-center text-center  ">
+          <div class="flex flex-col items-center">
             <svg
-              className="clas_bulb_icons"
+              className="w-24 h-24"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 56 56"
               fill="none"
@@ -149,13 +149,13 @@ const Home = () => {
               <h6>Post Ideas</h6>
               <p className="inspire_p">
                 Never be deprived of
-                <br /> inspiration.
+                inspiration.
               </p>
             </div>
           </div>
-          <div className="class">
+          <div class="flex flex-col items-center">
             <svg
-              className="clas_bulb_icons"
+              className="w-24 h-24"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 56 56"
               fill="none"
@@ -179,15 +179,15 @@ const Home = () => {
               <h6>Automated Publishing</h6>
               <p className="inspire_p">
                 Schedule your posts,
-                <br />
+
                 sit back and relax.
               </p>
             </div>
           </div>
 
-          <div className="class">
+          <div class="flex flex-col items-center">
             <svg
-              className="clas_bulb_icons"
+              className="w-24 h-24"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 56 56"
               fill="none"
@@ -224,15 +224,15 @@ const Home = () => {
               <h6>Optimization Tips</h6>
               <p className="inspire_p">
                 Instantly create expertly
-                <br />
+
                 crafted posts.
               </p>
             </div>
           </div>
 
-          <div className="class">
+          <div class="flex flex-col items-center">
             <svg
-              className="clas_bulb_icons"
+              className="w-24 h-24"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 56 56"
               fill="none"
@@ -263,15 +263,16 @@ const Home = () => {
               <h6>Analytics</h6>
               <p className="inspire_p">
                 Monitor and build your
-                <br />
+
                 success.
               </p>
             </div>
           </div>
 
-          <div className="class">
+          <div class="flex flex-col items-center">
             <svg
-              className="clas_bulb_icons"
+              className="w-24 h-24"
+             
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
             >
@@ -299,9 +300,9 @@ const Home = () => {
             </svg>
             <div className="poste">
               <h6>Media Library</h6>
-              <p className="inspire_p">
+              <p className="">
                 Manage all your media
-                <br />
+
                 in one place.{" "}
               </p>
             </div>
@@ -318,7 +319,7 @@ const Home = () => {
         <div className="container">
           <div className="">
             <p className="social_p">
-              Dominate Social Media 
+              Dominate Social Media
               <br />
               like a Pro!
             </p>

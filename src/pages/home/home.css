@@ -16,6 +16,11 @@
 .Icon_Wrap p{
     color: #000;
 }
+.Icon_Wrap svg{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
 
 .icon_class h6{
      font-size: 22px;

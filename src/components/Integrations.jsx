@@ -134,11 +134,11 @@ function Integration() {
       console.log("data",response)
      
     } catch (error) {
-      console.log( error ,"Error fetching Twitter data:", error);
+      console.log("Error fetching Twitter data:", error);
       // Handle the error as needed
     }
   }
-
+ 
 
 
   return (

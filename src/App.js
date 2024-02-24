@@ -22,6 +22,7 @@ import Accountoverview from "./components/Accountoverview";
 import Post from "./components/post/Post";
 import Analytics from "./components/analytic/Analytics";
 import { useContextApi } from "./components/context/UseContext";
+import TwitterLogint from "./components/TwitterLogint ";
 
 function App() {
   const { userEmail } = useContextApi()
@@ -34,6 +35,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/twit" element={<TwitterLogint/>}/>
         {userEmail ? (
           <Route path="/dashboard" element={<Layout />}>
             <Route index element={<Myprofile />} />
