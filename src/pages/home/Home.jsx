@@ -87,10 +87,11 @@ const Home = () => {
 
       <div className="container  py-5 md:pt-20  mx-auto Icon_Wrap ">
 
-        <div class="flex justify-evenly items-center text-center  ">
+        <div class="flex lg:justify-evenly items-center text-center lg:flex-nowrap">
+
           <div class="flex flex-col items-center">
             <svg
-              className="w-24 h-24"
+              className=""
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 56 56"
               fill="none"
@@ -272,7 +273,7 @@ const Home = () => {
           <div class="flex flex-col items-center">
             <svg
               className="w-24 h-24"
-             
+
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
             >
@@ -315,7 +316,7 @@ const Home = () => {
         <button className="bg-[#0077B7] text-white font-medium text-xl all_feature_btn">Explore All Features</button>
       </div>
 
-      <div className="back_colour relative py-4 mb-24 ">
+      <div className="back_colour relative py-2 mb-24 ">
         <div className="container">
           <div className="">
             <p className="social_p">

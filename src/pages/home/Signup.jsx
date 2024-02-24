@@ -27,7 +27,7 @@ function Signup() {
         return;
       }
 
-      const response = await axios.post("http://192.227.234.133/backend/api/register", {
+      const response = await axios.post("https://socialize-dev.heytech.vision/backend/api/register", {
         fullName: name,
         email: email,
         password: password,

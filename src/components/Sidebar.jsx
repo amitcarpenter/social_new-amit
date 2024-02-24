@@ -35,7 +35,7 @@ const Sidebar = ({ handleClose }) => {
             </div>
 
             <p onClick={() => handleClick("/dashboard")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span>
                     <FaUser size={24} />
                 </span>
@@ -43,46 +43,46 @@ const Sidebar = ({ handleClose }) => {
             </p>
 
             <p onClick={() => handleClick("account")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/account" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2 mb-3`}>
+         ${pathname === "/dashboard/account" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2 mb-2.5`}>
                 <span><MdDashboard size={25} /></span>
                 <span>Dashboard</span>
             </p>
 
             <p onClick={() => handleClick("integration")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/integration" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard/integration" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span><LuPlug2 size={25} /></span>
                 <span> Integrations</span>
             </p>
 
             <p onClick={() => handleClick("post")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/post" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard/post" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span><PiNotePencilBold size={25} /></span>
                 <span>POST</span>
             </p>
 
             <p onClick={() => handleClick("Schedule")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/Schedule" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard/Schedule" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span><MdOutlineScheduleSend size={25} /></span>
                 <span> Schedule</span>
             </p>
 
 
             <p onClick={() => handleClick("analytics")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/analytics" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard/analytics" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span><MdAnalytics size={25} /> </span>
                 <span> Analytics</span>
             </p>
 
 
             <p onClick={() => handleClick("#")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/Settings" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard/Settings" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span> <IoMdSettings size={25} /></span>
                 <span> Settings</span>
             </p>
 
 
             <p onClick={() => handleClick("#")} className={`flex items-center gap-3 cursor-pointer
-         ${pathname === "/dashboard/Support" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-3`}>
+         ${pathname === "/dashboard/Support" ? "border-r-sky-600 border-r-4 text-blue-600" : "text-gray-600"}  hover:text-gray-700 py-2  mb-2.5`}>
                 <span><MdOutlineEmail size={25} /></span>
                 <span> Support</span>
             </p>

@@ -63,7 +63,7 @@ const TwitterEditmodel = ({ showeditmodel, handleCloseEdiatmodel }) => {
         }
 
         try {
-            const response = await axios.put('http://192.227.234.133/backend/api/edit-twitter-data', payload, {
+            const response = await axios.put('https://socialize-dev.heytech.vision/backend/api/edit-twitter-data', payload, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -94,7 +94,7 @@ const TwitterEditmodel = ({ showeditmodel, handleCloseEdiatmodel }) => {
             "email": userEmail
         }
         try {
-            const response = await axios.post(`http://192.227.234.133/backend/api/get-details-by-email`, paylod);
+            const response = await axios.post(`https://socialize-dev.heytech.vision/backend/api/get-details-by-email`, paylod);
 
             const { email,
                 twitter_api_key,

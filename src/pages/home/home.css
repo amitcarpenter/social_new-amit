@@ -1,12 +1,8 @@
+
+
 .section_thirdd {
     padding-left: 125px;
     padding-top: 30px;
-}
-
-.clss {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .Icon_Wrap h6{
@@ -17,8 +13,8 @@
     color: #000;
 }
 .Icon_Wrap svg{
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     text-align: center;
 }
 
@@ -55,6 +51,7 @@ svg.clas_bulb_icons {
     background: #377DFF;
 
 }
+
 
 .back_colour {
     background: rgba(122, 201, 231, 0.22);

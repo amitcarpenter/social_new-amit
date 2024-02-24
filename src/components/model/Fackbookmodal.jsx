@@ -41,7 +41,7 @@ const Fackbookmodal = ({setfacebookstatus, facebookmodel,
 
         }
         try {
-            const response = await axios.post('http://192.227.234.133/backend/api/add-facebook-data', payload, {
+            const response = await axios.post('https://socialize-dev.heytech.vision/backend/api/add-facebook-data', payload, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

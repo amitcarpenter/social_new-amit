@@ -102,7 +102,7 @@ function Sedule() {
 
     try {
       const response = await axios.put(
-        `http://192.227.234.133/backend/api/edit-scheduled-post/${id}`,
+        `https://socialize-dev.heytech.vision/backend/api/edit-scheduled-post/${id}`,
         formData,
         {
           headers: {
@@ -129,7 +129,7 @@ function Sedule() {
 
   const getPostById = async (id) => {
     try {
-      const response = await axios.get(`http://192.227.234.133/backend/api/get-scheduled-post/${id}`);
+      const response = await axios.get(`https://socialize-dev.heytech.vision/backend/api/get-scheduled-post/${id}`);
 
       if (!response.data) {
         throw new Error("Failed to fetch post");

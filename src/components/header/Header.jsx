@@ -7,7 +7,7 @@ const Header = () => {
     <section className="header">
       <div className="container">
         <nav className="nav_header">
-          <div className="max-w-screen-xl flex text-[#11264D] text-[16px]  flex-wrap items-center justify-between mx-auto ">
+          <div className=" flex text-[#11264D] text-[16px]  flex-wrap items-center justify-between mx-auto ">
             <Link
               to="/"
               className="flex items-center space-x-3 rtl:space-x-reverse"

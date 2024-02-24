@@ -16,7 +16,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://192.227.234.133/backend/api/login",
+        "https://socialize-dev.heytech.vision/backend/api/login",
         {
           email: email,
           password: password,

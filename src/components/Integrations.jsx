@@ -46,7 +46,7 @@ function Integration() {
 
 
     try {
-      const response = await axios.post('http://192.227.234.133/backend/api/add-instagram-data', payload, {
+      const response = await axios.post('https://socialize-dev.heytech.vision/backend/api/add-instagram-data', payload, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -95,11 +95,11 @@ function Integration() {
   const handleInstamodel = () => setInstasform(true);
   const handlecloseInstasform = () => setInstasform(false);
 
-
+  
 
   const GetFacebookData = async () => {
     try {
-      const response = await axios.get("http://192.227.234.133/backend/api/auth/facebook", {
+      const response = await axios.get("https://socialize-dev.heytech.vision/backend/api/auth/facebook", {
         maxRedirects: 0, // Disable automatic redirects
         validateStatus: (status) => status >= 200 && status < 400 // Only consider status codes in the 2xx range as successful
       });
@@ -119,25 +119,34 @@ function Integration() {
   }
 
 
-  const GetTwitterData = async () => {
-    try {
-      const response = await axios.get(
-        "http://192.227.234.133/backend/api/auth/twitter",
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'withCredentials': true
-          }
-        }
-      );
+  // const GetTwitterData = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://socialize-dev.heytech.vision/backend/api/auth/twitter",
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'withCredentials': true
+  //         }
+  //       }
+  //     );
 
-      console.log("data",response)
+  //     console.log("data",response)
      
-    } catch (error) {
-      console.log("Error fetching Twitter data:", error);
-      // Handle the error as needed
-    }
+  //   } catch (error) {
+  //     console.log("Error fetching Twitter data:", error);
+  //     // Handle the error as needed
+  //   }
+  // }
+
+ 
+  const GetTwitterData = async () => {
+     window.open("https://socialize-dev.heytech.vision/backend/api/auth/twitter")
   }
+  
+  const GetfaceData = async () => {
+    window.open("https://socialize-dev.heytech.vision/backend/api/auth/facebook")
+ }
  
 
 
@@ -217,10 +226,9 @@ function Integration() {
 
                 } */}
                 <button type="button"
-                  onClick={GetFacebookData}
+                  onClick={GetfaceData}
                   className="px-3 py-2 rounded bg-blue-500 text-white "> connect
                 </button>
-
 
               </div>
             </div>

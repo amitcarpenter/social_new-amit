@@ -23,7 +23,7 @@ const Layout = () => {
                     <FiMenu className='w-12 h-12' />
                 </button>
                 <div className='flex'>
-                    <div className={`lg:w-64 hidden lg:block h-full pl-10 bg-white rounded-br-[80px] rounded-tr-[80px] fixed overflow-y-auto transition-all duration-300`}>
+                    <div className={`lg:w-64 hidden lg:block h-full pl-10 bg-white lg:rounded-br-[80px] lg:rounded-tr-[80px] fixed overflow-y-auto transition-all duration-300`}>
                         <Sidebar/>
                     </div>
                     <div className={` lg:ml-64 lg:px-5 py-2 md:h-screen  bg-[#F2F2F2] w-full overflow-y-auto transition-all duration-300`}>

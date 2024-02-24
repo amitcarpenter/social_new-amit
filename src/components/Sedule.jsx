@@ -99,7 +99,7 @@ function Sedule() {
 
     try {
       const response = await axios.post(
-        "http://192.227.234.133/backend/api/schedule-post",
+        "https://socialize-dev.heytech.vision/backend/api/schedule-post",
         formData,
         {
           headers: {

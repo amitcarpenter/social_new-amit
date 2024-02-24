@@ -22,7 +22,7 @@ function Accountoverview() {
             };
 
             const response = await axios.post(
-                'http://192.227.234.133/backend/api/get_instagram_user_info',
+                'https://socialize-dev.heytech.vision/backend/api/get_instagram_user_info',
                 payload // Pass payload as request body
             );
             setinsraData(response.data.showjsondata)
@@ -40,7 +40,7 @@ function Accountoverview() {
             };
 
             const response = await axios.post(
-                'http://192.227.234.133/backend/api/get_facebook_user_info',
+                'https://socialize-dev.heytech.vision/backend/api/get_facebook_user_info',
                 payload // Pass payload as request body
             );
             setFacebookData(response.data.facebook_data)
