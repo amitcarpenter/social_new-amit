@@ -27,7 +27,7 @@ const Header = () => {
                 type="button"
               >
                 <Link to="/signup"
-                className="text-white bg-[#0077B7] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-2xl  px-12  py-3 text-center ">
+                  className="text-white md:block hidden bg-[#0077B7] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-2xl  px-6 lg:px-12 py-2.5 lg:py-3 text-center ">
 
                   Get started
                 </Link>
@@ -58,7 +58,7 @@ const Header = () => {
               </button>
             </div>
             <div
-              className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+              className="items-center justify-between hidden w-full lg:flex md:w-auto md:order-1"
               id="navbar-cta"
             >
               <ul className="flex flex-col  font-medium  rtl:space-x-reverse md:flex-row md:mt-0">
@@ -83,6 +83,12 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/contact" className="block py-2  md:p-0 ">
+                    Contact
+                  </Link>
+                </li>
+
+                <li className="hidden">
                   <Link to="/contact" className="block py-2  md:p-0 ">
                     Contact
                   </Link>

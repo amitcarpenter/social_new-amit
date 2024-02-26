@@ -1,32 +1,34 @@
-
-
 .section_thirdd {
     padding-left: 125px;
     padding-top: 30px;
 }
 
-.Icon_Wrap h6{
-     color: black;
-     font-size: 22px;
+.Icon_Wrap h6 {
+    color: black;
+    font-size: 22px;
 }
-.Icon_Wrap p{
+
+.Icon_Wrap p {
     color: #000;
 }
-.Icon_Wrap svg{
+
+.Icon_Wrap svg {
     width: 70px;
     height: 70px;
     text-align: center;
 }
 
-.icon_class h6{
-     font-size: 22px;
-     color: black;
-     font-weight:400;
+.icon_class h6 {
+    font-size: 22px;
+    color: black;
+    font-weight: 400;
 }
-.icon_class p{
-     font-size: 16px;
-     color:black;
-    }
+
+.icon_class p {
+    font-size: 16px;
+    color: black;
+}
+
 svg.clas_bulb_icons {
     margin-left: 65px;
 }
@@ -67,7 +69,7 @@ svg.clas_bulb_icons {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding: 25px 80px;
+    padding: 25px 40px;
 }
 
 .get_bbtn {
@@ -94,7 +96,7 @@ svg.clas_bulb_icons {
 }
 
 .gt_btnn {
-    padding-left: 75px;
+    padding-left: 40px;
 }
 
 .clas_bulb_icons {
@@ -105,6 +107,13 @@ svg.clas_bulb_icons {
 
 .all_feature_btn {
     margin-top: 30px;
+}
+
+.Items_card {
+    display: flex;
+    flex-wrap: nowrap !important;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 
@@ -158,6 +167,13 @@ svg.clas_bulb_icons {
 
     }
 
+    .Items_card {
+        display: flex;
+        flex-wrap: wrap !important;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
 }
 
 @media screen and (min-device-width: 768px) and (max-device-width: 1023px) {
@@ -189,5 +205,7 @@ svg.clas_bulb_icons {
         width: 160px;
         height: 40px;
     }
+
+  
 
 }

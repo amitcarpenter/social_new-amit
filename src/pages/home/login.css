@@ -1,8 +1,10 @@
 section.user_user {
-    padding: 200px 0;
+    padding: 50px 10px;
     align-items: center;
     display: flex;
     justify-content: center;
+     align-items: center;
+     height: 100vh;
 }
 
 .h1 {
@@ -68,6 +70,22 @@ button.login_btn1 {
     text-align: center;
     padding: 10px;
     color: #fff;
+    cursor: pointer;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+button.login_btn2 {
+    border-radius: 4px;
+    background: gray;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    color: white;
     cursor: pointer;
     font-family: Poppins;
     font-size: 18px;

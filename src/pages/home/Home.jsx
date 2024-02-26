@@ -16,12 +16,12 @@ const Home = () => {
 
           <div className="order-2 md:order-1">
             <h1 className="text-4xl lg:text-5xl mb-4">Social media Simplified</h1>
-            <p className="text-xl lg:text-2xl mb-4 lg:leading-[30px] tracking-[3px] ">
+            <p className="text-lg lg:text-2xl mb-4 lg:leading-[30px] lg:tracking-[3px] ">
               Tired of logging into each social media platform to post? Discover
               the power of our all-in-one social media management tool tailored
               to simplify your experience.
             </p>
-            <p className="text-xl lg:text-2xl mb-4 lg:leading-[30px] tracking-[3px] ">
+            <p className="text-lg lg:text-2xl mb-4 lg:leading-[30px] lg:tracking-[3px] ">
               Say goodbye to countless hours of planning your social media
               campaign as our revolutionary tool streamlines the process,
               allowing you to accomplish it effortlessly within minutes.
@@ -42,7 +42,7 @@ const Home = () => {
               <br /> Great Content
             </h1>
 
-            <p className="text-xl lg:text-2xl mb-4 lg:leading-[30px] tracking-[3px] ">
+            <p className="text-lg lg:text-2xl mb-4 lg:leading-[30px] lg:tracking-[3px] ">
               Our tool helps you - <br />
               <strong> Plan </strong> --{">"}
               <strong> Schedule </strong> "--{">"}
@@ -66,12 +66,12 @@ const Home = () => {
             <div className=" mb-4 lg:mt-16 z-0">
               <img
                 className=" w-full lg:h-[350px] lg:w-[600px] "
-                src="asset/image 1.png" alt="" />
+                src="asset/image 2.png" alt="" />
             </div>
             <div className=" mb-4 lg:mt-8 lg:-ml-28 -z-10">
               <img
                 className=" w-full lg:h-[350px] lg:w-[600px]"
-                src="asset/image 2.png" alt="" />
+                src="asset/image 1.png" alt="" />
             </div>
             <div className="lg:-ml-28 -z-50">
               <img
@@ -87,7 +87,7 @@ const Home = () => {
 
       <div className="container  py-5 md:pt-20  mx-auto Icon_Wrap ">
 
-        <div class="flex lg:justify-evenly items-center text-center lg:flex-nowrap">
+        <div class="Items_card">
 
           <div class="flex flex-col items-center">
             <svg
@@ -316,7 +316,7 @@ const Home = () => {
         <button className="bg-[#0077B7] text-white font-medium text-xl all_feature_btn">Explore All Features</button>
       </div>
 
-      <div className="back_colour relative py-2 mb-24 ">
+      <div className="back_colour relative py-2 mb-0 lg:mb-24 ">
         <div className="container">
           <div className="">
             <p className="social_p">

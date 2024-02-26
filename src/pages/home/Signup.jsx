@@ -172,12 +172,12 @@ function Signup() {
                 <div className="error-message">{errorMessage}</div>
               )}
 
-              <button className="sign_btn" onClick={handleSignup}>
+              <button className="sign_btn " onClick={handleSignup}>
                 Sign Up
               </button>
-              <span className="flex items-center justify-center  cursor-pointer py-2">
-                By signing up you accept the{""} <Link to="#" className="text-blue-600 px-1"> Terms </Link> and
-                <Link to="#" className="text-blue-600 pl-1">
+              <span className=" items-center justify-center cursor-pointer py-2">
+                By signing up you accept the <Link to="#" className="text-blue-600 text-sm px-1"> Terms </Link> and
+                <Link to="#" className="text-blue-600  text-sm pl-1">
                   Privacy Policy.
                 </Link>
 

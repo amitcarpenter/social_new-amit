@@ -21,25 +21,25 @@ function footerr() {
             <ul className="flex justify-start gap-1.5 p-0 ">
               <li>
                 <Link to="https://www.facebook.com/">
-                  <FaFacebookF className="w-10 h-10" />
+                  <FaFacebookF className="h-8 w-8 lg:w-10 lg:h-10" />
                 </Link>
               </li>
               <li>
                 <Link to="https://twitter.com/">
-                  <FaTwitter className="w-10 h-10" />
+                  <FaTwitter className="h-8 w-8 lg:w-10 lg:h-10" />
                 </Link>
               </li>
 
               <li>
                 <Link to="https://www.linkedin.com/">
-                  <FaLinkedin className="w-10 h-10" />
+                  <FaLinkedin className="h-8 w-8 lg:w-10 lg:h-10" />
                 </Link>
               </li>
 
               <li>
               {/* <Link to="https://www.instagram.com/"> */}
                 <Link to="#">
-                  <FaInstagram className="w-10 h-10" />
+                  <FaInstagram className="h-8 w-8 lg:w-10 lg:h-10" />
                 </Link>
               </li>
             </ul>

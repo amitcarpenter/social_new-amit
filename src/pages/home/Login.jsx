@@ -4,14 +4,16 @@ import "../../pages/home/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContextApi } from "../../components/context/UseContext";
-function Login() {
 
-  const {setRole } = useContextApi()
+function Login() {
+  const { setRole } = useContextApi();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isChecked, setIsChecked] = useState(false); // State to track checkbox
 
   const handleLogin = async () => {
     try {
@@ -25,9 +27,7 @@ function Login() {
 
       if (response.status === 200) {
         setSuccessMessage(response.data.message);
-        // setRole(response.data.user.role)
         setErrorMessage("");
-        // Save email in sessionStorage
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
@@ -54,9 +54,6 @@ function Login() {
       );
     }
   };
-
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -86,7 +83,6 @@ function Login() {
                 required=""
               />
 
-
               <div className="relative">
                 <input
                   className=""
@@ -101,32 +97,27 @@ function Login() {
                   className="absolute top-1/2 right-0 transform -translate-y-1/2"
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                  {showPassword ? (
+                    <FaEyeSlash size={24} />
+                  ) : (
+                    <FaEye size={24} />
+                  )}
                 </button>
-
               </div>
 
-
-
               <p className="rem_me">
-                {" "}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="62"
-                  height="32"
-                  viewBox="0 0 62 32"
-                  fill="none"
-                >
-                  <rect
-                    y="3.05176e-05"
-                    width="62"
-                    height="32"
-                    rx="16"
-                    fill="#D9D9D9"
+                <label className="inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    value=""
+                    className="sr-only peer"
+                    onChange={() => setIsChecked(!isChecked)} // Toggle isChecked state
                   />
-                  <circle cx="16" cy="16" r="13" fill="white" />
-                </svg>{" "}
-                Remember me
+                  <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                  <span className="ms-3 text-sm font-medium text-black ">
+                    Remind Me
+                  </span>
+                </label>
               </p>
 
               {successMessage && (
@@ -136,10 +127,20 @@ function Login() {
                 <div className="error-message">{errorMessage}</div>
               )}
 
-              <button className="login_btn1" onClick={handleLogin}>
+              <button
+                disabled={!isChecked} // Disable button if checkbox is not checked
+                className={`${isChecked?"login_btn1":"login_btn2"}`}
+                onClick={handleLogin}
+              >
                 Login
               </button>
-              <span className="flex items-center justify-center  cursor-pointer py-2">Forgot your password? <Link to="#" className="text-blue-600"> Reset Passwor</Link></span>
+              <span className="flex items-center justify-center  cursor-pointer py-2">
+                Forgot your password?{" "}
+                <Link to="#" className="text-blue-600">
+                  {" "}
+                  Reset Passwor
+                </Link>
+              </span>
             </div>
           </div>
         </div>
