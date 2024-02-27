@@ -30,7 +30,7 @@ function Dashboard() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "https://socialize-dev.heytech.vision/backend/api/users"
+        "https://socialize-dev.heytech.vision/backend_api/api/users"
       );
 
       if (!response.data) {

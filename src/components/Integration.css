@@ -72,7 +72,7 @@ input {
     border-radius: 4px;
     background: #f1f1ef;
     margin: 10px 0 !important;
-    padding: 15px;
+    padding: 15px !important;
     border: none;
 }
 

@@ -38,7 +38,7 @@ const TwitterLogint = () => {
           onFailure={handleTwitterError}
           consumerKey="B0gEJ0X1Y1bUjkyOhmxo0MvBm"
           consumerSecret="8qlf3i2l7AKdrtucNcC6DToX4KdLnIJD4NCuIl6yeiafp6Vf0D"
-          callbackUrl="https://socialize-dev.heytech.vision/backend/api/auth/twitter"
+          callbackUrl="https://socialize-dev.heytech.vision/backend_api/api/auth/twitter"
           className="twitter-login-button"
           buttonTheme="dark"
         />

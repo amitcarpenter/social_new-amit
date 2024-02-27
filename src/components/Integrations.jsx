@@ -10,6 +10,34 @@ import { toast } from 'react-toastify';
 import InstagramEditmodel from "./model/InstagramEditmodel";
 import { useContextApi } from "./context/UseContext";
 
+
+
+
+// const getUser = () => {
+//   axios.get("https://socialize-dev.heytech.vision/backend/api/auth/login/success", {
+//     withCredentials: true,
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((response) => {
+//       if (response.status === 200) return response.data;
+//       throw new Error("Authentication has failed!");
+//     })
+//     .then((data) => {
+//       console.log(data, "---resObject");
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// };
+
+
+
+
+
+
 function Integration() {
   const {
     checkbuttonStatus,
@@ -46,7 +74,7 @@ function Integration() {
 
 
     try {
-      const response = await axios.post('https://socialize-dev.heytech.vision/backend/api/add-instagram-data', payload, {
+      const response = await axios.post('https://socialize-dev.heytech.vision/backend_api/api/add-instagram-data', payload, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -95,61 +123,51 @@ function Integration() {
   const handleInstamodel = () => setInstasform(true);
   const handlecloseInstasform = () => setInstasform(false);
 
-  
 
-  const GetFacebookData = async () => {
-    try {
-      const response = await axios.get("https://socialize-dev.heytech.vision/backend/api/auth/facebook", {
-        maxRedirects: 0, // Disable automatic redirects
-        validateStatus: (status) => status >= 200 && status < 400 // Only consider status codes in the 2xx range as successful
-      });
-
-      if (response.status === 302) {
-        const redirectUrl = response.headers['location'];
-        console.log("Redirected to:", redirectUrl);
-
-      } else {
-        console.log(response.data, "_______response data facebook ");
-        return response.data; // Optionally, return the data if you want to use it outside this function
-      }
-    } catch (error) {
-      console.error("Error fetching Facebook data:", error);
-      throw error;
-    }
-  }
-
-
-  // const GetTwitterData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://socialize-dev.heytech.vision/backend/api/auth/twitter",
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'withCredentials': true
-  //         }
-  //       }
-  //     );
-
-  //     console.log("data",response)
-     
-  //   } catch (error) {
-  //     console.log("Error fetching Twitter data:", error);
-  //     // Handle the error as needed
-  //   }
-  // }
-
- 
-  const GetTwitterData = async () => {
-     window.open("https://socialize-dev.heytech.vision/backend/api/auth/twitter")
-  }
-  
   const GetfaceData = async () => {
-    window.open("https://socialize-dev.heytech.vision/backend/api/auth/facebook")
- }
+    window.open("https://socialize-dev.heytech.vision/backend/api/auth/facebook", "_self")
+  }
+
+//   const GetTwitterData = async () => {
+//     // Open the Twitter authentication URL in the same window
+//    const responseAuto=  window.open("https://socialize-dev.heytech.vision/backend/api/auth/twitter", "_self");
+
+//     // Define a function to log the response
+//     const logResponse = () => {
+//         // Log the response from the current window
+//         console.log("Response from Twitter authentication:", window.document.documentElement.outerHTML);
+//     };
+
+//     // Wait for a short time to give some time for the redirect to happen
+//     setTimeout(logResponse, 3000); // Adjust the timeout as needed
+// };
+
+
+const GetTwitterData = async () => {
+  // Open the Twitter authentication URL in the same window
+  window.location.href = "https://socialize-dev.heytech.vision/backend/api/auth/twitter";
+
+  // Function to handle the response after redirect
+  const handleRedirectResponse = () => {
+      // Get the parameters from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const responseParam = urlParams.get('response'); // Adjust 'response' to match the parameter name used by your backend
+
+      // Log the response
+      console.log("Response from Twitter authentication:", responseParam);
+
+      // Remove the event listener after handling the response
+      window.removeEventListener("focus", handleRedirectResponse);
+  };
+
+  // Listen for when the window gets focus (after redirect)
+  window.addEventListener("focus", handleRedirectResponse);
+};
+
+
+
+
  
-
-
   return (
     <div className="integration_con ">
       <div className="container">
@@ -424,7 +442,6 @@ function Integration() {
                 </span>
               </div>
               <div className="">
-
 
                 {checkbuttonStatus == true ? (
                   <button type="button"

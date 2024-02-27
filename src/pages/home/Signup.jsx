@@ -27,7 +27,7 @@ function Signup() {
         return;
       }
 
-      const response = await axios.post("https://socialize-dev.heytech.vision/backend/api/register", {
+      const response = await axios.post("https://socialize-dev.heytech.vision/backend_api/api/register", {
         fullName: name,
         email: email,
         password: password,
@@ -81,14 +81,10 @@ function Signup() {
     setShowPassword(!showPassword);
   };
 
-
+  
   const togglePasswordVisibilitypas = () => {
     setSshowPasscon(!showPasscon);
   };
-
-
-
-
 
   return (
     <>

@@ -3,7 +3,8 @@ import "./Sedule.css";
 import { Dropdown as SemanticDropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { FaImage } from "react-icons/fa6";
+import { MdEmojiEmotions } from "react-icons/md";
 import {
   faFacebook,
   faTwitter,
@@ -52,7 +53,7 @@ function Sedule() {
       ),
       value: "instagram",
     },
-    
+
   ];
 
   const handleFileChange = (event) => {
@@ -99,7 +100,7 @@ function Sedule() {
 
     try {
       const response = await axios.post(
-        "https://socialize-dev.heytech.vision/backend/api/schedule-post",
+        "https://socialize-dev.heytech.vision/backend_api/api/schedule-post",
         formData,
         {
           headers: {
@@ -117,7 +118,6 @@ function Sedule() {
       setSocialMediaArray([]);
       setErrorMessage("");
       setPostContent("");
-
 
       document.getElementById("file-input").value = "";
 
@@ -165,14 +165,19 @@ function Sedule() {
                     </div>
 
                     <div className="flex gap-2 items-center bg-white px-4">
+                      <MdEmojiEmotions className="w-10 h-10" color="#FFB814" />
                       <div className="inline-block p-1">
-                        <label htmlFor="file-input" className="cursor-pointer">
+                        <label htmlFor="file-input" className="cursor-pointer flex items-center">
+                          <FaImage className="w-10 h-10" color="#04B800" />
                           <input
                             type="file"
                             name="post_image"
                             id="file-input"
                             onChange={handleFileChange}
+                            style={{ display: 'none' }}
                           />
+
+                          {selectedFile && `${selectedFile.name}`}
                         </label>
                       </div>
                     </div>

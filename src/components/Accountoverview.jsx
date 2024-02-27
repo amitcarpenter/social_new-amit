@@ -22,7 +22,7 @@ function Accountoverview() {
             };
 
             const response = await axios.post(
-                'https://socialize-dev.heytech.vision/backend/api/get_instagram_user_info',
+                'https://socialize-dev.heytech.vision/backend_api/api/get_instagram_user_info',
                 payload // Pass payload as request body
             );
             setinsraData(response.data.showjsondata)
@@ -40,7 +40,7 @@ function Accountoverview() {
             };
 
             const response = await axios.post(
-                'https://socialize-dev.heytech.vision/backend/api/get_facebook_user_info',
+                'https://socialize-dev.heytech.vision/backend_api/api/get_facebook_user_info',
                 payload // Pass payload as request body
             );
             setFacebookData(response.data.facebook_data)
@@ -57,7 +57,7 @@ function Accountoverview() {
         <div className=" account_con">
             <div className="container">
                 <h1>Dashboard</h1>
-                <p>Welcome back, John Doe!</p>
+                <p>Welcome back, {data?.full_name}!</p>
                 <div className="row main_row">
 
                     <h2>Account Overview</h2>
@@ -107,7 +107,6 @@ function Accountoverview() {
                     </div>
 
                     <div className="col-md-6 pt-4">
-
                         <div className="face_div">
                             <h3>Twitter</h3>
                             {/* <p className="john_name">john.doe</p> */}

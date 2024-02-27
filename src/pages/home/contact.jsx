@@ -38,7 +38,7 @@ function Contact() {
 
     try {
       // Make a POST request to the contact endpoint with the form data
-      const response = await axios.post("https://socialize-dev.heytech.vision/backend/api/contact", {
+      const response = await axios.post("https://socialize-dev.heytech.vision/backend_api/api/contact", {
         fullName: fullName,
         email: emailAddress,
         subject: subject,

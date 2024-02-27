@@ -17,7 +17,7 @@ const UseContext = ({ children }) => {
             "email": userEmail
         };
         try {
-            const response = await axios.post(`https://socialize-dev.heytech.vision/backend/api/get-details-by-email`, paylod);
+            const response = await axios.post(`https://socialize-dev.heytech.vision/backend_api/api/get-details-by-email`, paylod);
 
             const { email,
                 role,

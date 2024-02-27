@@ -14,7 +14,7 @@ function Post() {
 
   const fetchScheduledPosts = async (email) => {
     try {
-      const response = await axios.post('https://socialize-dev.heytech.vision/backend/api/get-scheduled-posts', {
+      const response = await axios.post('https://socialize-dev.heytech.vision/backend_api/api/get-scheduled-posts', {
         email: email
       });
 
@@ -192,7 +192,7 @@ function Post() {
     try {
 
       const response = await fetch(
-        `https://socialize-dev.heytech.vision/backend/api/delete-scheduled-post/${postId}`,
+        `https://socialize-dev.heytech.vision/backend_api/api/delete-scheduled-post/${postId}`,
         {
           method: "DELETE",
         }

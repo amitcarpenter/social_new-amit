@@ -28,7 +28,7 @@ const InstagramEditmodel = ({ Instasform, handlecloseInstasform }) => {
 
     }
     try {
-      const response = await axios.put('https://socialize-dev.heytech.vision/backend/api/edit-instagram-data', payload, {
+      const response = await axios.put('https://socialize-dev.heytech.vision/backend_api/api/edit-instagram-data', payload, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -55,7 +55,7 @@ const InstagramEditmodel = ({ Instasform, handlecloseInstasform }) => {
       "email": userEmail
     }
     try {
-      const response = await axios.post(`https://socialize-dev.heytech.vision/backend/api/get-details-by-email`, paylod);
+      const response = await axios.post(`https://socialize-dev.heytech.vision/backend_api/api/get-details-by-email`, paylod);
 
       const { email,
         instagram_username,

@@ -17,7 +17,7 @@ import { useParams } from "react-router-dom";
 function Sedule() {
 
   const { id } = useParams();
-  console.log(id, "____id")
+  // console.log(id, "____id")
 
   const [arrivalDate, setArrivalDate] = useState(null);
   const [time, setTime] = useState(null);
@@ -102,7 +102,7 @@ function Sedule() {
 
     try {
       const response = await axios.put(
-        `https://socialize-dev.heytech.vision/backend/api/edit-scheduled-post/${id}`,
+        `https://socialize-dev.heytech.vision/backend_api/api/edit-scheduled-post/${id}`,
         formData,
         {
           headers: {
@@ -129,7 +129,7 @@ function Sedule() {
 
   const getPostById = async (id) => {
     try {
-      const response = await axios.get(`https://socialize-dev.heytech.vision/backend/api/get-scheduled-post/${id}`);
+      const response = await axios.get(`https://socialize-dev.heytech.vision/backend_api/api/get-scheduled-post/${id}`);
 
       if (!response.data) {
         throw new Error("Failed to fetch post");

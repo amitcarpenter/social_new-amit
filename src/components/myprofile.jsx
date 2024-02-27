@@ -19,7 +19,7 @@ function Myprofile() {
   const handleSaveChanges = async () => {
     // Make API call to update profile
     const response = await fetch(
-      "https://socialize-dev.heytech.vision/backend/api/update-password",
+      "https://socialize-dev.heytech.vision/backend_api/api/update-password",
       {
         method: "POST",
         headers: {

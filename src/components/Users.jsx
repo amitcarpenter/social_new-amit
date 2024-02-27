@@ -10,7 +10,7 @@ function Users() {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "https://socialize-dev.heytech.vision/backend/api/users"
+        "https://socialize-dev.heytech.vision/backend_api/api/users"
       );
 
       if (!response.data) {
@@ -44,7 +44,7 @@ function Users() {
     try {
     
       const response = await fetch(
-        `https://socialize-dev.heytech.vision/backend/api/delete-user/${userId}`,
+        `https://socialize-dev.heytech.vision/backend_api/api/delete-user/${userId}`,
         {
           method: "DELETE",
         }

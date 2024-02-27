@@ -7,7 +7,6 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
-
 import { Link } from "react-router-dom";
 
 
@@ -21,7 +20,7 @@ function footerr() {
             <ul className="flex justify-start gap-1.5 p-0 ">
               <li>
                 <Link to="https://www.facebook.com/">
-                  <FaFacebookF className="h-8 w-8 lg:w-10 lg:h-10" />
+                  <FaFacebookF className="h-8 w-8 lg:w-8 lg:h-8" />
                 </Link>
               </li>
               <li>
@@ -37,7 +36,7 @@ function footerr() {
               </li>
 
               <li>
-              {/* <Link to="https://www.instagram.com/"> */}
+                {/* <Link to="https://www.instagram.com/"> */}
                 <Link to="#">
                   <FaInstagram className="h-8 w-8 lg:w-10 lg:h-10" />
                 </Link>
