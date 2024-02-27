@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import InstagramEditmodel from "./model/InstagramEditmodel";
 import { useContextApi } from "./context/UseContext";
 
-
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 // const getUser = () => {
@@ -50,11 +50,16 @@ function Integration() {
   const userEmail = sessionStorage.getItem('userEmail');
 
   const [email, setEmail] = useState(userEmail);
-
   const [error, setError] = useState('');
-
   const [igEmail, setIgEmail] = useState("");
   const [igPassword, setIgPassword] = useState("");
+
+  const [token, setToken] = useState('');
+  const [tokenSecret, setTokenSecret] = useState('');
+
+  const location = useLocation();
+  const navigate = useNavigate()
+
 
   const handleSubmit = async (e) => {
 
@@ -128,46 +133,59 @@ function Integration() {
     window.open("https://socialize-dev.heytech.vision/backend/api/auth/facebook", "_self")
   }
 
-//   const GetTwitterData = async () => {
-//     // Open the Twitter authentication URL in the same window
-//    const responseAuto=  window.open("https://socialize-dev.heytech.vision/backend/api/auth/twitter", "_self");
-
-//     // Define a function to log the response
-//     const logResponse = () => {
-//         // Log the response from the current window
-//         console.log("Response from Twitter authentication:", window.document.documentElement.outerHTML);
-//     };
-
-//     // Wait for a short time to give some time for the redirect to happen
-//     setTimeout(logResponse, 3000); // Adjust the timeout as needed
-// };
 
 
-const GetTwitterData = async () => {
-  // Open the Twitter authentication URL in the same window
-  window.location.href = "https://socialize-dev.heytech.vision/backend/api/auth/twitter";
-
-  // Function to handle the response after redirect
-  const handleRedirectResponse = () => {
-      // Get the parameters from the URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const responseParam = urlParams.get('response'); // Adjust 'response' to match the parameter name used by your backend
-
-      // Log the response
-      console.log("Response from Twitter authentication:", responseParam);
-
-      // Remove the event listener after handling the response
-      window.removeEventListener("focus", handleRedirectResponse);
+  const GetTwitterData = async () => {
+    // Open the Twitter authentication URL in the same window
+    window.location.href = "https://socialize-dev.heytech.vision/backend/api/auth/twitter";
   };
 
-  // Listen for when the window gets focus (after redirect)
-  window.addEventListener("focus", handleRedirectResponse);
-};
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tokenParam = searchParams.get('token');
+    const tokenSecretParam = searchParams.get('tokenSecret');
+    if (tokenParam && tokenSecretParam) {
+      setToken(tokenParam);
+      setTokenSecret(tokenSecretParam);
+      ADDtwiterData(tokenParam, tokenSecretParam)
+    }
+
+    if (!tokenParam && !tokenSecretParam) {
+
+    }
+  }, [location.search]);
 
 
+  const ADDtwiterData = async (tokenParam, tokenSecretParam) => {
+
+    const payload = {
+      "email": email,
+      "TWITTER_ACCESS_TOKEN": tokenParam,
+      "TWITTER_ACCESS_SECRET": tokenSecretParam,
+    }
+
+    console.log(payload, "___paylod")
+
+    try {
+      const response = await axios.post('https://socialize-dev.heytech.vision/backend_api/api/add-twitter-data', payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status === 200) {
+        console.log(response.data, "Succuse")
+        navigate("/dashboard/integration")
 
 
- 
+      } else {
+        setError(response.data.message || 'An error occurred');
+      }
+    } catch (error) {
+      setError('An error occurred');
+    }
+  };
+
+
   return (
     <div className="integration_con ">
       <div className="container">
@@ -415,7 +433,7 @@ const GetTwitterData = async () => {
                 {
                   checkbuttonStatus && (
                     <span
-                      onClick={handleShowediat}
+                      // onClick={handleShowediat}
                       className='left_icon_social'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M19.5143 4.48595C17.5314 2.50314 14.3229 2.50314 12.3424 4.48595L10.0713 6.75704L11.2666 7.95236L13.5377 5.68126C14.7986 4.42032 16.9268 4.28673 18.3189 5.68126C19.7135 7.07579 19.5799 9.20158 18.3189 10.4625L16.0479 12.7336L17.2455 13.9313L19.5166 11.6602C21.4947 9.67736 21.4947 6.46876 19.5143 4.48595ZM10.465 18.3188C9.2041 19.5797 7.07598 19.7133 5.68379 18.3188C4.28926 16.9242 4.42285 14.7985 5.68379 13.5375L7.95488 11.2664L6.75723 10.0688L4.48613 12.3399C2.50332 14.3227 2.50332 17.5313 4.48613 19.5117C6.46895 21.4922 9.67754 21.4945 11.658 19.5117L13.9291 17.2406L12.7338 16.0453L10.465 18.3188ZM6.10098 4.90782C6.06574 4.87293 6.01815 4.85336 5.96855 4.85336C5.91896 4.85336 5.87137 4.87293 5.83613 4.90782L4.90801 5.83595C4.87311 5.87119 4.85354 5.91878 4.85354 5.96837C4.85354 6.01796 4.87311 6.06555 4.90801 6.10079L17.9018 19.0945C17.9744 19.1672 18.0939 19.1672 18.1666 19.0945L19.0947 18.1664C19.1674 18.0938 19.1674 17.9742 19.0947 17.9016L6.10098 4.90782Z" fill="#FE4C4C" />
@@ -445,14 +463,12 @@ const GetTwitterData = async () => {
 
                 {checkbuttonStatus == true ? (
                   <button type="button"
-
                     className="px-3 py-2 rounded bg-gray-400 text-white "> connected
                   </button>
                 ) : <button
                   onClick={GetTwitterData}
                   className="px-3 py-2 rounded bg-blue-500 text-white">connect</button>
                 }
-
               </div>
             </div>
           </div>
@@ -506,7 +522,6 @@ const GetTwitterData = async () => {
             </Modal.Body>
 
           </Modal>
-
 
           <TwitterEditmodel
             showeditmodel={showeditmodel}

@@ -36,7 +36,7 @@ const UseContext = ({ children }) => {
             setdata(response.data)
             setRole(role)
 
-            if (email && twitter_api_key && twitter_api_secret && twitter_access_token && twitter_access_secret && twitter_bearer_token && twitter_app_id) {
+            if (twitter_access_token && twitter_access_secret) {
                 setcheckbuttonStatus(true);
             }
             if (email && facebook_page_id && twitter_api_secret && facebook_token_expiry_time && facebook_access_token) {
@@ -45,7 +45,6 @@ const UseContext = ({ children }) => {
             if (email && instagram_username && ig_password) {
                 setinstastatus(true);
             }
-
         } catch (error) {
             console.error('Error fetching data:', error);
 

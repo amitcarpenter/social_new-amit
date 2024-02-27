@@ -109,9 +109,8 @@ function Sedule() {
         }
       );
 
-      setSuccessMessage(`Post scheduled successfully: ${response.data.message}`);
-
-
+      setSuccessMessage(`${response.data.message}`);
+      
       setArrivalDate(null);
       setTime(null);
       setSelectedFile(null);
