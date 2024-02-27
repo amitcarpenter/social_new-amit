@@ -149,12 +149,10 @@ function Integration() {
       setTokenSecret(tokenSecretParam);
       ADDtwiterData(tokenParam, tokenSecretParam)
     }
-
     if (!tokenParam && !tokenSecretParam) {
 
     }
   }, [location.search]);
-
 
   const ADDtwiterData = async (tokenParam, tokenSecretParam) => {
 
@@ -164,7 +162,7 @@ function Integration() {
       "TWITTER_ACCESS_SECRET": tokenSecretParam,
     }
 
-    console.log(payload, "___paylod")
+    // console.log(payload, "___paylod")
 
     try {
       const response = await axios.post('https://socialize-dev.heytech.vision/backend_api/api/add-twitter-data', payload, {
@@ -173,7 +171,7 @@ function Integration() {
         }
       });
       if (response.status === 200) {
-        console.log(response.data, "Succuse")
+        // console.log(response.data, "Succuse")
         navigate("/dashboard/integration")
 
 

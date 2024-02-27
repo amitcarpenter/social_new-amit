@@ -128,17 +128,17 @@ function Login() {
               )}
 
               <button
-                disabled={!isChecked} // Disable button if checkbox is not checked
-                className={`${isChecked?"login_btn1":"login_btn2"}`}
+                 // Disable button if checkbox is not checked
+                className="login_btn1"
                 onClick={handleLogin}
               >
                 Login
               </button>
               <span className="flex items-center justify-center  cursor-pointer py-2">
                 Forgot your password?{" "}
-                <Link to="#" className="text-blue-600">
-                  {" "}
-                  Reset Passwor
+                <Link to="#" className="text-blue-600 ml-1">
+                  {" "} {""}
+                  Reset Password
                 </Link>
               </span>
             </div>

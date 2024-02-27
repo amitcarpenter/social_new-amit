@@ -110,15 +110,18 @@ function Sedule() {
       );
 
       setSuccessMessage(`${response.data.message}`);
-      
       setArrivalDate(null);
       setTime(null);
       setSelectedFile(null);
       setSocialMediaArray([]);
       setErrorMessage("");
       setPostContent("");
-
       document.getElementById("file-input").value = "";
+      if (response.data) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
 
     } catch (error) {
       setErrorMessage("Failed to schedule post");
@@ -198,8 +201,9 @@ function Sedule() {
 
                     <div className="inline-block">
                       <TimePicker
+                        id="date-input"
                         onChange={handleTimeChange}
-                        value={time}
+                        // value={time}
                         format="hh:mm a"
                         clearIcon={null}
                         disableClock={true}
