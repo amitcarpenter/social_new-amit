@@ -165,33 +165,49 @@ p.para_p {
 /* responsive */
 @media screen and (min-device-width: 280px) and (max-device-width: 767px) {
 
+    .row.color_div {
+        background: #fff;
+        padding: 8px;
+        border-radius: 12px;
+        box-shadow: 2px 2px 20px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    .Users {
+        background-color: rgb(245, 238, 238);
+        padding: 10px;
+    }
+
+
+
     h5 {
         font-size: 14px;
     }
-p.para_p{
+
+    p.para_p {
         font-size: 12px;
         padding-bottom: 10px;
-}
-.sign_m_col.col-4.col-lg-3.col-md-3 {
-    padding-top: 10px;
-}
-.sign_main_col.col-4.col-lg-3.col-md-3{
-    padding-top: 10px;
-    padding-left: 20px;
-}
+    }
 
-.active-button {
-    padding: 0px;
-    margin-left: 0px;
-}
-ul.d-flex.icon_icon {
-    padding: 0;
-}
+    .sign_m_col.col-4.col-lg-3.col-md-3 {
+        padding-top: 10px;
+    }
+
+    .sign_main_col.col-4.col-lg-3.col-md-3 {
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+
+    .active-button {
+        padding: 0px;
+        margin-left: 0px;
+    }
+
+    ul.d-flex.icon_icon {
+        padding: 0;
+    }
 
 
 }
-
-
 
 
 @media screen and (min-device-width: 768px) and (max-device-width: 1023px) {}

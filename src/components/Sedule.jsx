@@ -179,7 +179,7 @@ function Sedule() {
                             style={{ display: 'none' }}
                           />
 
-                          {selectedFile && `${selectedFile.name}`}
+                          {selectedFile ? `${selectedFile.name}` : "Image size should be less then 500 X 500  "}
                         </label>
                       </div>
                     </div>

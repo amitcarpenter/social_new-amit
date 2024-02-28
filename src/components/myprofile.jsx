@@ -89,7 +89,7 @@ function Myprofile() {
             </div>
           </div>
           {/* First Column */}
-          <div className="col-md-6 first_col">
+          <div className="col-md-6 first_col mt-3 sm:mt-0 ">
             {/* Basic Info Form */}
             <h5>Basic Information</h5>
             <div className="mb-5 basic_div">

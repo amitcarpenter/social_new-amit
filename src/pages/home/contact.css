@@ -60,3 +60,26 @@ textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+
+.contact_sec h1 {
+  color: #11264D;
+  font-family: "DM Serif Display";
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1.6px;
+}
+
+@media screen and (min-device-width: 280px) and (max-device-width: 767px) {
+  .contact_sec h1 {
+    color: #11264D;
+    font-family: "DM Serif Display";
+    font-size: 29px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.6px;
+  }
+}

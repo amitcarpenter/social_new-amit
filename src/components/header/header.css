@@ -33,8 +33,12 @@
     background: #3077B7;
     padding: 10px 30px;
 }
+
 @media screen and (min-device-width: 280px) and (max-device-width: 767px) {
-      .header{
-         padding: 15px 0px;
-      }
+    .header {
+        padding: 15px 0px;
+    }
 }
+
+
+

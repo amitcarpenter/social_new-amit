@@ -197,6 +197,20 @@ a {
         font-size: 9px;
     }
 
+    section.user_user {
+        padding: 10px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+    }
+
+    
+
+    .user_user h1{
+         font-size: 30px;
+    }
+
 
 }
 

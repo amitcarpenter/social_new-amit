@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import DatePicker from 'react-datepicker'; // Import the React date picker
-import 'react-datepicker/dist/react-datepicker.css'; // Import the styles for the React date picker
+// import DatePicker from 'react-datepicker'; // Import the React date picker
+// import 'react-datepicker/dist/react-datepicker.css'; // Import the styles for the React date picker
 import "./Post.css";
 import { Link } from "react-router-dom";
+import { FaCalendarAlt } from "react-icons/fa";
+import { DatePicker } from 'antd';
+// import 'antd/dist/antd.css';
+const { RangePicker } = DatePicker;
 
 function Post() {
   const [posts, setPosts] = useState([]);
@@ -23,7 +27,7 @@ function Post() {
       }
 
       setPosts(response.data);
-      console.log(response.data,"_____post data")
+      console.log(response.data, "_____post data")
     } catch (error) {
       console.error('Error fetching posts:', error.message);
     }
@@ -33,7 +37,18 @@ function Post() {
     fetchScheduledPosts(userEmail);
   }, [userEmail]);
 
-  // Function to filter posts by date range
+
+
+  const handlevalue = (value) => {
+    if (value && value.length === 2) {
+      setStartDate(value[0].startOf('day'));
+      setEndDate(value[1].endOf('day'));
+    } else {
+      setStartDate(null);
+      setEndDate(null);
+    }
+  };
+
   const filterPostsByDateRange = () => {
     if (!startDate || !endDate) return posts;
 
@@ -43,7 +58,12 @@ function Post() {
     });
   };
 
+
   const filteredPosts = filterPostsByDateRange();
+
+
+
+
 
   const renderIcon = (platform) => {
     switch (platform) {
@@ -214,64 +234,20 @@ function Post() {
   return (
     <div className="integration_con ">
       <div className="container">
-        <h1>All Posts</h1>
+        <h1 className="text-[#11264D] text-3xl lg:text-5xl font-bold ">All Posts</h1>
         <p>Keep track of all your scheduled posts in one place.</p>
-        <div className="row main_row">
-          <div className="col-12 col-md-6 ">
-            <Link to="" className="">
-              {/* + New Post */}
+        <div className="row main_row items-center ">
+          <div className="col-12 col-md-6 mb-3 lg:mb-0">
+            <Link to="" className="bg-white text-sm   px-3.5 py-3.5 rounded-full border-[1px] border-sky-500">
+              + New Post
             </Link>
           </div>
-          <div className="col-12 col-md-6 ">
-
+          <div className="col-12 col-md-6 mb-4 lg:mb-0 ">
             <div className="d-flex gap-2 md:flex-row flex-col justify-end items-center">
-
-              <div className="date-range-picker">
-                <DatePicker
-                  selected={startDate}
-                  onChange={date => setStartDate(date)}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                  placeholderText="Start Date"
-                  dateFormat="dd/MM/yy" 
-                />
-                <DatePicker
-                  selected={endDate}
-                  onChange={date => setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  placeholderText="End Date"
-                  dateFormat="dd/MM/yy" 
-                />
-              </div>
-
-
-
-              {/* <div className="">
-
-                <div className="  rounded border border-gray-300">
-                  <input
-                    type="date"
-                  
-                    onChange={handleDateChange}
-                    className="w-full py-1 px-3 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                  />
-
-
-                  <input
-                    type="date"
-                
-                    onChange={handleDateChange}
-                    className="w-full py-1 px-3 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              </div>
- */}
-
-
-              <button className="flex items-center justify-center px-3  rounded-xl  md:h-16 bg-white">
+              <RangePicker
+                onChange={(value) => handlevalue(value)}
+              />
+              <button className=" hidden lg:flex items-center justify-center px-4 border-[1px] rounded-3xl py-3.5 bg-white">
                 <span className="mr-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -289,6 +265,7 @@ function Post() {
                 Filters
               </button>
             </div>
+
           </div>
         </div>
 

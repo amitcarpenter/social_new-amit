@@ -83,8 +83,8 @@ function Users() {
                 </div>
 
                 <div className="sign_main_col col-4 col-lg-3 col-md-3">
-                  <p className="jhon_doe">{user.full_name}</p>
-                  <p className="jhon_doe">{user.email}</p>
+                  <p className="para_p">{user.full_name}</p>
+                  <p className="para_p">{user.email}</p>
                 </div>
                 <div className="sign_main_col col-12 col-lg-3 col-md-3 ">
                   <button className="active-button">

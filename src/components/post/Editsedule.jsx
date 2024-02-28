@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Dropdown as SemanticDropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { FaImage } from "react-icons/fa6";
+import { MdEmojiEmotions } from "react-icons/md";
 import {
   faFacebook,
   faTwitter,
@@ -56,7 +57,7 @@ function Sedule() {
       ),
       value: "instagram",
     },
-    
+
   ];
 
   const handleFileChange = (event) => {
@@ -196,48 +197,54 @@ function Sedule() {
                         onChange={handlePostContentChange}
                       ></textarea>
                     </div>
+                    </div>
 
-                    <div className="flex gap-2 items-center bg-white px-4">
+                    <div className="flex gap-2 items-center bg-white px-4"><div className="flex gap-2 items-center bg-white px-4">
+                      <MdEmojiEmotions className="w-10 h-10" color="#FFB814" />
                       <div className="inline-block p-1">
-                        <label htmlFor="file-input" className="cursor-pointer">
+                        <label htmlFor="file-input" className="cursor-pointer flex items-center">
+                          <FaImage className="w-10 h-10" color="#04B800" />
                           <input
                             type="file"
                             name="post_image"
                             id="file-input"
                             onChange={handleFileChange}
+                            style={{ display: 'none' }}
                           />
+
+                          {selectedFile ? `${selectedFile.name}` : "Image size should be less then 500 X 500  "}
                         </label>
                       </div>
                     </div>
 
-                  </div>
-                  <div className="border-t-2 py-2 flex flex-col sm:flex-row text-center justify-center gap-4">
-                    <div className="inline-flex gap-1 items-center justify-center px-3 border">
-                      <span className="calender">
-                        <input
-                          type="date"
-                          id="arrivalDate"
-                          name="arrivalDate"
-                          value={arrivalDate}
-                          onChange={handleArrivalDateChange}
+                    </div>
+                    <div className="border-t-2 py-2 flex flex-col sm:flex-row text-center justify-center gap-4">
+                      <div className="inline-flex gap-1 items-center justify-center px-3 border">
+                        <span className="calender">
+                          <input
+                            type="date"
+                            id="arrivalDate"
+                            name="arrivalDate"
+                            value={arrivalDate}
+                            onChange={handleArrivalDateChange}
+                            className="border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                          />
+                        </span>
+                      </div>
+
+                      <div className="inline-block">
+                        <TimePicker
+                          onChange={handleTimeChange}
+                          value={time}
+                          format="hh:mm a"
+                          clearIcon={null}
+                          disableClock={true}
+                          disabled={true} // Set disabled prop to true
                           className="border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                         />
-                      </span>
-                    </div>
 
-                    <div className="inline-block">
-                      <TimePicker
-                        onChange={handleTimeChange}
-                        value={time}
-                        format="hh:mm a"
-                        clearIcon={null}
-                        disableClock={true}
-                        disabled={true} // Set disabled prop to true
-                        className="border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                      />
-
+                      </div>
                     </div>
-                  </div>
                 </form>
               </div>
             </div>

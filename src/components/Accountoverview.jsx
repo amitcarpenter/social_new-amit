@@ -99,7 +99,8 @@ function Accountoverview() {
                                 </div>
 
                                 <div className="col-4 pt-4">
-                                    <p> <FontAwesomeIcon icon={faInstagram} />post</p>
+                                    <p className=''> <FontAwesomeIcon icon={faInstagram} /> post
+                                     </p>
                                     <p className='value_app'>{insraData?.instagram_posts}</p>
                                 </div>
                             </div>

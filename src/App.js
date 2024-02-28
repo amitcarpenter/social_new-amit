@@ -15,7 +15,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Integration from "./components/Integrations";
-
 import Myprofile from "./components/myprofile";
 import Sedule from "./components/Sedule";
 import Accountoverview from "./components/Accountoverview";

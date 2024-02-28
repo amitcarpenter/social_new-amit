@@ -6,7 +6,7 @@ const Banner = () => {
       <div className="grid md:grid-cols-2 grid-cols-1 ">
         <div className="flex flex-col">
           <div className="">
-            <div className=" flex flex-col lg:mt-10 space-y-2.5 text-4xl lg:text-6xl text-[#11264D] font-semibold">
+            <div className=" flex flex-col lg:mt-10 space-y-2.5 text-3xl lg:text-6xl text-[#11264D] font-semibold">
               <span className="">Save time.</span>
               <span className="">Unleash efficiency.</span>
               <span className="">Maximize performance.</span>
@@ -29,7 +29,7 @@ const Banner = () => {
           <div className="py-2">
             <ul className="flex justify-start gap-1.5 p-0 ">
               <li>
-                <span className="text-xl">Integrated with -</span>
+                <span className=" text-md lg:text-xl">Integrated with -</span>
               </li>
               <li>
                 <svg

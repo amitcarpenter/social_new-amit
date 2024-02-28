@@ -2,18 +2,17 @@
     padding: 20px 0px;
 }
 
-
-
 .profile h1 {
     color: #000;
-font-family: Poppins;
-font-size: 48px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
+    font-family: Poppins;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
-li.nav-item.false, li.nav-item.active {
+li.nav-item.false,
+li.nav-item.active {
     align-items: center;
     display: flex;
     padding: 5px 0;
@@ -35,18 +34,20 @@ li.nav-item.false, li.nav-item.active {
 }
 
 .profile p {
-color: #A7A7A7;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
+    color: #A7A7A7;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
-.basic_div , .Password_div , .plan_div{
+.basic_div,
+.Password_div,
+.plan_div {
     border-radius: 16px;
-background: #FFF;
-padding: 30px 20px;
+    background: #FFF;
+    padding: 30px 20px;
 }
 
 .form-control {
@@ -66,13 +67,13 @@ padding: 30px 20px;
     margin: 10px;
     padding: 15px 60px;
     border-radius: 8px;
-background:  #377DFF;
-color: #FFF;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    background: #377DFF;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 
@@ -81,13 +82,13 @@ line-height: normal;
     margin: 10px;
     padding: 15px 58px;
     border-radius: 8px;
-background:  #377DFF;
-color: #FFF;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    background: #377DFF;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 
@@ -97,7 +98,7 @@ line-height: normal;
     background: #FFF;
     padding: 20px;
     justify-content: center;
-   
+
 }
 
 .sec_col {
@@ -114,17 +115,17 @@ line-height: normal;
 
 .btn-Upgrade {
     border-radius: 4px;
-    background:  #377DFF;
+    background: #377DFF;
     padding: 15px 20px;
     margin: 10px;
     border-radius: 4px;
-    border: 1px solid  #377DFF;
+    border: 1px solid #377DFF;
     color: #FFF;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .btn_plan {
@@ -133,47 +134,146 @@ line-height: normal;
 
 .btn-Renew {
     border-radius: 16px;
-background: #FFF;
+    background: #FFF;
     padding: 15px 30px;
     margin: 10px;
     border-radius: 4px;
-border: 1px solid  #377DFF;
-color: #377DFF;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    border: 1px solid #377DFF;
+    color: #377DFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 
 }
 
-.update_pad{
+.update_pad {
     padding-bottom: 40px;
 }
 
-.btn-Save{
+.btn-Save {
     border-radius: 4px;
-background:  #377DFF;
-color: #FFF;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-padding: 15px 40px;
+    background: #377DFF;
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding: 15px 40px;
 }
 
-.btn-cancel{
+.btn-cancel {
     color: #11264D;
-text-align: right;
-font-family: Poppins;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin: 0 50px;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0 50px;
 }
 
 ul.nav.flex-column {
     padding: 50px 30px;
+}
+
+
+@media screen and (min-width: 280px) and (max-width:768px) {
+    .profile h1 {
+        color: #000;
+        font-family: Poppins;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+
+    .profile {
+        padding: 18px 15px;
+    }
+
+    .btn-Save {
+        border-radius: 4px;
+        background: #377DFF;
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        padding: 8px 8px;
+    }
+
+    .basic_div,
+    .Password_div,
+    .plan_div {
+        border-radius: 4px;
+        background: #FFF;
+        padding: 1px 6px;
+    }
+
+    .sec_col {
+        margin: 0px;
+    }
+
+
+    .btn-secondary {
+        display: block;
+        margin: 10px;
+        padding: 7px 30px;
+        border-radius: 8px;
+        background: #377DFF;
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .btn-danger {
+        display: block;
+        margin: 10px;
+        padding: 7px 26px;
+        border-radius: 8px;
+        background: #377DFF;
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .btn-Upgrade {
+        background: #377DFF;
+        padding: 7px 17px;
+        margin: 10px;
+        border-radius: 4px;
+        border: 1px solid #377DFF;
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .btn-Renew {
+        background: #377DFF;
+        padding: 7px 20px;
+        margin: 10px;
+        border-radius: 4px;
+        border: 1px solid #377DFF;
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
 }

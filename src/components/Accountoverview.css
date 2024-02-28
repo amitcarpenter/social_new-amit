@@ -107,10 +107,50 @@ h3 {
 
 @media only screen and (max-width: 768px) {
     .row.main_row {
-        padding:0px;
+        padding: 0px;
     }
 
     .account_con {
         padding: 0px;
     }
+
+
+    .row.main_row h2 {
+        padding: 0px 11px;
+        color: #000;
+        font-family: Poppins;
+        font-size: 21px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    h3 {
+        color: #000;
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    .face_div {
+        border-radius: 13px;
+        background: #FFF;
+        box-shadow: 4px 4px 36px 0px rgba(0, 0, 0, 0.15);
+        padding: 18px 15px;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .face_div p {
+        color: #000;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+
 }
