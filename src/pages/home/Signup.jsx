@@ -81,7 +81,7 @@ function Signup() {
     setShowPassword(!showPassword);
   };
 
-  
+
   const togglePasswordVisibilitypas = () => {
     setSshowPasscon(!showPasscon);
   };
@@ -172,8 +172,8 @@ function Signup() {
                 Sign Up
               </button>
               <span className=" items-center justify-center cursor-pointer py-2">
-                By signing up you accept the <Link to="#" className="text-blue-600 text-sm px-1"> Terms </Link> and
-                <Link to="#" className="text-blue-600  text-sm pl-1">
+                By signing up you accept the <Link to="/policy/terms-and-services" className="hover:underline text-blue-600 text-sm px-1"> Terms </Link> and
+                <Link to="/policy/privacy-policy" className="text-blue-600  hover:underline text-sm pl-1">
                   Privacy Policy.
                 </Link>
 

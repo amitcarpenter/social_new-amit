@@ -22,6 +22,8 @@ import Post from "./components/post/Post";
 import Analytics from "./components/analytic/Analytics";
 import { useContextApi } from "./components/context/UseContext";
 import TwitterLogint from "./components/TwitterLogint ";
+import { PrivecyPolicy } from "./pages/rulesPage/PrivecyPolicy";
+import { TermsCondition } from "./pages/rulesPage/TermsCondition";
 
 function App() {
   const { userEmail } = useContextApi()
@@ -34,7 +36,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/twit" element={<TwitterLogint/>}/>
+        <Route path="/twit" element={<TwitterLogint />} />
+        <Route path="/policy/privacy-policy" element={<PrivecyPolicy />} />
+        <Route path="/policy/terms-and-services"element={<TermsCondition/>}/>
+
         {userEmail ? (
           <Route path="/dashboard" element={<Layout />}>
             <Route index element={<Myprofile />} />
@@ -51,7 +56,7 @@ function App() {
         )}
 
       </Routes>
-      <ToastContainer position="top-right" /> 
+      <ToastContainer position="top-right" />
     </>
   );
 }
